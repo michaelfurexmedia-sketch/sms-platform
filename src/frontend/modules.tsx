@@ -91,6 +91,7 @@ export function ConfigForm({
             key={f.key}
             label={f.label}
             type={f.type || "text"}
+            pattern={f.type === "url" ? "https://.*" : undefined}
             required
             maxLength={300}
             value={values[f.key]}

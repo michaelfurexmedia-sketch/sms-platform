@@ -129,7 +129,7 @@ export function WorkspaceTools({
         </Button>
         <Button
           variant="quiet"
-          aria-label="Notifications"
+          aria-label={read ? "Notifications" : "Notifications 1"}
           onClick={() => setNotifications(true)}
         >
           <Bell size={18} aria-hidden="true" />

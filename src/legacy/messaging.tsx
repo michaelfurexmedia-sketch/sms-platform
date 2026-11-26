@@ -7,10 +7,10 @@ import {
 } from "@/frontend/scheduling";
 import { ContactTools } from "@/frontend/contacts-tools";
 import { InboxTools } from "@/frontend/inbox-tools";
-import { useMemo, useState, type ChangeEvent } from "react";
-import Link from "./navigation";
+import { useMemo, useState, useEffect, type ChangeEvent } from "react";
+import Link, { useSearchParams } from "./navigation";
 import { useStore } from "@/lib/store";
-import { count, date } from "@/lib/config";
+import { count, date, money } from "@/lib/config";
 import { services } from "@/lib/services";
 import {
   activity,
@@ -80,6 +80,12 @@ export function Contacts({ w }: { w: Workspace }) {
     [selected, setSelected] = useState<string | null>(null),
     [notice, setNotice] = useState(""),
     [error, setError] = useState("");
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const id = searchParams.get("contact");
+    if (id) setSelected(id);
+  }, [searchParams]);
+  const [contactPage, setContactPage] = useState(0);
   const groups = [...new Set(w.contacts.map((c) => c.group).filter(Boolean))],
     tags = [...new Set(w.contacts.flatMap((c) => c.tags))];
   const filtered = w.contacts.filter(
@@ -91,6 +97,8 @@ export function Contacts({ w }: { w: Workspace }) {
       (group === "All groups" || c.group === group) &&
       (tag === "All tags" || c.tags.includes(tag)),
   );
+  const maxPage = Math.max(0, Math.ceil(filtered.length / 25) - 1),
+    safePage = Math.min(contactPage, maxPage);
   const contact = w.contacts.find((c) => c.id === selected);
   const sample = () => {
     try {
@@ -116,6 +124,25 @@ export function Contacts({ w }: { w: Workspace }) {
       <ErrorNotice message={error} />
       {notice && <Notice tone="success">{notice}</Notice>}
       <ContactTools w={w} />
+      <nav aria-label="Contact pagination" className="actions">
+        <Button
+          variant="ghost"
+          disabled={safePage === 0}
+          onClick={() => setContactPage(safePage - 1)}
+        >
+          Previous contacts
+        </Button>
+        <span>
+          Page {safePage + 1} of {maxPage + 1} · {filtered.length} contacts
+        </span>
+        <Button
+          variant="ghost"
+          disabled={safePage === maxPage}
+          onClick={() => setContactPage(safePage + 1)}
+        >
+          Next contacts
+        </Button>
+      </nav>
       <div className="panel">
         <div className="toolbar contact-filters">
           <label className="search-input">
@@ -188,46 +215,48 @@ export function Contacts({ w }: { w: Workspace }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((c) => (
-                    <tr key={c.id}>
-                      <td>
-                        <button
-                          className="table-link"
-                          onClick={() => setSelected(c.id)}
-                        >
-                          {c.firstName || "Unnamed contact"}
-                        </button>
-                        <small>{phone(c.phone)}</small>
-                      </td>
-                      <td>
-                        <Badge>{c.status}</Badge>
-                      </td>
-                      <td>
-                        {c.group || "No group"}
-                        <small>{c.tags.join(", ") || "No tags"}</small>
-                      </td>
-                      <td className="consent-cell">
-                        {c.consent || "Not recorded"}
-                      </td>
-                      <td>
-                        {c.duplicate ? (
-                          <Badge>Duplicate row</Badge>
-                        ) : c.delivery ? (
-                          <span className="review-label">{c.delivery}</span>
-                        ) : (
-                          <span className="muted">—</span>
-                        )}
-                      </td>
-                      <td>
-                        <Button
-                          variant="ghost"
-                          onClick={() => setSelected(c.id)}
-                        >
-                          Details
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                  {filtered
+                    .slice(safePage * 25, (safePage + 1) * 25)
+                    .map((c) => (
+                      <tr key={c.id}>
+                        <td>
+                          <button
+                            className="table-link"
+                            onClick={() => setSelected(c.id)}
+                          >
+                            {c.firstName || "Unnamed contact"}
+                          </button>
+                          <small>{phone(c.phone)}</small>
+                        </td>
+                        <td>
+                          <Badge>{c.status}</Badge>
+                        </td>
+                        <td>
+                          {c.group || "No group"}
+                          <small>{c.tags.join(", ") || "No tags"}</small>
+                        </td>
+                        <td className="consent-cell">
+                          {c.consent || "Not recorded"}
+                        </td>
+                        <td>
+                          {c.duplicate ? (
+                            <Badge>Duplicate row</Badge>
+                          ) : c.delivery ? (
+                            <span className="review-label">{c.delivery}</span>
+                          ) : (
+                            <span className="muted">—</span>
+                          )}
+                        </td>
+                        <td>
+                          <Button
+                            variant="ghost"
+                            onClick={() => setSelected(c.id)}
+                          >
+                            Details
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -1304,6 +1333,11 @@ function CampaignEditor({
           )}
         </div>
       </div>
+      <p className="muted">
+        Illustrative estimated cost: {money(Math.ceil(credits * 1.5))} at $0.015
+        per segment, excluding carrier and number charges. Final pricing may
+        differ.
+      </p>
       <small className="muted">
         Draft changes are saved automatically in this browser.
       </small>

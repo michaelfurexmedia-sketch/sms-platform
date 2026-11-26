@@ -143,7 +143,7 @@ function Content() {
       </div>
     );
   const prototype = (
-    <div className="prototype-bar">
+    <div className="prototype-bar" role="region" aria-label="Preview mode">
       <span>
         <b>Interactive prototype</b>
         <span className="prototype-description">
@@ -210,6 +210,9 @@ function Content() {
   const section = path.split("/")[2] || (admin ? "customers" : "overview");
   return (
     <>
+      <a className="skip-link" href="#workspace-main">
+        Skip to workspace
+      </a>
       {prototype}
       <div
         className={`legacy-app app-shell ${admin ? "admin-shell" : ""} ${collapsed ? "collapsed" : ""}`}
@@ -254,7 +257,8 @@ function Content() {
             {nav.map(([name, url, Icon]) => (
               <Link
                 key={url}
-                aria-label={name}
+                aria-label={collapsed ? name : undefined}
+                title={name}
                 href={url}
                 onClick={() => setMenu(false)}
                 aria-current={

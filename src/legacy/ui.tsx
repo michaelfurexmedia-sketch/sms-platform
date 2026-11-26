@@ -210,7 +210,7 @@ export function Empty({
   return (
     <div className="empty">
       {icon && <div className="empty-icon">{icon}</div>}
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <p>{children}</p>
       {action}
     </div>

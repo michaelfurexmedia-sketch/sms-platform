@@ -570,3 +570,58 @@
   overflow: auto;
   max-height: calc(100vh - 300px);
 }
+.legacy-app .sidebar .logo {
+  font-size: 19px;
+}
+.legacy-app .sidebar-logo {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.legacy-app .workspace-tools .dropdown ul {
+  min-width: 180px;
+}
+.legacy-app .customer-operations p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.legacy-app .app-shell .workspace-header {
+  height: auto;
+  min-height: 88px;
+}
+.legacy-app .sidebar .sidebar-logo .logo {
+  font-size: 19px;
+}
+.legacy-app .app-shell.collapsed .sidebar .logo {
+  font-size: 0;
+}
+.legacy-app .app-shell.collapsed .sidebar .logo .brand-mark {
+  display: flex;
+}
+
+.legacy-app .button-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+.legacy-app .button-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.legacy-app .button-danger {
+  background: var(--danger);
+  color: var(--surface);
+  border-color: var(--danger);
+}
+.legacy-app .button-quiet {
+  background: transparent;
+  color: var(--ink);
+}
+.legacy-app .collapsed .nav-count {
+  display: none;
+}
+.legacy-app .empty-state h2,
+.legacy-app .empty h2 {
+  font-size: 24px;
+}

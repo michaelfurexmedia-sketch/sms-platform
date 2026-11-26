@@ -1,17 +1,9 @@
 # Project status
 
-Phase 1 complete at 54ffca7, closure 95118b0. Phase 2 explicitly assigned.
-Active branch: phase-2-frontend. Public frontend milestone in progress.
-Existing recovered functionality is preserved; public routes reuse auth and conversation previews.
-All actions remain synthetic. No business backend or provider connections.
-Owner frontend approval is not recorded; Phase 3 is blocked.
-See DEVELOPMENT_STATE.json for checkpoint and exact next action.
-
-Checkpoint ab453b5: public source verified remotely; production build passed.
-Customer shell now includes workspace switch/create, search, notifications, account menu, collapse and theme.
-Dashboard derives synthetic usage and onboarding. New module routes are being filled before final QA.
-
-Customer extensions added: inbox assignment/notes/suppression, campaign controls and timezone handling, CSV/XLSX imports, templates, automations, compliance, subscriptions, analytics and settings.
-Types/lint passed, 18 unit tests passed. Public/inbox interactions passed; three public accessibility scans need final verification after fixes. Remaining customer/admin routes and full browser QA are unfinished.
-
-Checkpoint 5656c25 preserved customer module source. Admin frontend, reasoned actions/audit, number discovery and invoice export added. Latest types/lint and 19 unit tests passed. Full Phase 2 browser and visual QA is now in progress. Phase 2 is not yet complete.
+Phase 1 complete. Phase 2 frontend implemented on phase-2-frontend; final QA in progress.
+Latest prior source checkpoint: 1300f8b6fee9b84642a9ca9ee3ebc5b0049885ba.
+Recovered all pending route, accessibility, contact-pagination and browser-test changes after the usage interruption.
+Fresh dependency restore, TypeScript, lint and 19 unit tests passed. Build/browser rerun pending.
+Prior complete browser run: 25 passed, 7 failed. Do not treat interrupted runs as passing.
+No business backend or live providers. Owner frontend approval is not recorded; Phase 3 is blocked.
+Next: production build, full browser/accessibility checks, remaining fixes, final documentation and source verification.

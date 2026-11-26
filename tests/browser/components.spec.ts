@@ -3,9 +3,7 @@ import AxeBuilder from "@axe-core/playwright";
 
 test("foundation link uses the correct accessible role", async ({ page }) => {
   await page.goto("/");
-  await page
-    .getByRole("link", { name: "Explore the component library" })
-    .click();
+  await page.getByRole("link", { name: "Design system", exact: true }).click();
   await expect(page).toHaveURL(/\/design-system/);
   await expect(
     page.getByRole("heading", { name: "Clarity in every interaction." }),
