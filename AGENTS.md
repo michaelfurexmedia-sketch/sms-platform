@@ -2,7 +2,7 @@
 
 ## Authority and current scope
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: save these instructions and prepare for Phase 1. Do not implement Phase 1 or start later phases until assigned.
+- Current assignment: implement Phase 1 only. Stop after verified foundation and design system; do not begin Phase 2.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 
@@ -90,3 +90,13 @@ Never overwrite unrelated changes, force-push history or claim unverified succes
 
 ## Communication
 Keep responses concise without sacrificing accuracy or completeness. Reuse project decisions and context; ask only when missing information prevents meaningful progress. Show changed code sections unless full files are requested. Never skip essential validation.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

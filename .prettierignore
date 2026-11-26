@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+dist
+package-lock.json
+.openai
+.superdesign
+test-results
+playwright-report

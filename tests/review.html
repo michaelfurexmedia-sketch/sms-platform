@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Responsive review</title
+  ><style>
+    body {
+      margin: 0;
+      background: #ddd;
+      font: 14px system-ui;
+      color: #182321;
+    }
+    header {
+      padding: 16px;
+      background: white;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    select {
+      padding: 8px;
+    }
+    iframe {
+      display: block;
+      height: 880px;
+      border: 0;
+      background: white;
+      margin: 20px auto;
+    }
+    label {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+  </style>
+  <header>
+    <b>Responsive UI review</b
+    ><label
+      >Width<select id="width">
+        <option value="390">Phone — 390px</option>
+        <option value="768">Tablet — 768px</option>
+        <option value="1440">Desktop — 1440px</option>
+      </select></label
+    ><label
+      >Screen<select id="screen">
+        <option value="/">Homepage</option>
+        <option value="/app/">Customer overview</option>
+        <option value="/app/inbox/">Inbox</option>
+        <option value="/app/contacts/">Contacts</option>
+        <option value="/app/campaigns/">Campaigns</option>
+        <option value="/app/numbers/">Verification</option>
+        <option value="/app/billing/">Billing</option>
+        <option value="/admin/">Admin customers</option>
+        <option value="/admin/settings/">Admin pricing</option>
+        <option value="/pricing/">Public pricing</option>
+      </select></label
+    >
+  </header>
+  <iframe title="Responsive preview" id="preview" src="/" width="390"></iframe>
+  <script>
+    document.querySelector("#width").onchange = (e) =>
+      (document.querySelector("#preview").width = e.target.value);
+    document.querySelector("#screen").onchange = (e) =>
+      (document.querySelector("#preview").src = e.target.value);
+  </script>
+</html>

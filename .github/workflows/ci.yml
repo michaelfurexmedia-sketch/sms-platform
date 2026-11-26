@@ -1,0 +1,29 @@
+name: Foundation checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      queue:
+        image: valkey/valkey:8.1.4-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "valkey-cli ping"
+          --health-interval 5s --health-timeout 3s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:components
+      - run: npm run test:worker
+      - run: docker compose --env-file .env.example config --quiet
+      - run: docker build --target web -t sms-platform-web:ci .
+      - run: docker build --target worker -t sms-platform-worker:ci .

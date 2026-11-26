@@ -1,0 +1,15 @@
+node_modules/
+.next/
+out/
+dist/
+*.tsbuildinfo
+.env*
+!.env.example
+.taste-skill/
+.hallmark/
+.superdesign/
+.openai/
+test-results/
+playwright-report/
+coverage/
+*.log

@@ -1,0 +1,53 @@
+# Local foundation stack. Not a launch-ready deployment.
+name: sms-platform
+services:
+  web:
+    build: { context: ., target: web }
+    ports: ["127.0.0.1:3000:3000"]
+    environment: { APP_MODE: demo, APP_URL: "http://localhost:3000" }
+    restart: unless-stopped
+    init: true
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+  worker:
+    build: { context: ., target: worker }
+    environment: { APP_MODE: demo, QUEUE_URL: "redis://queue:6379", WORKER_HEALTH_PORT: "3001" }
+    depends_on: { queue: { condition: service_healthy } }
+    restart: unless-stopped
+    init: true
+    stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+  queue:
+    image: valkey/valkey:8.1.4-alpine
+    command: ["valkey-server", "--appendonly", "yes", "--appendfsync", "everysec", "--maxmemory-policy", "noeviction"]
+    volumes: ["queue-data:/data"]
+    ports: ["127.0.0.1:6379:6379"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  database:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: sms_platform
+      POSTGRES_USER: sms_platform
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes: ["database-data:/var/lib/postgresql/data"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sms_platform -d sms_platform"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+volumes:
+  queue-data:
+  database-data:
