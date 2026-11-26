@@ -1,8 +1,8 @@
 # SMS Platform
 
-Phase 1 foundation for an original self-service SMS SaaS. The name is temporary.
-This build is a working component library plus persistent infrastructure probe,
-not a live messaging service. No Twilio or Stripe credentials are required.
+Original self-service SMS SaaS frontend and shared foundation. The name is temporary.
+The marketing site, customer workspace and Super Admin screens use synthetic
+browser-local services. The separate persistent worker is an infrastructure probe. No Twilio or Stripe credentials are required.
 
 ## Restore a fresh environment
 
@@ -12,7 +12,7 @@ Use this repository only. Check the active branch and next action in
 ```sh
 git clone https://github.com/michaelfurexmedia-sketch/sms-platform.git
 cd sms-platform
-git switch phase-1-recovery
+git switch phase-2-frontend
 nvm use
 npm run setup
 npm run dev
@@ -26,13 +26,14 @@ temporary workspace is needed for the saved implementation.
 
 | Route                               | Status                                                                                       |
 | ----------------------------------- | -------------------------------------------------------------------------------------------- |
-| http://localhost:3000/              | Phase 1 foundation entry page                                                                |
+| http://localhost:3000/              | Phase 2 public marketing website                                                             |
 | http://localhost:3000/design-system | Interactive component library; light/dark themes, forms, dialog, table/chart, state examples |
 | http://localhost:3000/preview       | Recovered synthetic public website                                                           |
 | http://localhost:3000/preview/app   | Recovered customer demo; choose “Explore demo workspace” on /preview                         |
 | http://localhost:3000/preview/admin | Recovered Super Admin demo, not an authorized operational portal                             |
 
-All examples use src/demo/seed.ts synthetic data and in-memory state.
+The gallery uses src/demo/seed.ts. Customer/admin demos use src/lib/model.ts
+fixtures and localStorage (sms-platform-demo-v1); these are not server accounts.
 The preview never sends SMS or charges money.
 
 ```sh
@@ -75,5 +76,8 @@ is preserved on recovered-phase1-wip and useful demo screens/domain code are
 retained under /preview. They use localStorage and simulated services, not real
 authentication, tenant enforcement, payments or SMS. The separate /design-system
 library remains the shared foundation for Phase 2. No old work was discarded.
-Phase 2 still requires an interactive preview and explicit owner approval before
-Phase 3 backend development. See docs/RECOVERY_RESOLUTION.md.
+Phase 2 frontend verification and limitations are recorded in
+[docs/PHASE2_VERIFICATION.md](docs/PHASE2_VERIFICATION.md).
+[docs/PREVIEW.md](docs/PREVIEW.md) documents the public `/`, customer `/app` and
+Super Admin `/admin` review routes. Phase 2.5 requires an interactive owner
+review and explicit approval before Phase 3 backend development. See docs/RECOVERY_RESOLUTION.md.

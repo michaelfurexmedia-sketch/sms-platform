@@ -1,8 +1,11 @@
 # Project status
 
-Phase 1 complete. Phase 2 frontend implemented on `phase-2-frontend`; final acceptance in progress.
-Latest saved source checkpoint: `fdc26b12f70622054881d3b5e7d4043af95e59a5`.
-Fresh build, TypeScript, lint, 19 unit tests, worker compilation and formatting pass.
-Last full browser run: 34/35 passed, including 45 accessibility scans. Remaining checkout locator corrected; targeted test passes. Full rerun and worker integration in progress.
-No business backend or live providers. Explicit owner frontend approval is pending; Phase 3 remains blocked.
-Next: finalize acceptance, document preview and limits, push/read back source, check CI and prepare review.
+Phase 1 complete. Phase 2 frontend implementation complete on `phase-2-frontend`; final CI and owner review pending.
+Last verified implementation checkpoint: `24270a3cf0b3ebb9ca48543076431481f5b1eb24`.
+
+Fresh local checks passed: production build, TypeScript, lint, formatting, 19 unit tests, worker compilation/integration and 35 browser tests including 45 axe scans. Final GitHub/Docker result is pending readback.
+
+Public marketing, customer workflows and Super Admin frontend are implemented with synthetic browser-local services. See [verification and limits](docs/PHASE2_VERIFICATION.md).
+The source is portable; no external preview hostname has been published. Review commands and routes: [PREVIEW.md](docs/PREVIEW.md).
+
+Next: final CI verification, then Phase 2.5 interactive owner review. Frontend approval is not recorded; Phase 3 backend is blocked. No live messaging, billing or provider operations.

@@ -24,12 +24,13 @@ A neutral speech-bubble favicon is a replaceable development asset.
 | Grid         | 1280px maximum page; 40px desktop and 24px mobile gutters; two-column editorial sections                     |
 | Radius       | 6px controls/surfaces; 8px dialogs; no oversized rounded cards                                               |
 | Icons        | Lucide, usually 16–24px; decorative icons hidden from assistive technology                                   |
-| Motion       | CSS 160ms easing for controls; loading states only; reduced-motion disables animation/transitions            |
+| Motion       | CSS 160ms controls and a brief 500ms marketing entrance; reduced-motion disables animation/transitions       |
 | Responsive   | 850px compact layout; 600px stacked controls/sections; 390px baseline mobile verification                    |
 | Charts       | Accessible SVG plus text data table; zero-safe scales, nonnegative finite values; no color-only meaning      |
 
 The gallery scopes its theme so switching does not leak to unrelated surfaces.
-Application-wide theme persistence can be implemented with the Phase 2 shell.
+The Phase 2 shell persists light/dark choice in `sms-theme`; token aliases are
+scoped at the application root.
 
 ## Components and accessibility
 
@@ -54,3 +55,16 @@ screenshots and conduct assistive-technology review before commercial launch.
 Recovered legacy screens retain scoped styles under /preview and reuse the
 shared dialog. Their compatibility components preserve working behavior; use the
 shared foundation when refining these screens in Phase 2.
+
+## Phase 2 surfaces
+
+Marketing uses offset editorial columns, concise feature stories and a custom
+conversation demonstration. Workspace/admin shells use a collapsible navigation
+rail, restrained metric rows, explicit chart definitions and compact operational
+tables. Workspace switching, global search, notifications and account controls
+share the same shell. Mobile navigation becomes a labelled menu; wide tables
+scroll within their region. Persistent data labels distinguish estimates and
+simulations. Confirmation dialogs require reasons for administrative actions.
+
+Desktop/tablet/mobile review widths: 1440, 768 and 390px. Automated checks cover
+both application themes, keyboard dialogs, reduced motion and overflow.

@@ -4,6 +4,7 @@ import Link from "@/legacy/navigation";
 import { useStore } from "@/lib/store";
 import { type Workspace } from "@/lib/model";
 import { money } from "@/lib/config";
+import { brand } from "@/config/brand";
 import { Heading, Badge } from "@/legacy/ui";
 import { Button, Input, Select, Modal, EmptyState } from "@/components/ui";
 import { BarChart } from "@/components/foundation";
@@ -769,7 +770,7 @@ export function AdminPreferences({ scope }: { scope: string }) {
             {
               key: "name",
               label: "Company display name (preview)",
-              value: "SMS Platform",
+              value: brand.name,
             },
             {
               key: "support",

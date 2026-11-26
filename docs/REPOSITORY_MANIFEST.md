@@ -7,12 +7,12 @@ initial repository analysis. Original remote preparation commit:
 The original workspace returned during final verification. Its complete WIP was
 saved at a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d on recovered-phase1-wip.
 The active branch preserves the recovered components in src/legacy, domain/store
-modules in src/lib and original journey tests. Previews are scoped to /preview;
+modules in src/lib and original journey tests. Recovered preview routes remain under /preview;
 shared foundation styling and infrastructure remain intact.
 
 | Paths                                                         | Implemented responsibility                                             |
 | ------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| src/app                                                       | Root foundation, /design-system, /api/health, layout and global styles |
+| src/app                                                       | Marketing routes, /app, /admin, /design-system, /api/health and layout |
 | src/config/brand.ts                                           | Central temporary branding and themes                                  |
 | src/components/ui.tsx                                         | Inputs, buttons, dialog and state primitives                           |
 | src/components/foundation.tsx                                 | Navigation, tabs, tables, dropdown, pagination, chart                  |
@@ -36,7 +36,7 @@ Contract-only: authentication, workspaces, contacts, campaigns, messaging, billi
 compliance, automations, analytics, administration. Type contexts do not grant
 authorization or provide isolation.
 
-Missing/deferred: production frontend refinement and owner approval (Phase 2), persistent
+Missing/deferred: interactive owner approval (Phase 2.5), persistent
 business schema/auth/tenancy (Phase 3 after approval), Twilio/compliance/inbox
 (Phase 4), Stripe/ledger (Phase 5), operational admin/automations (Phase 6),
 commercial readiness (Phase 7), production HTTPS/backups/rollback/launch (Phase 8).
@@ -44,3 +44,15 @@ commercial readiness (Phase 7), production HTTPS/backups/rollback/launch (Phase 
 Recovered demo behavior is available under /preview. The original storage key
 and synthetic fixtures are preserved. Source snapshots and the historical
 recovery record remain available; see docs/RECOVERY_RESOLUTION.md.
+
+## Phase 2 source map
+
+| Source                                                          | Responsibility                                                                                |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| src/frontend/marketing.tsx, content.ts, marketing.css           | Public feature, pricing, help, contact, auth and draft legal pages                            |
+| src/frontend/workspace.tsx, workspace.css, routes.ts            | Shared responsive customer/admin shell, dashboard and route inventory                         |
+| src/frontend/inbox-tools.tsx, contacts-tools.tsx, scheduling.ts | Inbox collaboration, import/history/export, safe CSV and timezone conversion                  |
+| src/frontend/modules.tsx, demo.ts, contracts.ts                 | Customer settings, compliance, billing, templates, automation, analytics and support previews |
+| src/frontend/admin.tsx, admin-actions.ts                        | Administrative views, reasoned changes and synthetic audit events                             |
+| tests/frontend.test.ts, tests/browser/phase2.spec.ts            | State/action, route, journey, layout and accessibility checks                                 |
+| docs/PHASE2_VERIFICATION.md, docs/PREVIEW.md                    | Acceptance evidence, remaining boundaries and owner review instructions                       |
