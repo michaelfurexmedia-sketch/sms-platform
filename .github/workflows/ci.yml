@@ -31,22 +31,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Install reproducible dependencies when lockfile exists
-        run: |
-          if test -f package-lock.json; then npm ci; else npm install; fi
-      - name: Export generated lockfile for source persistence
-        run: node scripts/export-generated.mjs
-      - name: Preserve dependency lock for recovery
-        uses: actions/upload-artifact@v4
-        with:
-          name: dependency-lock
-          path: package-lock.json
+          cache: npm
+      - run: npm run setup
+      - run: npm run state:check
       - run: npm run check
+      - run: npm run format:check
       - run: npm run test:worker
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
-      - name: Export synthetic visual evidence for review
-        run: node scripts/export-visuals.mjs
       - name: Compose builds and health checks
         env:
           POSTGRES_PASSWORD: ci-synthetic-only

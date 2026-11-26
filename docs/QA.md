@@ -1,35 +1,41 @@
 # Phase 1 validation
 
-Current results are pending the comprehensive reconstruction workflow.
-Do not reuse the original 16-test/seven-browser pass counts as fresh evidence.
+## Fresh reconstruction evidence
 
-Validation runs on GitHub Actions because the interactive executor is unavailable.
-The first new checkpoint passed npm installation (audit: zero vulnerabilities)
-and lint, then exposed a ProcessEnv typing issue. The next check exposed the
-native disclosure's keyboard-handler lint issue. Both were patched; fresh final
-results must be recorded below when available.
+Source checkpoint: e26d59648c32f882b0b0e2b2dfe525f44f0ae60a.
+Workflow: https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45756375117
 
-Required suite:
-- Production standalone Next build and worker compilation.
-- Strict TypeScript and accessibility-aware ESLint.
-- Unit checks for branding, environment guards and accepted/rejected jobs.
-- Real Valkey test: queue while worker stopped, start/complete/stop twice;
-  unsupported job rejection and clean shutdown.
-- Browser interaction tests including dialog forward/reverse focus, Escape
-  and opener restoration; correct link locator; forms, tabs, pagination.
-- Six axe/overflow/runtime-error checks: light/dark at 1440, 768 and 390px.
-- Reduced-motion and web health/header checks.
-- Docker Compose build, all-service readiness and HTTP health smoke check.
+- Production Next standalone build and worker compilation passed.
+- Strict TypeScript and accessibility-aware lint passed.
+- Four unit tests passed: branding, demo-only/live-operation guards,
+  environment validation and supported/rejected worker payloads.
+- One real Valkey integration test passed: queued jobs across two worker
+  starts/stops, unsupported-job rejection and clean SIGTERM shutdown.
+- Thirteen browser tests passed, including dialog Tab/Shift+Tab containment,
+  Escape/opener restoration, link-role locator, forms, tabs, chart data,
+  filtering/pagination, retry state, reduced motion and health/header checks.
+- Six axe WCAG/overflow/runtime-error scans passed: light/dark at widths
+  1440, 768 and 390.
+- Docker images built; web, worker, Valkey and PostgreSQL reached healthy;
+  web HTTP health returned 200.
+- Screenshots visually reviewed: desktop light, tablet dark, mobile light.
+  No clipping or unintentional overflow found in reviewed views.
+- Formatting was generated with Prettier and is saved in the final source
+  checkpoint; its enforcement and the new state gate await the final rerun.
 
-Screenshots and traces are attached to the corresponding workflow's
-browser-evidence artifact. This is not a production security certification,
-full assistive-technology audit, load test or disaster-recovery rehearsal.
+Execution used GitHub Actions because the interactive executor was unavailable.
+Screenshots/traces are in the workflow browser-evidence artifact.
 
-## Fresh reconstruction evidence (intermediate)
+## Recovery and limits
 
-Commit e8f6a79707ba417dbf4e9c0cc8735da581797b30, workflow 45755834406:
-build, worker compilation, lint and typecheck passed; 4 unit tests passed,
-1 worker integration passed, 13 browser tests passed including all 6 axe scans.
-Docker images built; startup failed because the CI Valkey and Compose queue
-both claimed host port 6379. The next checkpoint maps CI Valkey to 16379.
-These are fresh results; final all-green verification remains pending.
+The original 16-unit/seven-browser pass counts are historical only. The old
+12-test domain suite and local demo files could not be accessed; they were not
+claimed as recovered. Fresh results above apply to the reconstructed source.
+
+During reconstruction, CI caught and resolved a ProcessEnv type mismatch,
+native disclosure keyboard-handler lint issue and CI/Compose queue port
+collision. No unresolved application defect is known within tested Phase 1.
+
+Not performed: commercial load/security certification, screen-reader testing,
+production provider operations, hosting deployment or backup/restore rehearsal.
+The owner has not yet reviewed/approved a Phase 2 interactive frontend.

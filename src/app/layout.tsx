@@ -13,8 +13,16 @@ export const metadata: Metadata = {
   description: brand.seo.description,
   icons: { icon: brand.favicon },
   robots: { index: false, follow: false },
-  ...(brand.domain ? { metadataBase: new URL(brand.domain) } : {})
+  ...(brand.domain ? { metadataBase: new URL(brand.domain) } : {}),
 };
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en" style={brandVariables("light")}><body>{children}</body></html>;
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" style={brandVariables("light")}>
+      <body>{children}</body>
+    </html>
+  );
 }

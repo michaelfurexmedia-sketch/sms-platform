@@ -6,14 +6,14 @@ One Next.js/React/TypeScript application at src/app with a separate Node worker
 at apps/worker. No monorepo migration or microservices. Next uses standalone
 output for a standard Linux process/container. No Vercel infrastructure.
 
-| Boundary | Current implementation | Later responsibility |
-| --- | --- | --- |
-| Web | Root foundation, component gallery, environment validation, liveness endpoint | Public/customer/admin interfaces and authenticated APIs |
-| Shared UI | Central branding, semantic CSS, reusable accessible React components | Reuse across three surfaces |
-| Modules | Ten typed service contracts under src/modules | Server implementations after phase/approval gates |
-| Queue | BullMQ + ioredis on Valkey; bounded retry/retention | Durable business jobs, outbox and reconciliation |
-| Worker | Independent process, system.probe handler, strict payload validation, queue-dependent readiness, graceful SIGTERM | Scheduled sends, automations and provider reconciliation |
-| PostgreSQL | Compose service and persistent volume | Authoritative tenant, contact, consent, ledger and audit data in Phase 3+ |
+| Boundary   | Current implementation                                                                                            | Later responsibility                                                      |
+| ---------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| Web        | Root foundation, component gallery, environment validation, liveness endpoint                                     | Public/customer/admin interfaces and authenticated APIs                   |
+| Shared UI  | Central branding, semantic CSS, reusable accessible React components                                              | Reuse across three surfaces                                               |
+| Modules    | Ten typed service contracts under src/modules                                                                     | Server implementations after phase/approval gates                         |
+| Queue      | BullMQ + ioredis on Valkey; bounded retry/retention                                                               | Durable business jobs, outbox and reconciliation                          |
+| Worker     | Independent process, system.probe handler, strict payload validation, queue-dependent readiness, graceful SIGTERM | Scheduled sends, automations and provider reconciliation                  |
+| PostgreSQL | Compose service and persistent volume                                                                             | Authoritative tenant, contact, consent, ledger and audit data in Phase 3+ |
 
 Contracts cover auth, workspaces, contacts, campaigns, messaging, billing,
 compliance, automations, analytics and administration. TenantContext and

@@ -9,8 +9,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": [
-    "apps/worker/**/*.ts",
-    "src/server/**/*.ts"
-  ]
+  "include": ["apps/worker/**/*.ts", "src/server/**/*.ts"]
 }

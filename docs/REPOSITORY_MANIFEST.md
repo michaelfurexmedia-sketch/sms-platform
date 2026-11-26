@@ -8,19 +8,19 @@ The old local 33-file frontend and later uncommitted foundation remain inaccessi
 Only documentation was available remotely. The owner authorized reconstruction
 of missing Phase 1; all existing remote documents/history are preserved.
 
-| Paths | Implemented responsibility |
-| --- | --- |
-| src/app | Root foundation, /design-system, /api/health, layout and global styles |
-| src/config/brand.ts | Central temporary branding and themes |
-| src/components/ui.tsx | Inputs, buttons, dialog and state primitives |
-| src/components/foundation.tsx | Navigation, tabs, tables, dropdown, pagination, chart |
-| src/components/design-preview.tsx, src/demo/seed.ts | Interactive synthetic component examples |
-| src/styles/foundation.css | Original responsive design tokens and component styles |
-| src/modules/* | Ten service boundary contracts; no business implementations |
-| src/server/env.ts, src/instrumentation.ts | Validated demo-only runtime environment |
-| src/server/queue.ts, apps/worker | Persistent BullMQ probe worker and connections |
-| tests | New unit, worker integration and browser/accessibility tests |
-| scripts, configs, Dockerfile, compose.yaml, .github/workflows | Portable setup, standalone build, validation and containers |
+| Paths                                                         | Implemented responsibility                                             |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| src/app                                                       | Root foundation, /design-system, /api/health, layout and global styles |
+| src/config/brand.ts                                           | Central temporary branding and themes                                  |
+| src/components/ui.tsx                                         | Inputs, buttons, dialog and state primitives                           |
+| src/components/foundation.tsx                                 | Navigation, tabs, tables, dropdown, pagination, chart                  |
+| src/components/design-preview.tsx, src/demo/seed.ts           | Interactive synthetic component examples                               |
+| src/styles/foundation.css                                     | Original responsive design tokens and component styles                 |
+| src/modules/*                                                 | Ten service boundary contracts; no business implementations            |
+| src/server/env.ts, src/instrumentation.ts                     | Validated demo-only runtime environment                                |
+| src/server/queue.ts, apps/worker                              | Persistent BullMQ probe worker and connections                         |
+| tests                                                         | New unit, worker integration and browser/accessibility tests           |
+| scripts, configs, Dockerfile, compose.yaml, .github/workflows | Portable setup, standalone build, validation and containers            |
 
 ## Feature inventory
 

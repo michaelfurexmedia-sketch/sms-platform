@@ -14,19 +14,19 @@ A neutral speech-bubble favicon is a replaceable development asset.
 
 ## Tokens
 
-| System | Specification |
-| --- | --- |
-| Type | Headline clamp 44–88px; section heading 24–32px; card title 20px; body 16px; controls 14px; captions 12–13px |
-| Light colors | Paper #f5f4ef, surface #ffffff, ink #17251f, muted #52605a, cobalt #2458d3 |
-| Dark colors | Ground #111a17, surface #19241f, ink #eef3ee, muted #b3c0b7, accent #a2bcff |
-| Semantics | Success/danger independent of accent; status also has a text label |
-| Space | 4, 8, 12, 16, 24, 32, 48, 64px; larger section spacing 56–80px |
-| Grid | 1280px maximum page; 40px desktop and 24px mobile gutters; two-column editorial sections |
-| Radius | 6px controls/surfaces; 8px dialogs; no oversized rounded cards |
-| Icons | Lucide, usually 16–24px; decorative icons hidden from assistive technology |
-| Motion | CSS 160ms easing for controls; loading states only; reduced-motion disables animation/transitions |
-| Responsive | 850px compact layout; 600px stacked controls/sections; 390px baseline mobile verification |
-| Charts | Accessible SVG plus text data table; zero-safe scales, nonnegative finite values; no color-only meaning |
+| System       | Specification                                                                                                |
+| ------------ | ------------------------------------------------------------------------------------------------------------ |
+| Type         | Headline clamp 44–88px; section heading 24–32px; card title 20px; body 16px; controls 14px; captions 12–13px |
+| Light colors | Paper #f5f4ef, surface #ffffff, ink #17251f, muted #52605a, cobalt #2458d3                                   |
+| Dark colors  | Ground #111a17, surface #19241f, ink #eef3ee, muted #b3c0b7, accent #a2bcff                                  |
+| Semantics    | Success/danger independent of accent; status also has a text label                                           |
+| Space        | 4, 8, 12, 16, 24, 32, 48, 64px; larger section spacing 56–80px                                               |
+| Grid         | 1280px maximum page; 40px desktop and 24px mobile gutters; two-column editorial sections                     |
+| Radius       | 6px controls/surfaces; 8px dialogs; no oversized rounded cards                                               |
+| Icons        | Lucide, usually 16–24px; decorative icons hidden from assistive technology                                   |
+| Motion       | CSS 160ms easing for controls; loading states only; reduced-motion disables animation/transitions            |
+| Responsive   | 850px compact layout; 600px stacked controls/sections; 390px baseline mobile verification                    |
+| Charts       | Accessible SVG plus text data table; zero-safe scales, nonnegative finite values; no color-only meaning      |
 
 The gallery scopes its theme so switching does not leak to unrelated surfaces.
 Application-wide theme persistence can be implemented with the Phase 2 shell.

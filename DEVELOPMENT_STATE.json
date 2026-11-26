@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 1,
-  "active_milestone": "WIP: lockfile and documentation; complete Docker validation",
+  "active_milestone": "WIP: final formatting and persistent-state gates",
   "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "e8f6a79707ba417dbf4e9c0cc8735da581797b30",
+  "last_known_implementation_checkpoint": "e26d59648c32f882b0b0e2b2dfe525f44f0ae60a",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -12,17 +12,16 @@
     "Shared components, synthetic data and light/dark gallery reconstructed; dialog explicitly wraps forward/reverse focus",
     "Module contracts, Docker Compose, synthetic preview data and fresh unit/browser/worker test scripts added",
     "Fresh CI passed build, typecheck, lint, four unit tests, worker integration and 13 browser tests (including six accessibility scans)",
-    "Persisted CI-generated npm lockfile; added setup/deployment/design documentation"
+    "Persisted CI-generated npm lockfile; added setup/deployment/design documentation",
+    "All four Docker services reached healthy and web HTTP probe passed",
+    "Visually reviewed desktop light, tablet dark and mobile light screenshots",
+    "Applied deterministic Prettier formatting generated in CI"
   ],
   "pending_tasks": [
-    "Verify corrected Compose port mapping",
-    "Apply deterministic formatting from CI output",
-    "Review fresh visual evidence",
-    "Finalize current evidence and open Phase 1 PR"
+    "Verify final formatting/state gates with the full suite",
+    "Record final source checkpoint and open Phase 1 PR"
   ],
-  "partially_implemented_tasks": [
-    "Docker images built successfully; Compose readiness blocked by CI port collision, fixed in this checkpoint"
-  ],
+  "partially_implemented_tasks": [],
   "relevant_files": [
     "AGENTS.md",
     "docs/PHASE1_RECOVERY.md",
@@ -39,9 +38,10 @@
   "test_results": {
     "historical": "Prior results preserved in docs/PHASE1_RECOVERY.md; not current verification",
     "current": {
-      "commit": "e8f6a79707ba417dbf4e9c0cc8735da581797b30",
-      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45755834406",
+      "commit": "e26d59648c32f882b0b0e2b2dfe525f44f0ae60a",
+      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45756375117",
       "production_build": "passed",
+      "worker_compile": "passed",
       "typecheck": "passed",
       "lint": "passed",
       "unit": {
@@ -57,13 +57,12 @@
         "failed": 0,
         "includes_accessibility_scans": 6
       },
-      "docker": "images built; startup failed with queue port collision; fix pending verification",
-      "format": "pending"
+      "docker": "passed: build and readiness for web, worker, queue and database; HTTP health 200",
+      "format": "formatting applied; final check pending",
+      "state_check": "new gate pending"
     }
   },
-  "known_bugs": [
-    "CI service and Compose both bound port 6379; CI Valkey moved to 16379"
-  ],
+  "known_bugs": [],
   "required_dependencies": {
     "runtime": "Node 22",
     "package_manager": "npm",
@@ -96,7 +95,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Read workflow for this checkpoint. Save any Prettier changes exported in PHASE1_GENERATED markers; inspect visual evidence and Compose health; update final QA/state and rerun checks with formatting enforcement.",
+  "next_action": "Inspect CI for this final source checkpoint. If all steps pass, update docs/QA.md and state/status with the verified SHA, open a Phase 1 PR, stop. Do not begin Phase 2.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": false,

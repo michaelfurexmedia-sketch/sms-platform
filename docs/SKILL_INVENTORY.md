@@ -3,19 +3,19 @@
 Reuse the prior discovery and instruction reads recorded in PHASE1_RECOVERY.md.
 No repeated inventory search, reference research, paid installation or subagents.
 
-| Available skill | Use and limits |
-| --- | --- |
-| frontend-design, design-taste-frontend (Taste) | Editorial paper/cobalt direction, typography, disciplined spacing; instructions read earlier |
-| design-system, ui-styling, ui-ux-pro-max | Central tokens, semantic controls, responsive and accessibility requirements |
-| impeccable | Design review principles; referenced companion audit scripts unavailable |
-| Ponytail | Preserve working code, targeted changes and verification |
-| Graphify | No existing graph; targeted source/manifests appropriate; no graph generation claimed |
-| Superdesign | Earlier CLI preflight succeeded but no authentication; no canvas or generation used |
-| chrome-devtools | Earlier inspection guidance; MCP unavailable; Playwright equivalent tests used |
-| browser-testing | Newly read for this reconstruction; role-based interactions, keyboard/browser assertions and screenshot evidence |
-| creative-direction, motion-framer | Available in updated catalog; no new creative exploration or Framer dependency needed for CSS-only foundation |
-| hallmark, marketing-design, reverse-engineer-anything, scrapling-official | Catalogued; not needed for this bounded reconstruction |
-| documents, PDF, presentations, spreadsheets, imagegen, openai-docs and unrelated app skills | Available but not applicable |
+| Available skill                                                                             | Use and limits                                                                                                   |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| frontend-design, design-taste-frontend (Taste)                                              | Editorial paper/cobalt direction, typography, disciplined spacing; instructions read earlier                     |
+| design-system, ui-styling, ui-ux-pro-max                                                    | Central tokens, semantic controls, responsive and accessibility requirements                                     |
+| impeccable                                                                                  | Design review principles; referenced companion audit scripts unavailable                                         |
+| Ponytail                                                                                    | Preserve working code, targeted changes and verification                                                         |
+| Graphify                                                                                    | No existing graph; targeted source/manifests appropriate; no graph generation claimed                            |
+| Superdesign                                                                                 | Earlier CLI preflight succeeded but no authentication; no canvas or generation used                              |
+| chrome-devtools                                                                             | Earlier inspection guidance; MCP unavailable; Playwright equivalent tests used                                   |
+| browser-testing                                                                             | Newly read for this reconstruction; role-based interactions, keyboard/browser assertions and screenshot evidence |
+| creative-direction, motion-framer                                                           | Available in updated catalog; no new creative exploration or Framer dependency needed for CSS-only foundation    |
+| hallmark, marketing-design, reverse-engineer-anything, scrapling-official                   | Catalogued; not needed for this bounded reconstruction                                                           |
+| documents, PDF, presentations, spreadsheets, imagegen, openai-docs and unrelated app skills | Available but not applicable                                                                                     |
 
 No dedicated installed architecture/database/security/DevOps skill was identified
 in the prior inventory. Do not claim its use. Backend/security implementation

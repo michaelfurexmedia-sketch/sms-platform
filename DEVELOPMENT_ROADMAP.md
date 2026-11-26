@@ -1,15 +1,15 @@
 # Development roadmap
 
-| Phase | Scope | Gate |
-| --- | --- | --- |
+| Phase       | Scope                                                                                               | Gate                                                                                                  |
+| ----------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
 | 1 (current) | Original foundation, design system, shared components, module contracts and persistent probe worker | Fresh build/types/lint/unit/queue/browser/accessibility/Docker evidence; source checkpoints on GitHub |
-| 2 | Premium public website, customer dashboard and Super Admin frontend | Interactive preview plus explicit owner approval persisted in state and status |
-| 3 | Database, authentication and tenant-secure business backend | Cannot start before Phase 2 approval; migrations and cross-tenant denial tests |
-| 4 | Twilio, contacts, consent/compliance, campaigns and inbox | Verified webhooks, durable dispatch, suppression and retry/reconciliation tests |
-| 5 | Stripe, subscriptions, wallet and onboarding | Verified payment events, integer ledger, concurrency/idempotency tests |
-| 6 | Operational admin, analytics and automations | Server permissions, audit trails, reconciliation and operational tests |
-| 7 | Production readiness | Integrated security, performance, accessibility and recovery validation |
-| 8 | VPS commercial launch | Approved hosting, HTTPS, tested backups/rollback and explicit live-operation authorization |
+| 2           | Premium public website, customer dashboard and Super Admin frontend                                 | Interactive preview plus explicit owner approval persisted in state and status                        |
+| 3           | Database, authentication and tenant-secure business backend                                         | Cannot start before Phase 2 approval; migrations and cross-tenant denial tests                        |
+| 4           | Twilio, contacts, consent/compliance, campaigns and inbox                                           | Verified webhooks, durable dispatch, suppression and retry/reconciliation tests                       |
+| 5           | Stripe, subscriptions, wallet and onboarding                                                        | Verified payment events, integer ledger, concurrency/idempotency tests                                |
+| 6           | Operational admin, analytics and automations                                                        | Server permissions, audit trails, reconciliation and operational tests                                |
+| 7           | Production readiness                                                                                | Integrated security, performance, accessibility and recovery validation                               |
+| 8           | VPS commercial launch                                                                               | Approved hosting, HTTPS, tested backups/rollback and explicit live-operation authorization            |
 
 Only Phase 1 is assigned. No automatic progression. Missing old frontend demo
 files do not authorize recreating Phase 2 in this phase.

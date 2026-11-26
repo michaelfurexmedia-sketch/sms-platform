@@ -24,12 +24,12 @@ temporary workspace is needed for the saved implementation.
 
 ## Preview and verification
 
-| Route | Status |
-| --- | --- |
-| http://localhost:3000/ | Phase 1 foundation entry page |
+| Route                               | Status                                                                                       |
+| ----------------------------------- | -------------------------------------------------------------------------------------------- |
+| http://localhost:3000/              | Phase 1 foundation entry page                                                                |
 | http://localhost:3000/design-system | Interactive component library; light/dark themes, forms, dialog, table/chart, state examples |
-| Customer dashboard | Phase 2; not reconstructed from inaccessible old demo |
-| Super Admin Portal | Phase 2; not implemented as an operational portal |
+| Customer dashboard                  | Phase 2; not reconstructed from inaccessible old demo                                        |
+| Super Admin Portal                  | Phase 2; not implemented as an operational portal                                            |
 
 All examples use src/demo/seed.ts synthetic data and in-memory state.
 The preview never sends SMS or charges money.

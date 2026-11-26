@@ -19,7 +19,8 @@
     "worker": "node dist/worker/apps/worker/index.js",
     "test:worker": "node --import tsx --test tests/worker.integration.ts",
     "test:browser": "playwright test",
-    "check": "npm run lint && npm run typecheck && npm test && npm run build:worker && npm run build"
+    "check": "npm run lint && npm run typecheck && npm test && npm run build:worker && npm run build",
+    "state:check": "node scripts/check-state.mjs"
   },
   "dependencies": {
     "@fontsource/bricolage-grotesque": "^5.2.0",
