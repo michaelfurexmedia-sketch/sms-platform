@@ -1,25 +1,26 @@
 # Development roadmap
 
-Preparation is complete when the requirements and evidence-based handoff are saved. Phase 1 starts only when assigned.
+| Phase        | Scope                                                                                               | Gate                                                                                                  |
+| ------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 1 (complete) | Original foundation, design system, shared components, module contracts and persistent probe worker | Fresh build/types/lint/unit/queue/browser/accessibility/Docker evidence; source checkpoints on GitHub |
+| 2            | Premium public website, customer dashboard and Super Admin frontend                                 | Interactive preview plus explicit owner approval persisted in state and status                        |
+| 3            | Database, authentication and tenant-secure business backend                                         | Cannot start before Phase 2 approval; migrations and cross-tenant denial tests                        |
+| 4            | Twilio, contacts, consent/compliance, campaigns and inbox                                           | Verified webhooks, durable dispatch, suppression and retry/reconciliation tests                       |
+| 5            | Stripe, subscriptions, wallet and onboarding                                                        | Verified payment events, integer ledger, concurrency/idempotency tests                                |
+| 6            | Operational admin, analytics and automations                                                        | Server permissions, audit trails, reconciliation and operational tests                                |
+| 7            | Production readiness                                                                                | Integrated security, performance, accessibility and recovery validation                               |
+| 8            | VPS commercial launch                                                                               | Approved hosting, HTTPS, tested backups/rollback and explicit live-operation authorization            |
 
-| Phase | Scope | Completion evidence |
-| --- | --- | --- |
-| 1 | Foundation, architecture, original design system | Existing candidate reconciled without losing work; baseline tests/build; confirmed stack/licenses; brand configuration; documented tokens/components; foundation checks; updated manifest/status |
-| 2 | Marketing, customer and admin frontend | Responsive accessible screens and interaction tests; demo behavior explicitly identified |
-| 3 | Backend, database, auth and tenancy | Persistent schema/migrations, real sessions, server authorization and cross-tenant denial tests |
-| 4 | Twilio, contacts, compliance, campaigns, inbox | Verified webhooks, durable sending/scheduling, suppression and delivery/retry tests |
-| 5 | Stripe, subscriptions, wallet, onboarding | Verified payment events, ledger concurrency/idempotency tests and test-mode onboarding |
-| 6 | Operational admin, analytics, automation | Enforced admin permissions, auditability, reconciliation and operational workflow tests |
-| 7 | Production readiness | Integrated security/performance/accessibility/recovery checks with recorded limits |
-| 8 | VPS launch | Approved hosting, HTTPS, deployment/rollback and restore rehearsal; explicit live-operation authorization |
+Only Phase 1 is assigned. No automatic progression. Missing old frontend demo
+files do not authorize recreating Phase 2 in this phase.
 
-## Phase 1 sequence
-1. Read status/manifest; check only changes since the initial inspection.
-2. Reconcile local candidate with the authorized GitHub history; preserve staged work.
-3. Read the applicable installed skill instructions. Verify current official docs, licensing and compatibility before implementing.
-4. Run baseline tests/typecheck/build; document actual failures and preserve useful UI/domain code.
-5. Review existing reference notes; verify only missing necessary observations once and record evidence boundaries.
-6. Implement minimal foundation, centralized temporary branding and one design system. Avoid speculative restructuring.
-7. Update required documents and configuration example; perform relevant checks, commit and push; stop.
+Every milestone: read active state, inspect relevant deltas, implement a small
+batch, test, update status/state, commit/push to development branch, verify
+actual source remotely. Preserve WIP safely with honest test status. Never
+force-push or merge unstable work into main. No credit meter is exposed here.
 
-Do not implement live backend, financial or messaging operations during Phase 1. Later external dependencies do not block documenting the foundation.
+Phase 1 reconstruction uses saved architecture/research from
+docs/PHASE1_RECOVERY.md. Retain that historical record unchanged.
+
+Phase 1 acceptance passed at 54ffca7f333b79b0311ee68e06dc9045d9664556.
+No Phase 2 assignment or frontend approval has been recorded.

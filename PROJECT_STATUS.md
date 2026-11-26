@@ -1,25 +1,28 @@
 # Project status
 
-Updated: 2026-11-26 (Asia/Karachi).
+**Phase 1 complete**, active branch phase-1-recovery. Phase 2 has not started.
+Verified implementation checkpoint: 54ffca7f333b79b0311ee68e06dc9045d9664556.
 
-**Assignment: preparation only. Phase 1 has not started.**
+Completed: centralized temporary branding, original light/dark design library,
+shared accessible components, module contracts, persistent probe worker,
+environment guards, locked tooling, Docker Compose and reproducible setup.
+The recovered public/customer/admin demos and domain journeys are retained under
+/preview; /design-system is the shared component library.
 
-## Completed
-- Saved the owner requirements in AGENTS.md and the eight-phase roadmap.
-- Inspected the authorized GitHub repository at fc799c8bcb508f2731d24771824e1f50f66c32c1: only README.md.
-- Inspected an existing local, uncommitted frontend candidate. Preserved all its files and staged changes; did not publish it or treat it as the GitHub baseline.
-- Created a manifest, skill inventory and planning documents.
+Final CI: https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45820084123
+Build, worker compilation, TypeScript, lint, formatting and state gate passed.
+All 16 unit tests, 1 worker integration and 16 browser tests passed, including
+six accessibility scans. Docker images built; all four services were healthy.
+Application source was pushed and read back from GitHub at each checkpoint.
 
-## Existing work and limits
-Local candidate: Next.js/React/TypeScript frontend with marketing, customer and admin surfaces, browser-local data and simulated provider services. It has no Git remotes and no commits. Its old temporary brand conflicts with the new naming instruction.
-Existing QA documentation reports 12 tests and a static build; those historical claims were not rerun or independently validated in this preparation.
-No production auth, tenant security, database, persistent queue, Twilio or Stripe integration is verified. No new product functionality was implemented.
+The raw original source is also preserved on recovered-phase1-wip at
+a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d. See docs/RECOVERY_RESOLUTION.md.
+No temporary executor is required to restore the saved implementation.
 
-## Next assignment: Phase 1
-Follow DEVELOPMENT_ROADMAP.md acceptance criteria. Reconcile/preserve the local candidate in this same authorized repository, verify its baseline, centralize "SMS Platform" branding, select one original design direction and establish the foundation. Do not silently publish staged local work.
-Current reference notes exist locally; retain their provenance and avoid redundant research.
+Remaining production work: real authentication/tenancy, database schema,
+Twilio/Stripe services, ledger, operational admin and commercial deployment.
+Current previews are explicitly simulated. Module types are not security controls.
 
-## Validation / dependencies
-Preparation checks: documentation completeness, local Markdown links and whitespace; remote commit/tree verification after publication. Runtime tests are not relevant to this documentation-only change.
-No credentials required for preparation. Future phases require provider accounts/approval, transactional email, deployment access and owner business/domain information. No purchases or live operations authorized.
-Software/license/provider verification and detailed design work remain Phase 1 tasks. The environment exposes no numeric AI credit budget.
+**Owner frontend approval: not recorded.** Phase 2 requires an interactive
+preview and explicit owner approval before Phase 3. Await the next assignment;
+do not advance automatically. See DEVELOPMENT_STATE.json for continuation.

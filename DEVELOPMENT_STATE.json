@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-26",
+  "active_phase": 1,
+  "active_milestone": "Phase 1 complete; stop before Phase 2",
+  "active_branch": "phase-1-recovery",
+  "last_known_implementation_checkpoint": "54ffca7f333b79b0311ee68e06dc9045d9664556",
+  "completed_tasks": [
+    "Verified recovery commit 7d47272",
+    "Checked executor once: unavailable; original files remain inaccessible",
+    "Pushed and verified initial reconstructed Next web, branding, environment validation and probe-only persistent worker",
+    "Shared components, synthetic data and light/dark gallery reconstructed; dialog explicitly wraps forward/reverse focus",
+    "Module contracts, Docker Compose, synthetic preview data and fresh unit/browser/worker test scripts added",
+    "Fresh CI passed build, typecheck, lint, four unit tests, worker integration and 13 browser tests (including six accessibility scans)",
+    "Persisted CI-generated npm lockfile; added setup/deployment/design documentation",
+    "All four Docker services reached healthy and web HTTP probe passed",
+    "Visually reviewed desktop light, tablet dark and mobile light screenshots",
+    "Applied deterministic Prettier formatting generated in CI",
+    "Original workspace returned; all 16 original unit tests passed again; raw WIP snapshot committed and verified on GitHub",
+    "Recovered previews retained under /preview with original storage key and journey tests",
+    "Recovered dialogs reuse shared focus fix; corrected demo locator and mobile table overflow verified",
+    "Combined local checks passed: build, types, lint, formatting, state gate, 16 unit, 1 worker integration and 16 browser tests including six accessibility scans",
+    "Final combined GitHub Actions validation passed, including Docker builds and healthy web/worker/queue/database"
+  ],
+  "pending_tasks": [
+    "Await explicit Phase 2 assignment; do not begin automatically"
+  ],
+  "partially_implemented_tasks": [],
+  "relevant_files": [
+    "AGENTS.md",
+    "docs/PHASE1_RECOVERY.md",
+    "src/config/brand.ts",
+    "src/app/layout.tsx",
+    "src/app/page.tsx",
+    "src/server/env.ts",
+    "src/server/queue.ts",
+    "apps/worker/index.ts",
+    "apps/worker/processor.ts",
+    "tests/foundation.test.ts",
+    ".github/workflows/ci.yml",
+    "src/legacy/application.tsx",
+    "src/legacy/navigation.tsx",
+    "src/lib/model.ts",
+    "tests/journeys.test.ts",
+    "tests/browser/recovered.spec.ts",
+    "docs/RECOVERY_RESOLUTION.md"
+  ],
+  "test_results": {
+    "historical": "Prior results preserved in docs/PHASE1_RECOVERY.md; not current verification",
+    "current": {
+      "commit": "54ffca7f333b79b0311ee68e06dc9045d9664556",
+      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45820084123",
+      "result": "success",
+      "setup": "passed using committed lockfile",
+      "production_build": "passed",
+      "worker_compile": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "format": "passed",
+      "state_check": "passed",
+      "unit": {
+        "passed": 16,
+        "failed": 0
+      },
+      "worker_integration": {
+        "passed": 1,
+        "failed": 0
+      },
+      "browser": {
+        "passed": 16,
+        "failed": 0,
+        "includes_accessibility_scans": 6
+      },
+      "docker": "passed: both images built, four services healthy, HTTP health 200"
+    },
+    "local_recovered_combination": {
+      "date": "2026-11-26",
+      "build": "passed",
+      "worker_compile": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "format": "passed",
+      "state_check": "passed",
+      "unit": {
+        "passed": 16,
+        "failed": 0
+      },
+      "worker_integration": {
+        "passed": 1,
+        "failed": 0
+      },
+      "browser": {
+        "passed": 16,
+        "failed": 0,
+        "includes_accessibility_scans": 6
+      },
+      "docker": "Combined CI pending; earlier foundation Docker run passed"
+    }
+  },
+  "known_bugs": [],
+  "required_dependencies": {
+    "runtime": "Node 22",
+    "package_manager": "npm",
+    "queue": "Valkey 8.1.4",
+    "database": "PostgreSQL planned; no application schema before Phase 3 approval",
+    "source": "package.json and committed package-lock.json"
+  },
+  "required_configuration": [
+    "APP_MODE=demo",
+    "APP_URL",
+    "QUEUE_URL required only for worker",
+    "WORKER_HEALTH_PORT",
+    "ENABLE_LIVE_SMS=false",
+    "ENABLE_LIVE_BILLING=false"
+  ],
+  "preview_status": {
+    "phase1": "Interactive shared library at /design-system; recovered previews retained",
+    "public_website": "Recovered synthetic preview: /preview; Phase 2 not completed",
+    "customer_dashboard": "Recovered synthetic preview: /preview/app; choose Explore demo workspace",
+    "super_admin": "Recovered synthetic preview: /preview/admin; no operational authorization",
+    "commands": [
+      "npm run setup",
+      "npm run dev",
+      "npm run build && npm start"
+    ],
+    "live_url": null
+  },
+  "owner_approval_status": {
+    "frontend": "not_requested",
+    "phase3_backend": "blocked_until_explicit_owner_approval",
+    "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
+  },
+  "next_action": "Stop. On an explicit Phase 2 assignment, fetch phase-1-recovery (or its merged main equivalent), read AGENTS.md/status/state, run npm run setup and reuse /design-system plus /preview. Provide an interactive frontend preview and record explicit owner approval before Phase 3.",
+  "recovery": {
+    "source_reconstructed": true,
+    "original_files_recovered": true,
+    "record": "docs/PHASE1_RECOVERY.md",
+    "do_not_depend_on_old_workspace": true,
+    "snapshot_branch": "recovered-phase1-wip",
+    "snapshot_commit": "a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d"
+  },
+  "phase1_complete": true,
+  "limitations": [
+    "Recovered UI uses synthetic localStorage data and simulated auth/payments/messaging; not production services",
+    "Module contracts are not server authorization or tenant isolation",
+    "Real schema/migrations/auth and provider integrations belong to later approved phases",
+    "Chromium automation and six gallery axe scans are not a full assistive-technology audit",
+    "Production HTTPS, encrypted off-site backups, capacity validation and restore/rollback rehearsal remain later phases"
+  ]
+}
