@@ -155,7 +155,7 @@
   display: none;
 }
 .legacy-app .collapsed .app-body {
-  margin-left: 92px;
+  margin-left: 0;
 }
 .legacy-app .collapsed .sidebar-logo {
   overflow: hidden;
@@ -491,4 +491,82 @@
   .subscription-panel {
     padding: 20px;
   }
+}
+.admin-module-toolbar {
+  display: flex;
+  align-items: end;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+.admin-module-toolbar .field {
+  min-width: 200px;
+  flex: 1;
+}
+.admin-financials {
+  margin: 24px 0 32px;
+}
+.health-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px;
+  border: 1px solid var(--line);
+  margin-top: 24px;
+}
+.customer-operations {
+  padding: 24px;
+  margin: 24px 0;
+}
+.customer-operations .section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.customer-operations .dashboard-metrics strong {
+  font-size: 24px;
+}
+.customer-operations details {
+  padding-top: 20px;
+}
+.admin-shell .sidebar nav {
+  max-height: calc(100vh - 280px);
+  overflow: auto;
+}
+.admin-shell .sidebar-bottom {
+  padding-top: 16px;
+}
+.legacy-app table caption {
+  text-align: left;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.legacy-app .panel table td {
+  overflow-wrap: anywhere;
+}
+.legacy-app .modal .module-form {
+  border: 0;
+  padding: 12px 0;
+}
+.legacy-app .app-shell {
+  min-height: 100vh;
+}
+@media (max-width: 600px) {
+  .customer-operations .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+.legacy-app .demo-bottom {
+  color: var(--ink);
+  font-size: 13px;
+  background: var(--legacy-mist);
+}
+.legacy-app .sidebar nav {
+  overflow: auto;
+  max-height: calc(100vh - 300px);
 }

@@ -58,6 +58,23 @@ const adminNav = [
   ["Verification", "/admin/verification/", ShieldCheck],
   ["Numbers", "/admin/numbers/", Phone],
   ["Payments", "/admin/payments/", CreditCard],
+  ["Subscriptions", "/admin/subscriptions/", CreditCard],
+  ["Invoices", "/admin/invoices/", CreditCard],
+  ["Refunds", "/admin/refunds/", CreditCard],
+  ["Wallets", "/admin/wallets/", CreditCard],
+  ["Pricing", "/admin/pricing/", Settings],
+  ["Providers", "/admin/providers/", Settings],
+  ["Usage", "/admin/usage/", LayoutDashboard],
+  ["Campaign monitor", "/admin/campaigns/", Send],
+  ["Risk", "/admin/risk/", ShieldCheck],
+  ["Complaints", "/admin/complaints/", Mail],
+  ["Support", "/admin/support/", Mail],
+  ["Revenue & costs", "/admin/reports/", LayoutDashboard],
+  ["System health", "/admin/health/", Settings],
+  ["Webhooks", "/admin/webhooks/", Settings],
+  ["Workers", "/admin/workers/", Settings],
+  ["Admin roles", "/admin/roles/", Users],
+  ["Audit logs", "/admin/audit/", ShieldCheck],
   ["Settings", "/admin/settings/", Settings],
 ] as const;
 export default function Application() {
@@ -237,6 +254,7 @@ function Content() {
             {nav.map(([name, url, Icon]) => (
               <Link
                 key={url}
+                aria-label={name}
                 href={url}
                 onClick={() => setMenu(false)}
                 aria-current={

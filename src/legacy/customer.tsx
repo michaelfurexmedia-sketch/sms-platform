@@ -257,9 +257,9 @@ export function Checkout({
       </div>
       {number && (
         <p>
-          The {money(state.pricing.numberFee)} number fee is charged once.
-          Messaging credits are purchased separately. No number subscription or
-          renewal.
+          The {money(state.pricing.numberFee)} charge previews the first rental
+          period. Messaging credits are purchased separately. No number
+          subscription or renewal.
         </p>
       )}
       {error && <Notice tone="error">{error}</Notice>}
@@ -288,7 +288,22 @@ export function Numbers({ w }: { w: Workspace }) {
     [checkout, setCheckout] = useState(false),
     [receipt, setReceipt] = useState<Receipt | null>(null),
     [editing, setEditing] = useState(false);
-  const available = services.numbers.available(state);
+  const [country, setCountry] = useState("US"),
+    [area, setArea] = useState("");
+  const candidates = Array.from(
+    new Set([
+      ...services.numbers.available(state),
+      "+1 (202) 555-0111",
+      "+1 (212) 555-0112",
+      "+1 (416) 555-0113",
+      "+1 (604) 555-0114",
+    ]),
+  ).filter((n) => !state.workspaces.some((v) => v.numbers.includes(n)));
+  const available = candidates.filter(
+    (n) =>
+      (country === "Canada" ? /416|604/.test(n) : !/416|604/.test(n)) &&
+      (!area || n.replace(/\D/g, "").slice(1, 4).startsWith(area)),
+  );
   const v = w.verification;
   return (
     <>
@@ -318,14 +333,15 @@ export function Numbers({ w }: { w: Workspace }) {
               }
             >
               Choose a fictional toll-free number for{" "}
-              {money(state.pricing.numberFee)} once. Credits are separate.
+              {money(state.pricing.numberFee)} per month (illustrative). Credits
+              are separate.
             </Empty>
           ) : (
             w.numbers.map((n) => (
               <div className="number-record" key={n}>
                 <strong>{n}</strong>
                 <Badge>Assigned</Badge>
-                <p>One-time purchase. No renewal scheduled.</p>
+                <p>Rental preview. No recurring billing is connected.</p>
               </div>
             ))
           )}
@@ -415,17 +431,46 @@ export function Numbers({ w }: { w: Workspace }) {
       )}
       {selecting && !checkout && (
         <Modal
-          title="Get a toll-free number"
+          title="Choose a business number"
           onClose={() => setSelecting(false)}
         >
           <p>
             <b>
-              {money(state.pricing.numberFee)} one-time fee per toll-free
+              {money(state.pricing.numberFee)} monthly rental preview per
               number.
             </b>{" "}
             Messaging credits are purchased separately.
           </p>
-          <p className="muted">Fictional inventory for this prototype.</p>
+          <p className="muted">
+            Fictional inventory. SMS capable; MMS support is only an attachment
+            preview.
+          </p>
+          <div className="form-grid">
+            <Field label="Country">
+              <select
+                value={country}
+                onChange={(e) => {
+                  setCountry(e.target.value);
+                  setNumber("");
+                }}
+              >
+                <option>US</option>
+                <option>Canada</option>
+              </select>
+            </Field>
+            <Field label="Area code">
+              <input
+                inputMode="numeric"
+                maxLength={3}
+                value={area}
+                onChange={(e) => {
+                  setArea(e.target.value.replace(/\D/g, ""));
+                  setNumber("");
+                }}
+                placeholder="e.g. 202"
+              />
+            </Field>
+          </div>
           <div className="number-options">
             {available.map((n) => (
               <label className={number === n ? "selected" : ""} key={n}>
@@ -445,7 +490,13 @@ export function Numbers({ w }: { w: Workspace }) {
           )}
           <Button
             disabled={!number || !available.includes(number)}
-            onClick={() => setCheckout(true)}
+            onClick={() => {
+              if (!state.inventory.includes(number))
+                mutate((s) => {
+                  s.inventory.push(number);
+                });
+              setCheckout(true);
+            }}
           >
             Continue to checkout
           </Button>

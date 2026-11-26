@@ -530,6 +530,9 @@ export const estimatedCredits = (r: Recipient[]) =>
   r.filter((x) => x.status !== "Excluded").reduce((n, x) => n + x.segments, 0);
 export function sendRequirements(w: Workspace, credits: number) {
   return [
+    w.preview?.settings?.admin?.suspended === "true"
+      ? "This demo account is suspended."
+      : "",
     !w.numbers.length ? "Get a toll-free number." : "",
     w.verification.status !== "Approved"
       ? "Complete SMS verification and wait for approval."

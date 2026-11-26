@@ -422,3 +422,14 @@
     padding-bottom: 48px;
   }
 }
+
+.marketing .demo-bottom {
+  color: var(--ink);
+  font-size: 13px;
+  background: var(--legacy-mist);
+}
+.marketing .demo-date,
+.marketing .demo-meta,
+.marketing .demo-toolbar {
+  font-size: 13px;
+}

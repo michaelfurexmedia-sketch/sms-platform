@@ -25,3 +25,64 @@ test("CSV exports escape fields and neutralize spreadsheet formula prefixes", ()
     '"\'=1+1","a""b","a,b","\'+12025550101"',
   );
 });
+
+import { freshState, seedDemo, sendRequirements } from "../src/lib/model";
+import { applyAdminAction } from "../src/frontend/admin-actions";
+test("demo financial adjustments validate whole units, preserve balance and record mandatory reasons", () => {
+  const s = freshState();
+  const w = seedDemo(s);
+  const before = w.balance;
+  assert.throws(
+    () =>
+      applyAdminAction(s, {
+        workspaceId: w.id,
+        action: "Adjust credits",
+        reason: "",
+        value: "50",
+      }),
+    /reason/,
+  );
+  assert.throws(
+    () =>
+      applyAdminAction(s, {
+        workspaceId: w.id,
+        action: "Adjust credits",
+        reason: "Correction test",
+        value: "1.5",
+      }),
+    /whole/,
+  );
+  assert.throws(
+    () =>
+      applyAdminAction(s, {
+        workspaceId: w.id,
+        action: "Adjust credits",
+        reason: "Correction test",
+        value: String(-before - 1),
+      }),
+    /negative/,
+  );
+  assert.equal(w.balance, before);
+  applyAdminAction(s, {
+    workspaceId: w.id,
+    action: "Adjust credits",
+    reason: "Synthetic correction",
+    value: "50",
+  });
+  assert.equal(w.balance, before + 50);
+  assert.equal(s.adminPreview?.actions?.[0].reason, "Synthetic correction");
+  applyAdminAction(s, {
+    workspaceId: w.id,
+    action: "Suspend account",
+    reason: "Synthetic risk review",
+    value: "",
+  });
+  assert.ok(sendRequirements(w, 1).some((v) => v.includes("suspended")));
+  applyAdminAction(s, {
+    workspaceId: w.id,
+    action: "Reactivate account",
+    reason: "Synthetic review cleared",
+    value: "",
+  });
+  assert.ok(!sendRequirements(w, 1).some((v) => v.includes("suspended")));
+});

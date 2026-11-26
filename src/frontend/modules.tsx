@@ -491,6 +491,17 @@ function Automations({ w }: { w: Workspace }) {
       status = "Suppressed";
       detail = "Consent condition did not match.";
     } else if (
+      flow.nodes.some(
+        (n) => n.type === "Condition" && n.value === "Has replied",
+      ) &&
+      !w.threads.some(
+        (t) =>
+          t.contactId === c.id && t.messages.some((m) => m.direction === "in"),
+      )
+    ) {
+      status = "Suppressed";
+      detail = "Reply condition did not match.";
+    } else if (
       flow.nodes.some((n) => !n.value.trim()) ||
       !flow.nodes.some((n) => n.type === "Message")
     ) {
@@ -1254,7 +1265,7 @@ export function NumberPreferences({ w }: { w: Workspace }) {
             }
           />
           <p>
-            SMS capable · rental preview $5/month. No recurring charge is
+            SMS capable · rental price shown at checkout. No recurring charge is
             processed.
           </p>
           <Button variant="danger" onClick={() => setRelease(true)}>

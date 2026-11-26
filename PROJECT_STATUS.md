@@ -13,3 +13,5 @@ Dashboard derives synthetic usage and onboarding. New module routes are being fi
 
 Customer extensions added: inbox assignment/notes/suppression, campaign controls and timezone handling, CSV/XLSX imports, templates, automations, compliance, subscriptions, analytics and settings.
 Types/lint passed, 18 unit tests passed. Public/inbox interactions passed; three public accessibility scans need final verification after fixes. Remaining customer/admin routes and full browser QA are unfinished.
+
+Checkpoint 5656c25 preserved customer module source. Admin frontend, reasoned actions/audit, number discovery and invoice export added. Latest types/lint and 19 unit tests passed. Full Phase 2 browser and visual QA is now in progress. Phase 2 is not yet complete.

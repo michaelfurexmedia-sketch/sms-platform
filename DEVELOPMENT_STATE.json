@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 2,
-  "active_milestone": "2.3\u20132.7 customer modules \u2014 WIP",
+  "active_milestone": "2.8 admin frontend implemented; 2.9 QA in progress",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "4bd579cfe22997097cd9d4cb9917e5680ce94496",
+  "last_known_implementation_checkpoint": "5656c257f420ff39238fd2d728141f29432c0076",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -23,23 +23,16 @@
     "Final combined GitHub Actions validation passed, including Docker builds and healthy web/worker/queue/database",
     "Phase 2 public source checkpoint ab453b5 pushed and read back",
     "Public production build passed; customer shell and derived dashboard added",
-    "Inbox assignment/notes/templates/suppression, campaign scheduling/actions/export, CSV/XLSX mapping/review, customer module source added"
+    "Inbox assignment/notes/templates/suppression, campaign scheduling/actions/export, CSV/XLSX mapping/review, customer module source added",
+    "Admin operations pages, reasoned confirmations/audit, customer profiles, number search/settings/release and invoice exports added"
   ],
   "pending_tasks": [
-    "2.1 public browser verification",
-    "2.2 customer shell and dashboard",
-    "2.3 inbox enhancements",
-    "2.4 campaigns",
-    "2.5 imports",
-    "2.6 compliance and numbers",
-    "2.7 remaining customer modules",
-    "2.8 admin frontend",
-    "2.9 QA and preview"
+    "Full browser/axe and responsive QA",
+    "Finalize route handling and completion inventory",
+    "Phase 2.5 interactive preview and explicit owner approval"
   ],
   "partially_implemented_tasks": [
-    "Customer modules implemented; browser QA pending",
-    "Number discovery and admin modules pending",
-    "Public accessibility fixes pending rerun"
+    "Frontend source in place; QA and owner preview incomplete"
   ],
   "relevant_files": [
     "AGENTS.md",
@@ -112,9 +105,9 @@
       "docker": "Combined CI pending; earlier foundation Docker run passed"
     },
     "phase2": {
-      "typecheck": "passed before final accessibility adjustment",
+      "typecheck": "passed",
       "lint": "passed",
-      "unit": "18 passed",
+      "unit": "19 passed",
       "build": "passed before remaining customer module additions",
       "browser": "2 interaction tests passed; 3 marketing axe scans failed (animation timing and landmark); fixes pending verification"
     }
@@ -154,7 +147,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Verify customer enhancements in browser; finish number discovery and administrative frontend; run full QA.",
+  "next_action": "Run comprehensive route/interaction/browser accessibility checks; fix findings and document remaining backend-dependent preview limits.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
