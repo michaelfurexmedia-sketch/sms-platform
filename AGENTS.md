@@ -2,7 +2,7 @@
 
 ## Authority and current scope
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: save these instructions and prepare for Phase 1. Do not implement Phase 1 or start later phases until assigned.
+- Current assignment: recover and complete Phase 1 only. Read docs/PHASE1_RECOVERY.md before changing files. Do not start Phase 2.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 
@@ -90,3 +90,10 @@ Never overwrite unrelated changes, force-push history or claim unverified succes
 
 ## Communication
 Keep responses concise without sacrificing accuracy or completeness. Reuse project decisions and context; ask only when missing information prevents meaningful progress. Show changed code sections unless full files are requested. Never skip essential validation.
+
+## Recovery and checkpoint discipline
+- Recover the prior workspace before reconstructing missing functionality. Inspect available backups/snapshots, local branches, stashes, reflog, patches and artifacts without deleting or resetting files.
+- Make incremental Git commits; push verified checkpoints to a development branch in this repository whenever practical.
+- Preserve unfinished work in clearly marked WIP checkpoints after checking for secrets; never describe WIP or historical test results as newly verified.
+- Do not reset, clean, delete, overwrite or discard existing files during recovery. Do not force-push or overwrite unrelated changes.
+- When runtime access fails, distinguish inaccessible files from confirmed lost files. GitHub source access is not access to uncommitted workspace files.

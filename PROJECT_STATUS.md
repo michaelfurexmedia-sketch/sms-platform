@@ -2,24 +2,30 @@
 
 Updated: 2026-11-26 (Asia/Karachi).
 
-**Assignment: preparation only. Phase 1 has not started.**
+**Assignment: recover and complete Phase 1. Blocked by unavailable executor.**
 
-## Completed
-- Saved the owner requirements in AGENTS.md and the eight-phase roadmap.
-- Inspected the authorized GitHub repository at fc799c8bcb508f2731d24771824e1f50f66c32c1: only README.md.
-- Inspected an existing local, uncommitted frontend candidate. Preserved all its files and staged changes; did not publish it or treat it as the GitHub baseline.
-- Created a manifest, skill inventory and planning documents.
+The previous session implemented the foundation in an uncommitted local
+working tree. Its last recorded checks passed build, TypeScript, lint,
+16 unit tests and one worker integration test. Browser suite: seven passed,
+two failed; six accessibility scans passed. These are historical results,
+not tests run against this documentation checkpoint.
 
-## Existing work and limits
-Local candidate: Next.js/React/TypeScript frontend with marketing, customer and admin surfaces, browser-local data and simulated provider services. It has no Git remotes and no commits. Its old temporary brand conflicts with the new naming instruction.
-Existing QA documentation reports 12 tests and a static build; those historical claims were not rerun or independently validated in this preparation.
-No production auth, tenant security, database, persistent queue, Twilio or Stripe integration is verified. No new product functionality was implemented.
+GitHub's preparation commit was inspected: only main at
+61984b4ff16495f8ceb65fb04b61849bba0f8b17, no implementation branch and no
+workflow runs. The recovery branch adds documentation only.
 
-## Next assignment: Phase 1
-Follow DEVELOPMENT_ROADMAP.md acceptance criteria. Reconcile/preserve the local candidate in this same authorized repository, verify its baseline, centralize "SMS Platform" branding, select one original design direction and establish the foundation. Do not silently publish staged local work.
-Current reference notes exist locally; retain their provenance and avoid redundant research.
+Read [the recovery checkpoint](docs/PHASE1_RECOVERY.md) for exact paths,
+known implementation, validation evidence and remaining fixes. The prior
+filesystem and backup have not been recovered or proven lost. Do not
+reconstruct or overwrite them without checking when runtime access returns.
 
-## Validation / dependencies
-Preparation checks: documentation completeness, local Markdown links and whitespace; remote commit/tree verification after publication. Runtime tests are not relevant to this documentation-only change.
-No credentials required for preparation. Future phases require provider accounts/approval, transactional email, deployment access and owner business/domain information. No purchases or live operations authorized.
-Software/license/provider verification and detailed design work remain Phase 1 tasks. The environment exposes no numeric AI credit budget.
+Remaining: recover files; fix dialog focus and browser locator; finish visual
+review/documentation/formatting; rerun required checks; commit and push
+implementation checkpoints; verify source files on GitHub. Phase 2 has not
+started. No live transactions, number purchases or SMS are authorized.
+
+## Checkpoint policy
+
+Commit incrementally and push verified work to a development branch.
+Preserve unfinished work as clearly marked WIP after a secret check.
+Never force-push, discard unrelated work or claim unrun tests passed.
