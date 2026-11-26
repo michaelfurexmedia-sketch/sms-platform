@@ -625,3 +625,15 @@
 .legacy-app .empty h2 {
   font-size: 24px;
 }
+.legacy-app .compliance-confirmation {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px 0;
+  font-size: 14px;
+}
+.legacy-app .compliance-confirmation input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}

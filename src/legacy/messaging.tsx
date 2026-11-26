@@ -27,6 +27,7 @@ import {
   recipients,
   estimatedCredits,
   segments,
+  messageEncoding,
   personalize,
   sendRequirements,
   deliverCampaign,
@@ -1009,7 +1010,8 @@ function CampaignEditor({
   const { mutate } = useStore();
   const [step, setStep] = useState(0),
     [error, setError] = useState(""),
-    [previewName, setPreviewName] = useState("Jamie");
+    [previewName, setPreviewName] = useState("Jamie"),
+    [reviewed, setReviewed] = useState(false);
   const update = (patch: Partial<Campaign>) => {
     try {
       mutate((s) => saveCampaign(s, w.id, { ...c, ...patch }));
@@ -1172,8 +1174,8 @@ function CampaignEditor({
                 {preview || "Your message preview will appear here."}
               </div>
               <small>
-                {segments(preview)} segment{segments(preview) === 1 ? "" : "s"}{" "}
-                for this preview
+                {messageEncoding(preview)} · {segments(preview)} segment
+                {segments(preview) === 1 ? "" : "s"} for this preview
               </small>
             </div>
           </div>
@@ -1304,6 +1306,16 @@ function CampaignEditor({
           </p>
         </>
       )}
+      {step === 3 && (
+        <label className="compliance-confirmation">
+          <input
+            type="checkbox"
+            checked={reviewed}
+            onChange={(e) => setReviewed(e.target.checked)}
+          />{" "}
+          I reviewed consent, excluded recipients, sender and estimated usage.
+        </label>
+      )}
       <div className="wizard-footer">
         <Button variant="ghost" onClick={onClose}>
           Save draft & close
@@ -1321,6 +1333,7 @@ function CampaignEditor({
           ) : (
             <Button
               disabled={
+                !reviewed ||
                 blocked.length > 0 ||
                 !eligible.length ||
                 !c.text.trim() ||

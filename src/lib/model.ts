@@ -470,6 +470,13 @@ export function setContactStatus(
 }
 const gsmBasic =
   "@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞ ÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà";
+export function messageEncoding(text: string): "GSM-7" | "Unicode" {
+  return [...text].every(
+    (c) => gsmBasic.includes(c) || "^{}\\[~]|€".includes(c),
+  )
+    ? "GSM-7"
+    : "Unicode";
+}
 export function segments(text: string) {
   if (!text.length) return 0;
   let length = 0;

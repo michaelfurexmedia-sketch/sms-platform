@@ -298,3 +298,110 @@ test("mobile menu, theme persistence, keyboard search and reduced motion remain 
     page.getByRole("heading", { name: "Automations", exact: true }),
   ).toBeVisible();
 });
+
+test("campaign scheduling, pause, resume, cancel and duplication are connected", async ({
+  page,
+}) => {
+  await enterDemo(page);
+  await page.goto("/app/campaigns");
+  await page
+    .getByRole("button", { name: "Create campaign", exact: true })
+    .first()
+    .click();
+  let dialog = page.getByRole("dialog");
+  await dialog.getByLabel("Campaign name").fill("Seasonal reminder");
+  await dialog.getByRole("button", { name: "Continue", exact: true }).click();
+  await dialog.getByRole("button", { name: "Continue", exact: true }).click();
+  await dialog
+    .getByLabel("Message", { exact: true })
+    .fill(
+      "Hi {{first_name}}, an appointment is available. Reply STOP to opt out.",
+    );
+  await dialog.getByRole("button", { name: "Continue", exact: true }).click();
+  await dialog.getByLabel("When to send").selectOption("Future");
+  await dialog
+    .getByLabel("Schedule time zone")
+    .selectOption("America/New_York");
+  const future =
+    new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10) + "T12:00";
+  await dialog.getByLabel("First send date and time").fill(future);
+  await expect(
+    dialog.getByRole("button", { name: "Confirm schedule" }),
+  ).toBeDisabled();
+  await dialog
+    .getByLabel(
+      "I reviewed consent, excluded recipients, sender and estimated usage.",
+    )
+    .check();
+  await dialog.getByRole("button", { name: "Confirm schedule" }).click();
+  dialog = page.getByRole("dialog");
+  await dialog.getByRole("button", { name: "Pause schedule" }).click();
+  await dialog.getByRole("button", { name: "Resume schedule" }).click();
+  await dialog
+    .getByRole("button", { name: "Cancel campaign", exact: true })
+    .click();
+  await dialog.getByRole("button", { name: "Confirm cancellation" }).click();
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("cell", { name: "Canceled", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Duplicate", exact: true }).click();
+  await expect(page.getByLabel("Campaign name")).toHaveValue(
+    "Seasonal reminder copy",
+  );
+});
+test("number discovery, simulated checkout, invoice and release require explicit actions", async ({
+  page,
+}) => {
+  await enterDemo(page);
+  await page.goto("/app/numbers");
+  await page.getByRole("button", { name: "Get another number" }).click();
+  await page
+    .getByRole("combobox", { name: "Country", exact: true })
+    .selectOption("Canada");
+  await page.getByLabel("Area code", { exact: true }).fill("416");
+  await page.getByRole("radio").first().check();
+  await page.getByRole("button", { name: "Continue to checkout" }).click();
+  await page.getByRole("button", { name: "Simulate failed payment" }).click();
+  await expect(page.getByText(/Demo payment declined/)).toBeVisible();
+  await page.getByRole("button", { name: "Confirm simulated payment" }).click();
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download invoice" }).click();
+  expect((await download).suggestedFilename()).toBe("invoice-demo.csv");
+  await page.keyboard.press("Escape");
+  await page
+    .getByLabel("Manage assigned number")
+    .selectOption("+1 (416) 555-0113");
+  await page
+    .getByRole("button", { name: "Release number", exact: true })
+    .click();
+  await page.getByLabel("Release reason").fill("Synthetic review completed");
+  await page.getByRole("button", { name: "Confirm release" }).click();
+  await expect(page.getByRole("status")).toContainText("Number released");
+});
+test("frontend resource sample records transfer size and load timing", async ({
+  page,
+}, testInfo) => {
+  await page.goto("/");
+  await page.getByRole("heading", { level: 1 }).waitFor();
+  const sample = await page.evaluate(() => {
+    const n = performance.getEntriesByType(
+      "navigation",
+    )[0] as PerformanceNavigationTiming;
+    const r = performance.getEntriesByType(
+      "resource",
+    ) as PerformanceResourceTiming[];
+    return {
+      domContentLoadedMs: Math.round(n.domContentLoadedEventEnd),
+      jsTransferredBytes: r
+        .filter((x) => x.name.includes(".js"))
+        .reduce((s, x) => s + x.transferSize, 0),
+      requests: r.length,
+    };
+  });
+  await testInfo.attach("resource-sample.json", {
+    body: JSON.stringify(sample, null, 2),
+    contentType: "application/json",
+  });
+  expect(sample.jsTransferredBytes).toBeLessThan(1500000);
+});

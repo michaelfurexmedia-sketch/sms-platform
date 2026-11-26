@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 2,
-  "active_milestone": "2.9 QA fixes recovered after usage interruption",
+  "active_milestone": "Final frontend acceptance: campaign confirmation, accessible sidebars and checkout regression",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "1300f8b6fee9b84642a9ca9ee3ebc5b0049885ba",
+  "last_known_implementation_checkpoint": "fdc26b12f70622054881d3b5e7d4043af95e59a5",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -105,16 +105,20 @@
       "docker": "Combined CI pending; earlier foundation Docker run passed"
     },
     "phase2": {
-      "typecheck": "passed after dependency restoration",
-      "lint": "passed after restoration",
-      "unit": "19 passed after restoration",
-      "build": "pending rerun",
-      "browser": "Prior complete run: 25 passed, 7 failed. Recovered accessibility and route fixes await fresh browser verification."
+      "typecheck": "passed",
+      "lint": "passed",
+      "unit": {
+        "passed": 19,
+        "failed": 0
+      },
+      "worker_compile": "passed",
+      "production_build": "passed",
+      "format": "passed",
+      "browser": "34/35 full suite passed; remaining locator corrected and targeted checkout test passed; full rerun in progress",
+      "accessibility": "45 automated scans passed in last full run"
     }
   },
-  "known_bugs": [
-    "Workspace accessibility fixes require rerun; previous interrupted-run results were not preserved"
-  ],
+  "known_bugs": [],
   "required_dependencies": {
     "runtime": "Node 22",
     "package_manager": "npm",
@@ -147,7 +151,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Run production build and browser suite; fix remaining failures; push verified source and finalize Phase 2 documentation.",
+  "next_action": "Finish full browser rerun and worker integration, update Phase 2 acceptance documentation, verify CI and prepare owner preview review.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,

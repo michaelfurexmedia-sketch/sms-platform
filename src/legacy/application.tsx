@@ -219,7 +219,10 @@ function Content() {
         data-theme={theme}
         style={brandVariables(theme)}
       >
-        <aside className={`sidebar ${menu ? "is-open" : ""}`}>
+        <aside
+          aria-label={admin ? "Administration sidebar" : "Workspace sidebar"}
+          className={`sidebar ${menu ? "is-open" : ""}`}
+        >
           <div className="sidebar-logo">
             <Logo />
             <button
