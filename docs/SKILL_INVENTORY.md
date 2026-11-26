@@ -22,7 +22,11 @@ in the prior inventory. Do not claim its use. Backend/security implementation
 remains gated; contract/infra design follows saved requirements and prior official
 documentation. Missing skill companion scripts have not been run.
 
-Local executor/browser tools are unavailable in this continuation. Actual fresh
+The executor was initially unavailable; it returned during final verification. Fresh
 execution uses GitHub Actions Node, Valkey, Playwright and Docker; results must
 be read from the exact workflow commit. Cloud GitHub tools persist source and
 verify read-back. Do not describe remote checks as local checks.
+
+After recovery, local Playwright, unit/build checks and the real Valkey integration
+were rerun. The prior browser runtime was reused; no new skill discovery or
+reference research was needed.

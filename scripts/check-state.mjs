@@ -44,7 +44,9 @@ if (state.active_phase >= 3) {
     !approval.approved_at ||
     !approval.evidence
   ) {
-    throw new Error("Phase 3+ requires recorded explicit owner frontend approval");
+    throw new Error(
+      "Phase 3+ requires recorded explicit owner frontend approval",
+    );
   }
 }
 console.log("Development state and phase gate valid");

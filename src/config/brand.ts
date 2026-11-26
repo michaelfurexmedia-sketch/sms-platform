@@ -17,6 +17,12 @@ export const brand = {
   },
   colors: {
     light: {
+      legacyMist: "#e9ece5",
+      legacySuccessBg: "#edf6ed",
+      legacyDangerBg: "#fff0ed",
+      legacyAmber: "#845614",
+      legacyAmberBg: "#fff2d9",
+      legacyOverlay: "#18232170",
       paper: "#f5f4ef",
       surface: "#ffffff",
       ink: "#17251f",
@@ -29,6 +35,12 @@ export const brand = {
       danger: "#a02b30",
     },
     dark: {
+      legacyMist: "#2b3b34",
+      legacySuccessBg: "#183a2a",
+      legacyDangerBg: "#442625",
+      legacyAmber: "#f4d08b",
+      legacyAmberBg: "#3b2e16",
+      legacyOverlay: "#000000a6",
       paper: "#111a17",
       surface: "#19241f",
       ink: "#eef3ee",

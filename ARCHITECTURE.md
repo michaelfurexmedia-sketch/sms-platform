@@ -51,3 +51,12 @@ its Redis connection and processing state. Logs use generic error messages.
 
 These are acceptance requirements for later phases, not completed features.
 Business backend implementation remains gated on explicit frontend approval.
+
+## Recovered preview boundary
+
+The original synthetic frontend is retained in src/legacy with scoped CSS and
+a small Next navigation adapter for /preview. Its src/lib model/store/services
+remain browser-local simulations, clearly labelled in the UI. No provider SDK
+or business server endpoint is called. The original storage key is preserved.
+The recovered UI delegates dialogs to the shared fixed Modal component.
+This preserves reusable work for Phase 2 without replacing the tested foundation.

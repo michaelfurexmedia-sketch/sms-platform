@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 1,
-  "active_milestone": "WIP: final formatting and persistent-state gates",
+  "active_milestone": "WIP: combined recovered foundation verified locally; final CI pending",
   "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "a7f9e8909d556e3338c83ecaffa83f00fc0bf63f",
+  "last_known_implementation_checkpoint": "8da83923606ad706f173868a59025b7bec1f7b50",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -15,11 +15,15 @@
     "Persisted CI-generated npm lockfile; added setup/deployment/design documentation",
     "All four Docker services reached healthy and web HTTP probe passed",
     "Visually reviewed desktop light, tablet dark and mobile light screenshots",
-    "Applied deterministic Prettier formatting generated in CI"
+    "Applied deterministic Prettier formatting generated in CI",
+    "Original workspace returned; all 16 original unit tests passed again; raw WIP snapshot committed and verified on GitHub",
+    "Recovered previews retained under /preview with original storage key and journey tests",
+    "Recovered dialogs reuse shared focus fix; corrected demo locator and mobile table overflow verified",
+    "Combined local checks passed: build, types, lint, formatting, state gate, 16 unit, 1 worker integration and 16 browser tests including six accessibility scans"
   ],
   "pending_tasks": [
-    "Verify final formatting/state gates with the full suite",
-    "Record final source checkpoint and open Phase 1 PR"
+    "Verify combined source and Docker health on GitHub Actions",
+    "Record final checkpoint and open Phase 1 pull request; stop"
   ],
   "partially_implemented_tasks": [],
   "relevant_files": [
@@ -60,6 +64,29 @@
       "docker": "passed: build and readiness for web, worker, queue and database; HTTP health 200",
       "format": "formatting applied; final check pending",
       "state_check": "new gate pending"
+    },
+    "local_recovered_combination": {
+      "date": "2026-11-26",
+      "build": "passed",
+      "worker_compile": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "format": "passed",
+      "state_check": "passed",
+      "unit": {
+        "passed": 16,
+        "failed": 0
+      },
+      "worker_integration": {
+        "passed": 1,
+        "failed": 0
+      },
+      "browser": {
+        "passed": 16,
+        "failed": 0,
+        "includes_accessibility_scans": 6
+      },
+      "docker": "Combined CI pending; earlier foundation Docker run passed"
     }
   },
   "known_bugs": [],
@@ -79,10 +106,10 @@
     "ENABLE_LIVE_BILLING=false"
   ],
   "preview_status": {
-    "phase1": "Interactive component gallery and root entry saved; screenshots in CI artifact",
-    "public_website": "Phase 2 not started",
-    "customer_dashboard": "Phase 2 not started; old local demo inaccessible",
-    "super_admin": "Phase 2 not started; old local demo inaccessible",
+    "phase1": "Interactive shared library at /design-system; recovered previews retained",
+    "public_website": "Recovered synthetic preview: /preview; Phase 2 not completed",
+    "customer_dashboard": "Recovered synthetic preview: /preview/app; choose Explore demo workspace",
+    "super_admin": "Recovered synthetic preview: /preview/admin; no operational authorization",
     "commands": [
       "npm run setup",
       "npm run dev",
@@ -95,11 +122,13 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Verify final CI including setup, state gate and formatting. Explicit Next TypeScript defaults now prevent build-time config rewrites. If green, record final evidence, open Phase 1 PR and stop.",
+  "next_action": "Inspect GitHub Actions for the recovered integration checkpoint, then finalize state/status/QA, open Phase 1 PR and stop.",
   "recovery": {
     "source_reconstructed": true,
-    "original_files_recovered": false,
+    "original_files_recovered": true,
     "record": "docs/PHASE1_RECOVERY.md",
-    "do_not_depend_on_old_workspace": true
+    "do_not_depend_on_old_workspace": true,
+    "snapshot_branch": "recovered-phase1-wip",
+    "snapshot_commit": "a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d"
   }
 }

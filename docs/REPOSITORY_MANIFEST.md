@@ -4,9 +4,11 @@ Read DEVELOPMENT_STATE.json for the active branch/checkpoint. Do not repeat the
 initial repository analysis. Original remote preparation commit:
 61984b4ff16495f8ceb65fb04b61849bba0f8b17. Recovery record: docs/PHASE1_RECOVERY.md.
 
-The old local 33-file frontend and later uncommitted foundation remain inaccessible.
-Only documentation was available remotely. The owner authorized reconstruction
-of missing Phase 1; all existing remote documents/history are preserved.
+The original workspace returned during final verification. Its complete WIP was
+saved at a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d on recovered-phase1-wip.
+The active branch preserves the recovered components in src/legacy, domain/store
+modules in src/lib and original journey tests. Previews are scoped to /preview;
+shared foundation styling and infrastructure remain intact.
 
 | Paths                                                         | Implemented responsibility                                             |
 | ------------------------------------------------------------- | ---------------------------------------------------------------------- |
@@ -36,6 +38,6 @@ business schema/auth/tenancy (Phase 3 after approval), Twilio/compliance/inbox
 (Phase 4), Stripe/ledger (Phase 5), operational admin/automations (Phase 6),
 commercial readiness (Phase 7), production HTTPS/backups/rollback/launch (Phase 8).
 
-No restored legacy localStorage demo is claimed. If those files become available,
-compare them against the saved foundation and preserve useful work without
-resetting this branch.
+Recovered demo behavior is available under /preview. The original storage key
+and synthetic fixtures are preserved. Source snapshots and the historical
+recovery record remain available; see docs/RECOVERY_RESOLUTION.md.

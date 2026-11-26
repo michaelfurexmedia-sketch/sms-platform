@@ -28,8 +28,9 @@ temporary workspace is needed for the saved implementation.
 | ----------------------------------- | -------------------------------------------------------------------------------------------- |
 | http://localhost:3000/              | Phase 1 foundation entry page                                                                |
 | http://localhost:3000/design-system | Interactive component library; light/dark themes, forms, dialog, table/chart, state examples |
-| Customer dashboard                  | Phase 2; not reconstructed from inaccessible old demo                                        |
-| Super Admin Portal                  | Phase 2; not implemented as an operational portal                                            |
+| http://localhost:3000/preview       | Recovered synthetic public website                                                           |
+| http://localhost:3000/preview/app   | Recovered customer demo; choose “Explore demo workspace” on /preview                         |
+| http://localhost:3000/preview/admin | Recovered Super Admin demo, not an authorized operational portal                             |
 
 All examples use src/demo/seed.ts synthetic data and in-memory state.
 The preview never sends SMS or charges money.
@@ -69,9 +70,10 @@ for commands, limitations and the prelaunch requirements.
 - [Repository manifest](docs/REPOSITORY_MANIFEST.md), [QA evidence](docs/QA.md)
 - [Recovery history](docs/PHASE1_RECOVERY.md), [skills](docs/SKILL_INVENTORY.md), [references](docs/REFERENCES.md)
 
-The old uncommitted frontend could not be accessed. This branch reconstructs
-only Phase 1 from its saved decisions, preserving all existing remote records.
-It does not claim restoration of the old customer/admin demo or its tests.
-No real authentication, tenancy enforcement, billing or provider integrations
-are implemented. Phase 2 needs an interactive preview and explicit owner
-approval before Phase 3 backend development.
+The original workspace became accessible during final verification. Its source
+is preserved on recovered-phase1-wip and useful demo screens/domain code are
+retained under /preview. They use localStorage and simulated services, not real
+authentication, tenant enforcement, payments or SMS. The separate /design-system
+library remains the shared foundation for Phase 2. No old work was discarded.
+Phase 2 still requires an interactive preview and explicit owner approval before
+Phase 3 backend development. See docs/RECOVERY_RESOLUTION.md.

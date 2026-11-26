@@ -1,41 +1,40 @@
 # Phase 1 validation
 
-## Fresh reconstruction evidence
+## Combined recovered implementation — local, 2026-11-26
 
-Source checkpoint: e26d59648c32f882b0b0e2b2dfe525f44f0ae60a.
-Workflow: https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45756375117
+- Production Next standalone build, worker compilation, strict TypeScript and lint passed.
+- Formatting and persistent-state/phase-approval gate passed.
+- 16 unit tests passed: four foundation guards plus 12 recovered domain journeys.
+- One real Valkey worker integration test passed: queued jobs across restarts,
+  unsupported job rejection and graceful shutdown.
+- 16 browser tests passed: 13 foundation tests plus three recovered-preview
+  tests for public/customer/admin routes, modal focus and mobile navigation.
+- Six axe/overflow/runtime-error scans passed for the shared gallery: light/dark
+  at 1440, 768 and 390px. These scans do not certify every recovered legacy screen.
+- Screenshots reviewed for the gallery: desktop light, tablet dark, mobile light.
+  Recovered mobile contacts were inspected during the overflow fix.
 
-- Production Next standalone build and worker compilation passed.
-- Strict TypeScript and accessibility-aware lint passed.
-- Four unit tests passed: branding, demo-only/live-operation guards,
-  environment validation and supported/rejected worker payloads.
-- One real Valkey integration test passed: queued jobs across two worker
-  starts/stops, unsupported-job rejection and clean SIGTERM shutdown.
-- Thirteen browser tests passed, including dialog Tab/Shift+Tab containment,
-  Escape/opener restoration, link-role locator, forms, tabs, chart data,
-  filtering/pagination, retry state, reduced motion and health/header checks.
-- Six axe WCAG/overflow/runtime-error scans passed: light/dark at widths
-  1440, 768 and 390.
-- Docker images built; web, worker, Valkey and PostgreSQL reached healthy;
-  web HTTP health returned 200.
-- Screenshots visually reviewed: desktop light, tablet dark, mobile light.
-  No clipping or unintentional overflow found in reviewed views.
-- Formatting was generated with Prettier and is saved in the final source
-  checkpoint; its enforcement and the new state gate await the final rerun.
+The original focus issue is fixed through reuse of the shared Modal. Tests use
+the correct Explore demo workspace button and separately verify the Explore the
+demo link. The hidden table label is contained by a positioned scroll region,
+preserving horizontal table scrolling without page overflow.
 
-Execution used GitHub Actions because the interactive executor was unavailable.
-Screenshots/traces are in the workflow browser-evidence artifact.
+## CI evidence
 
-## Recovery and limits
+Earlier reconstructed foundation checkpoint e26d59648c32f882b0b0e2b2dfe525f44f0ae60a
+passed the full CI and Docker health checks:
+https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45756375117
 
-The original 16-unit/seven-browser pass counts are historical only. The old
-12-test domain suite and local demo files could not be accessed; they were not
-claimed as recovered. Fresh results above apply to the reconstructed source.
+The combined recovered implementation is awaiting its final GitHub Actions run.
+This section must be updated with the actual source SHA and result before closure.
 
-During reconstruction, CI caught and resolved a ProcessEnv type mismatch,
-native disclosure keyboard-handler lint issue and CI/Compose queue port
-collision. No unresolved application defect is known within tested Phase 1.
+## Limits
 
-Not performed: commercial load/security certification, screen-reader testing,
-production provider operations, hosting deployment or backup/restore rehearsal.
-The owner has not yet reviewed/approved a Phase 2 interactive frontend.
+No production load/security certification, screen-reader audit, provider operations,
+hosting deployment or backup/restore rehearsal. The recovered role switcher,
+financial receipts and browser scheduling are explicitly simulated. Test coverage
+of those models does not prove server authentication, tenant isolation or financial
+correctness for a real backend. Phase 2 owner approval has not been recorded.
+
+Historical recovery evidence remains unchanged in PHASE1_RECOVERY.md; successful
+source restoration is documented in RECOVERY_RESOLUTION.md.

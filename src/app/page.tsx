@@ -16,6 +16,9 @@ export default function Home() {
           later phases.
         </p>
         <Link href="/design-system">Explore the component library →</Link>
+        <p>
+          <Link href="/preview">Open recovered frontend preview →</Link>
+        </p>
       </main>
     </>
   );
