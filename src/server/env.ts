@@ -1,4 +1,4 @@
-export function readEnvironment(source: NodeJS.ProcessEnv, service: "web" | "worker" = "web") {
+export function readEnvironment(source: Record<string, string | undefined>, service: "web" | "worker" = "web") {
   if ((source.APP_MODE ?? "demo") !== "demo") throw new Error("Only APP_MODE=demo is implemented");
   for (const key of ["ENABLE_LIVE_SMS", "ENABLE_LIVE_BILLING"]) {
     if (source[key] !== undefined && source[key] !== "false") throw new Error(key + " must be false");

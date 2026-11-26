@@ -5,6 +5,7 @@ import "@fontsource/geist/400.css";
 import "@fontsource/geist/500.css";
 import "@fontsource/geist/600.css";
 import "./globals.css";
+import "../styles/foundation.css";
 import { brand, brandVariables } from "@/config/brand";
 
 export const metadata: Metadata = {

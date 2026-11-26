@@ -1,14 +1,11 @@
 # Project status
 
-Updated: 2026-11-26. **Phase 1 WIP; Phase 2 not started.**
+Phase 1 WIP on phase-1-recovery. Phase 2 not started.
 
-Active branch: phase-1-recovery. [Machine-readable continuation state](DEVELOPMENT_STATE.json).
-Initial reconstructed source is saved at d5ee305b133e8f8d582e0f07606710d123d2f518; GitHub source read-back succeeded. CI is running; no new test pass is claimed yet.
+Saved: reconstructed web/worker foundation, centralized branding, shared component library, synthetic data and responsive light/dark gallery. Source is committed incrementally; old local demo files remain inaccessible. Recovery record is preserved.
 
-Previous executor and backups remain inaccessible. Reconstruction is authorized; no old source was recovered or overwritten. The recovery record remains unchanged. The original local customer/admin demo is not present on GitHub and is not represented as restored.
+Fresh first CI: dependency installation/audit and lint passed; TypeScript found an environment-input typing error, fixed in the component checkpoint. Other checks have not yet run. See DEVELOPMENT_STATE.json for evidence and next action.
 
-Next: shared components/focus fix, module contracts, portable Docker configuration, lockfile and fresh comprehensive checks. See development state for exact continuation.
+Pending: lockfile, Docker, module contracts, worker/browser/accessibility tests and complete verification/documentation. No business backend or live integrations implemented.
 
-**Approval gate:** Phase 2 must include an interactive frontend preview and explicit owner approval before Phase 3 backend work. Approval is not recorded. Phase 1 includes only infrastructure probe scaffolding, not messaging, billing, authentication or tenant services.
-
-Every meaningful milestone must push implementation plus updated status/state. Unfinished checkpoints are WIP. Never force-push or merge unstable work into main.
+Phase 2 interactive frontend preview and explicit owner approval are mandatory before Phase 3. Approval not recorded.
