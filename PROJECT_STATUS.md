@@ -6,3 +6,7 @@ Existing recovered functionality is preserved; public routes reuse auth and conv
 All actions remain synthetic. No business backend or provider connections.
 Owner frontend approval is not recorded; Phase 3 is blocked.
 See DEVELOPMENT_STATE.json for checkpoint and exact next action.
+
+Checkpoint ab453b5: public source verified remotely; production build passed.
+Customer shell now includes workspace switch/create, search, notifications, account menu, collapse and theme.
+Dashboard derives synthetic usage and onboarding. New module routes are being filled before final QA.

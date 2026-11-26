@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import { Provider, useStore } from "@/lib/store";
 import { brand, count } from "@/lib/config";
 import { Home, Features, Pricing, Auth, DemoButton } from "./public";
-import { Overview, Numbers, Billing, Team } from "./customer";
+import { Numbers, Billing, Team } from "./customer";
 import { Contacts, Campaigns, InboxScreen } from "./messaging";
 import { AdminScreen } from "./admin";
 import {
@@ -27,12 +27,22 @@ import {
   LogOut,
   Mail,
 } from "./ui";
+import { Dashboard, WorkspaceTools } from "@/frontend/workspace";
+import { brandVariables } from "@/config/brand";
+import "@/frontend/workspace.css";
 const customerNav = [
   ["Overview", "/app/", LayoutDashboard],
   ["Inbox", "/app/inbox/", Inbox],
   ["Contacts", "/app/contacts/", Users],
   ["Campaigns", "/app/campaigns/", Send],
   ["Numbers & verification", "/app/numbers/", Phone],
+  ["Compliance", "/app/compliance/", ShieldCheck],
+  ["Templates", "/app/templates/", Mail],
+  ["Automations", "/app/automations/", Send],
+  ["Analytics", "/app/analytics/", LayoutDashboard],
+  ["Integrations", "/app/integrations/", Settings],
+  ["Settings", "/app/settings/", Settings],
+  ["Support", "/app/support/", Mail],
   ["Team", "/app/team/", Users],
   ["Billing", "/app/billing/", CreditCard],
 ] as const;
@@ -59,6 +69,13 @@ function Content() {
     router = useRouter(),
     { state, ready, mutate, error, clearError } = useStore();
   const [menu, setMenu] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("sms-theme") === "dark") setTheme("dark");
+    } catch {}
+  }, []);
   useEffect(() => {
     if (!menu) return;
     const opener = document.activeElement as HTMLElement | null;
@@ -172,7 +189,11 @@ function Content() {
   return (
     <>
       {prototype}
-      <div className={`app-shell ${admin ? "admin-shell" : ""}`}>
+      <div
+        className={`app-shell ${admin ? "admin-shell" : ""} ${collapsed ? "collapsed" : ""}`}
+        data-theme={theme}
+        style={brandVariables(theme)}
+      >
         <aside className={`sidebar ${menu ? "is-open" : ""}`}>
           <div className="sidebar-logo">
             <Logo />
@@ -290,14 +311,22 @@ function Content() {
                 (x) => x[1].split("/")[2] === path.split("/")[2],
               )?.[0] || (admin ? "Customers" : "Overview")}
             </span>
-            <div className="header-user">
-              <span>{admin ? "Owner admin" : w!.email}</span>
-              <span className="mini-avatar">
-                {admin ? "OA" : w!.email.slice(0, 2).toUpperCase()}
-              </span>
-            </div>
+            <WorkspaceTools
+              admin={admin}
+              w={w}
+              collapsed={collapsed}
+              onCollapse={() => setCollapsed(!collapsed)}
+              theme={theme}
+              onTheme={() => {
+                const next = theme === "light" ? "dark" : "light";
+                setTheme(next);
+                try {
+                  localStorage.setItem("sms-theme", next);
+                } catch {}
+              }}
+            />
           </header>
-          <main className="workspace-main">
+          <main id="workspace-main" className="workspace-main">
             {error && (
               <Notice tone="error">
                 {error}
@@ -321,7 +350,7 @@ function Content() {
             ) : section === "billing" ? (
               <Billing w={w!} />
             ) : (
-              <Overview w={w!} />
+              <Dashboard w={w!} />
             )}
           </main>
         </div>

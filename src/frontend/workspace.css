@@ -1,0 +1,240 @@
+.legacy-app .app-shell {
+  --radius: 6px;
+}
+.legacy-app .workspace-main {
+  max-width: 1600px;
+  width: 100%;
+  margin: auto;
+}
+.workspace-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.workspace-tools select {
+  max-width: 180px;
+  font-size: 14px;
+  border: 1px solid var(--line);
+  min-height: 44px;
+  padding: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 6px;
+}
+.workspace-tools .button {
+  padding: 10px;
+  min-width: 44px;
+}
+.workspace-tools .dropdown {
+  font-size: 14px;
+}
+.workspace-tools .dropdown ul {
+  z-index: 30;
+}
+.notification-count {
+  font-size: 12px;
+}
+.legacy-app .workspace-header {
+  gap: 16px;
+  height: auto;
+  min-height: 88px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  flex-wrap: wrap;
+}
+.legacy-app .workspace-main > h1 {
+  font-size: 36px;
+}
+.dashboard-onboarding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.dashboard-onboarding h2 {
+  font-size: 22px;
+  max-width: 40ch;
+  margin: 10px 0;
+}
+.dashboard-onboarding p {
+  color: var(--muted);
+  font-size: 14px;
+}
+.dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-bottom: 16px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.dashboard-metrics > div {
+  padding: 24px 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.dashboard-metrics span {
+  font-size: 14px;
+  color: var(--muted);
+}
+.dashboard-metrics strong {
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.dashboard-columns {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+.dashboard-columns .panel {
+  padding: 24px;
+}
+.dashboard-columns h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+.dashboard-conversation {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+.dashboard-conversation > span:not(.badge) {
+  grid-column: 1;
+  font-size: 14px;
+  color: var(--muted);
+}
+.dashboard-conversation .badge {
+  grid-column: 2;
+  grid-row: 1;
+}
+.quick-links {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+}
+.search-results {
+  display: grid;
+  max-height: 50vh;
+  overflow: auto;
+  gap: 4px;
+  padding-top: 20px;
+}
+.search-results a {
+  padding: 12px;
+  border-bottom: 1px solid var(--line);
+  text-transform: capitalize;
+}
+.app-shell[data-theme="dark"] {
+  color-scheme: dark;
+  background: var(--paper);
+  color: var(--ink);
+}
+.legacy-app .collapsed .sidebar {
+  width: 92px;
+}
+.legacy-app .collapsed .sidebar nav a {
+  justify-content: center;
+}
+.legacy-app .collapsed .sidebar nav a span,
+.legacy-app .collapsed .workspace-name,
+.legacy-app .collapsed .sidebar-bottom,
+.legacy-app .collapsed .sidebar-logo .logo span {
+  display: none;
+}
+.legacy-app .collapsed .app-body {
+  margin-left: 92px;
+}
+.legacy-app .collapsed .sidebar-logo {
+  overflow: hidden;
+}
+.legacy-app .app-shell.collapsed {
+  grid-template-columns: 92px 1fr;
+}
+.workspace-main .chart {
+  margin: 0;
+}
+.workspace-main .chart figcaption {
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+.workspace-main .chart svg {
+  max-height: 330px;
+}
+@media (max-width: 1100px) {
+  .dashboard-columns {
+    grid-template-columns: 1fr;
+  }
+  .workspace-tools {
+    gap: 4px;
+  }
+  .tool-label {
+    display: none;
+  }
+}
+@media (max-width: 850px) {
+  .dashboard-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .legacy-app .app-shell.collapsed {
+    grid-template-columns: 1fr;
+  }
+  .legacy-app .collapsed .app-body {
+    margin-left: 0;
+  }
+  .legacy-app .collapsed .sidebar {
+    width: 260px;
+  }
+  .legacy-app .collapsed .sidebar nav a span,
+  .legacy-app .collapsed .workspace-name,
+  .legacy-app .collapsed .sidebar-bottom,
+  .legacy-app .collapsed .sidebar-logo .logo span {
+    display: revert;
+  }
+  .legacy-app .collapsed .sidebar nav a {
+    justify-content: flex-start;
+  }
+  .workspace-tools > button:first-child {
+    display: none;
+  }
+  .dashboard-onboarding {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .workspace-tools select {
+    max-width: 150px;
+  }
+  .legacy-app .workspace-header {
+    padding: 16px;
+  }
+  .workspace-tools {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (max-width: 600px) {
+  .dashboard-columns .panel {
+    padding: 20px;
+  }
+  .dashboard-metrics > div {
+    padding: 20px 8px;
+  }
+  .dashboard-metrics strong {
+    font-size: 28px;
+  }
+  .workspace-tools select {
+    max-width: 130px;
+  }
+}
