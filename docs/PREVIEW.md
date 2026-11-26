@@ -15,7 +15,9 @@ npm run dev
 Use a clean working tree before switching branches; preserve unrelated work.
 For the production build: `npm run build` then `npm start`.
 The local address is http://localhost:3000. This is not an externally hosted URL.
-No hosted preview has been published. A review host must run this same saved
+No public hosting deployment has been published. A temporary managed preview
+was verified in this chat cloud browser; these environment-local URLs are not
+public links on the owner’s computer. A review host must run the same saved
 source; do not rebuild the design or create another repository.
 
 | Route                                                             | Review                                                                   |
@@ -54,3 +56,32 @@ Owner review and approval are pending. Record explicit approval, reviewer,
 time and evidence in DEVELOPMENT_STATE.json and PROJECT_STATUS.md only after
 an actual review. `npm run state:check` rejects Phase 3+ without that record.
 Do not start backend development simply because frontend automated tests pass.
+
+## Managed cloud-browser preview
+
+In an environment with `sites-preview`, run:
+
+```sh
+sites-preview start /absolute/path/to/sms-platform
+sites-preview status
+```
+
+Open the exact URL returned by the command in the cloud browser. Verified session
+entry points: `http://127.0.0.1:4173/`, `http://127.0.0.1:4173/app`, and
+`http://127.0.0.1:4173/admin`. Use cloud-browser takeover to interact; opening
+these addresses on another computer does not connect to this environment.
+The server expires with the environment; rerun these commands after restoration.
+`npm run dev` still defaults to localhost:3000 for ordinary local setup.
+The startup adapter maps `--host` to Next’s `--hostname` and discards the
+launcher-specific `--strictPort`. No framework migration or new host is needed.
+Stop with `sites-preview stop` after owner review, not before handoff.
+
+For a fresh local clone:
+
+```sh
+git clone --branch phase-2-frontend https://github.com/michaelfurexmedia-sketch/sms-platform.git
+cd sms-platform
+nvm use
+npm run setup
+npm run dev
+```

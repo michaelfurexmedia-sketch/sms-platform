@@ -6,7 +6,7 @@
     "node": ">=22 <25"
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.mjs",
     "setup": "node scripts/setup.mjs",
     "build": "next build && node scripts/prepare-standalone.mjs",
     "start": "node scripts/start.mjs",

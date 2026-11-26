@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-26",
+  "updated": "2026-11-27",
   "active_phase": 2,
-  "active_milestone": "Phase 2 frontend complete and verified; Phase 2.5 interactive owner review pending",
+  "active_milestone": "Phase 2.5 \u2014 interactive preview review in progress",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "db9cf013b34a78c7321bc71288f0949dbbb0be5a",
+  "last_known_implementation_checkpoint": "4840c0fba84e0b082d40905f34cfd6c78eeefa03",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -113,14 +113,22 @@
       "npm run build && npm start"
     ],
     "live_url": null,
-    "hosted_preview": "not published; reproducible commands and owner walkthrough in docs/PREVIEW.md"
+    "hosted_preview": "not published; reproducible commands and owner walkthrough in docs/PREVIEW.md",
+    "managed_preview": {
+      "command": "sites-preview start <absolute-checkout>",
+      "public_website": "http://127.0.0.1:4173/",
+      "customer_dashboard": "http://127.0.0.1:4173/app",
+      "super_admin": "http://127.0.0.1:4173/admin",
+      "scope": "Temporary environment URL; opens through this chat cloud browser, not a public deployment",
+      "startup_adapter": "scripts/dev.mjs translates managed launcher flags to Next CLI options"
+    }
   },
   "owner_approval_status": {
     "frontend": "not_requested",
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Recreate the saved frontend for Phase 2.5 interactive owner review using docs/PREVIEW.md; record explicit approval before any Phase 3 work.",
+  "next_action": "Finish fresh browser verification and save FRONTEND COMPLETE \u2014 AWAITING OWNER APPROVAL. Hand over the interactive cloud browser; no backend work.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,

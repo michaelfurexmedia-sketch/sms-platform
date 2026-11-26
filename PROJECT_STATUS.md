@@ -11,3 +11,7 @@ The source is portable; no external preview hostname has been published. Review 
 [Draft PR #2](https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2) is open; main is unchanged.
 
 Next: Phase 2.5 interactive owner review. Frontend approval is not recorded; Phase 3 backend is blocked. No live messaging, billing or provider operations.
+
+Phase 2.5: temporary cloud-browser preview launched and three entry routes verified.
+Startup compatibility adapter added; fresh production build passed and browser
+suite is running. Owner approval remains pending.
