@@ -4,7 +4,7 @@
   "active_phase": 1,
   "active_milestone": "WIP: final formatting and persistent-state gates",
   "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "e26d59648c32f882b0b0e2b2dfe525f44f0ae60a",
+  "last_known_implementation_checkpoint": "a7f9e8909d556e3338c83ecaffa83f00fc0bf63f",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -95,7 +95,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Inspect CI for this final source checkpoint. If all steps pass, update docs/QA.md and state/status with the verified SHA, open a Phase 1 PR, stop. Do not begin Phase 2.",
+  "next_action": "Verify final CI including setup, state gate and formatting. Explicit Next TypeScript defaults now prevent build-time config rewrites. If green, record final evidence, open Phase 1 PR and stop.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": false,

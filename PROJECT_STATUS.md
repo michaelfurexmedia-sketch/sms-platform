@@ -19,3 +19,6 @@ Production auth, tenancy, database schema, messaging and billing are deferred.
 
 **Owner approval:** not recorded. Phase 2 must provide an interactive frontend
 preview and explicit owner approval before Phase 3. Do not advance automatically.
+
+Explicit Next TypeScript defaults are now saved so builds do not rewrite the
+configuration. Final CI includes setup, persistent-state and formatting checks.
