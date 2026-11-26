@@ -1,0 +1,55 @@
+name: Phase 1 validation
+on:
+  push:
+    branches: [main, phase-1-recovery]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: phase1-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      valkey:
+        image: valkey/valkey:8.1.4-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "valkey-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 10
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      APP_MODE: demo
+      QUEUE_URL: redis://127.0.0.1:6379
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install reproducible dependencies when lockfile exists
+        run: |
+          if test -f package-lock.json; then npm ci; else npm install; fi
+      - name: Preserve dependency lock for recovery
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-lock
+          path: package-lock.json
+      - run: npm run check
+      - name: Integration and browser tests when available
+        run: |
+          if test -f tests/worker.integration.ts; then npm run test:worker; fi
+          if test -f playwright.config.ts; then npx playwright install --with-deps chromium && npm run test:browser; fi
+      - name: Preserve browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-evidence
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore

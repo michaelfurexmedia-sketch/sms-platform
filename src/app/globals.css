@@ -1,0 +1,17 @@
+@import "tailwindcss";
+:root { font-family: "Geist", sans-serif; color: var(--ink); background: var(--paper); }
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input, select, textarea { font: inherit; }
+a { color: inherit; text-underline-offset: 4px; }
+button, a, input, select, textarea { touch-action: manipulation; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+h1, h2, h3 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 500; letter-spacing: -.035em; line-height: 1.08; }
+h1 { font-size: clamp(2.75rem, 6vw, 5.5rem); max-width: 14ch; margin: 0; }
+p { line-height: 1.65; }
+.foundation-home { max-width: 1120px; padding: 64px 24px; margin: auto; }
+.eyebrow { text-transform: uppercase; letter-spacing: .12em; font-size: .75rem; font-weight: 600; }
+.intro { max-width: 52ch; color: var(--muted); }
+.skip-link { position: fixed; left: 16px; top: -100px; z-index: 100; background: var(--surface); padding: 12px; }
+.skip-link:focus { top: 16px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
