@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-27",
   "active_phase": 2,
-  "active_milestone": "FRONTEND COMPLETE \u2014 AWAITING OWNER APPROVAL",
+  "active_milestone": "2.6.0 \u2014 preserved baseline; refinement in progress",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "599917b4a8916377007914dd15a862a474e3d3b5",
+  "last_known_implementation_checkpoint": "5aa78af30c96d02ce7defc39f10cb2189e1edb83",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -16,8 +16,14 @@
     "Phase 2.5 preview restored from GitHub; startup adapter pushed; three actual application routes opened in cloud browser; fresh 35 browser tests and 45 axe scans passed"
   ],
   "pending_tasks": [
-    "Owner interactive review and any requested targeted design revisions",
-    "Explicit owner approval with approved frontend commit, reviewer, date and evidence"
+    "2.6.1 Color tokens and typography",
+    "2.6.2 Public website refinement",
+    "2.6.3 Customer dashboard refinement",
+    "2.6.4 Remove public administrator switching",
+    "2.6.5 Local-only admin separation and refinement",
+    "2.6.6 Responsive accessibility",
+    "2.6.7 Verification and preview",
+    "Explicit owner approval before Phase 3"
   ],
   "partially_implemented_tasks": [],
   "relevant_files": [
@@ -102,6 +108,9 @@
       },
       "manual_review": "Actual cloud-browser public/customer/admin pages, dashboard dark theme/chart data, search dialog/filter and admin customer filter verified",
       "unit_worker_docker": "Not rerun locally for preview-only change; prior Phase 2 CI evidence retained separately"
+    },
+    "phase26": {
+      "status": "Not yet run; earlier results are historical"
     }
   },
   "known_bugs": [],
@@ -143,16 +152,16 @@
     "live_url_scope": "Environment-local; use this chat cloud-browser handoff, not an ordinary browser on another machine"
   },
   "owner_approval_status": {
-    "frontend": "awaiting_owner_approval",
+    "frontend": "revision_requested",
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "review_candidate_commit": "599917b4a8916377007914dd15a862a474e3d3b5",
     "approved_frontend_commit": null,
     "approved_by": null,
     "approved_at": null,
     "evidence": null,
-    "note": "User must review the actual interactive frontend and explicitly approve. Test success and preview preparation do not imply approval."
+    "note": "Owner rejected prior visual direction and requested Phase 2.6; no approval."
   },
-  "next_action": "STOP DEVELOPMENT. Await owner review. Apply only requested frontend revisions with checkpoints. On explicit approval, record the approved frontend commit and evidence; do not silently start Phase 3.",
+  "next_action": "Implement 2.6.1 semantic navy/pearl/coral tokens and typography; persist each milestone. Phase 3 blocked.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
@@ -172,6 +181,6 @@
   ],
   "pull_request": "https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2",
   "phase2_frontend_complete": true,
-  "status": "FRONTEND COMPLETE \u2014 AWAITING OWNER APPROVAL",
-  "review_stage": "Phase 2.5"
+  "status": "FRONTEND REVISION IN PROGRESS",
+  "review_stage": "Phase 2.6"
 }

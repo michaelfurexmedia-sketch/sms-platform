@@ -3,7 +3,7 @@
 ## Authority and current scope
 
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: Phase 2.5 interactive frontend preview and owner approval on phase-2-frontend. Status: FRONTEND COMPLETE — AWAITING OWNER APPROVAL. Phases 1 and 2 implementation are complete. Preserve recovery records and completed frontend; use targeted owner-requested revisions only. Do not begin Phase 3 before explicit approval.
+- Current assignment: Phase 2.6 premium frontend refinement on phase-2-frontend. Prior frontend is not approved. Preserve working flows; apply owner palette and private-admin separation. Do not begin Phase 3 before explicit approval.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 
@@ -286,3 +286,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Phase 2.6 permanent refinements
+
+- Official palette: Ink Navy #141B2D, Pearl White #F4F1EA, Electric Coral #FF5A4E. Central semantic tokens; accessible foregrounds; independent status colors. Preserve self-hosted licensed fonts.
+- Never expose customer-to-platform-admin switching or public admin registration/navigation. Customer workspace roles never grant platform privileges.
+- Until Phase 3 authentication, admin preview must be opt-in local-only or genuinely protected; a hidden URL or client state is not security.
+- Phase 3 requires secure owner provisioning, verified identity, mandatory MFA, separate server sessions, expiration/recovery/rate limits, authorization on every admin page/API/query/event, step-up for sensitive actions and attributable audit logs. Additional platform admins disabled unless owner authorizes.
+- Preserve a remote baseline, then checkpoint milestones 2.6.1 tokens/type, 2.6.2 marketing, 2.6.3 customer, 2.6.4 remove switching, 2.6.5 private admin, 2.6.6 accessibility, 2.6.7 verification/preview. No exposed credit counter: persist continuously; if available use 25% smaller batches, 15% preservation, 10% push/verify.
+- Final status: FRONTEND REVISED — AWAITING OWNER APPROVAL. Record approved commit only after explicit approval; stop before Phase 3.
