@@ -50,3 +50,7 @@ Tables retain real headers/captions rather than becoming inaccessible div grids.
 Target WCAG 2.2 AA. Automated axe checks, keyboard tests and responsive overflow
 checks are evidence, not a full human accessibility certification. Inspect
 screenshots and conduct assistive-technology review before commercial launch.
+
+Recovered legacy screens retain scoped styles under /preview and reuse the
+shared dialog. Their compatibility components preserve working behavior; use the
+shared foundation when refining these screens in Phase 2.

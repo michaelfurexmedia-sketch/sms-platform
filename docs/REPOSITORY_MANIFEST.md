@@ -24,16 +24,19 @@ shared foundation styling and infrastructure remain intact.
 | tests                                                         | New unit, worker integration and browser/accessibility tests           |
 | scripts, configs, Dockerfile, compose.yaml, .github/workflows | Portable setup, standalone build, validation and containers            |
 
+Recovered code: src/legacy (UI/navigation/scoped styles), src/lib (synthetic
+domain/store/services), tests/journeys.test.ts and tests/browser/recovered.spec.ts.
+
 ## Feature inventory
 
-Complete when validation passes: foundation UI components, configurable branding,
+Verified complete in Phase 1: foundation UI components, configurable branding,
 design gallery, environment guards, probe queue/worker and development tooling.
 
 Contract-only: authentication, workspaces, contacts, campaigns, messaging, billing,
 compliance, automations, analytics, administration. Type contexts do not grant
 authorization or provide isolation.
 
-Missing/deferred: full marketing/customer/admin surfaces (Phase 2), persistent
+Missing/deferred: production frontend refinement and owner approval (Phase 2), persistent
 business schema/auth/tenancy (Phase 3 after approval), Twilio/compliance/inbox
 (Phase 4), Stripe/ledger (Phase 5), operational admin/automations (Phase 6),
 commercial readiness (Phase 7), production HTTPS/backups/rollback/launch (Phase 8).

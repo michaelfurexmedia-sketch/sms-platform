@@ -1,6 +1,6 @@
 # Phase 1 validation
 
-## Combined recovered implementation — local, 2026-11-26
+## Combined recovered implementation — local and CI, 2026-11-26
 
 - Production Next standalone build, worker compilation, strict TypeScript and lint passed.
 - Formatting and persistent-state/phase-approval gate passed.
@@ -19,14 +19,21 @@ the correct Explore demo workspace button and separately verify the Explore the
 demo link. The hidden table label is contained by a positioned scroll region,
 preserving horizontal table scrolling without page overflow.
 
-## CI evidence
+## Final CI evidence
 
-Earlier reconstructed foundation checkpoint e26d59648c32f882b0b0e2b2dfe525f44f0ae60a
-passed the full CI and Docker health checks:
-https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45756375117
+Verified source commit: 54ffca7f333b79b0311ee68e06dc9045d9664556.
+Successful workflow: https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45820084123
 
-The combined recovered implementation is awaiting its final GitHub Actions run.
-This section must be updated with the actual source SHA and result before closure.
+Fresh setup from the committed lockfile, state gate, lint, TypeScript, build,
+worker compilation, formatting, 16 unit tests, 1 worker integration and all
+16 browser tests passed. Docker built both targets, all four Compose services
+became healthy and web HTTP health returned 200. Screenshots/traces are retained
+in this workflow's browser-evidence artifact. Preview source/configuration is
+permanent in GitHub; expiring artifacts are not required to restore it.
+
+The closure commit updates documentation/state only; runtime source remains
+identical to this tested implementation checkpoint. The raw recovery snapshot
+is a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d on recovered-phase1-wip.
 
 ## Limits
 

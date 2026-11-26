@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 1,
-  "active_milestone": "WIP: combined recovered foundation verified locally; final CI pending",
+  "active_milestone": "Phase 1 complete; stop before Phase 2",
   "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "8da83923606ad706f173868a59025b7bec1f7b50",
+  "last_known_implementation_checkpoint": "54ffca7f333b79b0311ee68e06dc9045d9664556",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -19,11 +19,11 @@
     "Original workspace returned; all 16 original unit tests passed again; raw WIP snapshot committed and verified on GitHub",
     "Recovered previews retained under /preview with original storage key and journey tests",
     "Recovered dialogs reuse shared focus fix; corrected demo locator and mobile table overflow verified",
-    "Combined local checks passed: build, types, lint, formatting, state gate, 16 unit, 1 worker integration and 16 browser tests including six accessibility scans"
+    "Combined local checks passed: build, types, lint, formatting, state gate, 16 unit, 1 worker integration and 16 browser tests including six accessibility scans",
+    "Final combined GitHub Actions validation passed, including Docker builds and healthy web/worker/queue/database"
   ],
   "pending_tasks": [
-    "Verify combined source and Docker health on GitHub Actions",
-    "Record final checkpoint and open Phase 1 pull request; stop"
+    "Await explicit Phase 2 assignment; do not begin automatically"
   ],
   "partially_implemented_tasks": [],
   "relevant_files": [
@@ -37,19 +37,29 @@
     "apps/worker/index.ts",
     "apps/worker/processor.ts",
     "tests/foundation.test.ts",
-    ".github/workflows/ci.yml"
+    ".github/workflows/ci.yml",
+    "src/legacy/application.tsx",
+    "src/legacy/navigation.tsx",
+    "src/lib/model.ts",
+    "tests/journeys.test.ts",
+    "tests/browser/recovered.spec.ts",
+    "docs/RECOVERY_RESOLUTION.md"
   ],
   "test_results": {
     "historical": "Prior results preserved in docs/PHASE1_RECOVERY.md; not current verification",
     "current": {
-      "commit": "e26d59648c32f882b0b0e2b2dfe525f44f0ae60a",
-      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45756375117",
+      "commit": "54ffca7f333b79b0311ee68e06dc9045d9664556",
+      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45820084123",
+      "result": "success",
+      "setup": "passed using committed lockfile",
       "production_build": "passed",
       "worker_compile": "passed",
       "typecheck": "passed",
       "lint": "passed",
+      "format": "passed",
+      "state_check": "passed",
       "unit": {
-        "passed": 4,
+        "passed": 16,
         "failed": 0
       },
       "worker_integration": {
@@ -57,13 +67,11 @@
         "failed": 0
       },
       "browser": {
-        "passed": 13,
+        "passed": 16,
         "failed": 0,
         "includes_accessibility_scans": 6
       },
-      "docker": "passed: build and readiness for web, worker, queue and database; HTTP health 200",
-      "format": "formatting applied; final check pending",
-      "state_check": "new gate pending"
+      "docker": "passed: both images built, four services healthy, HTTP health 200"
     },
     "local_recovered_combination": {
       "date": "2026-11-26",
@@ -122,7 +130,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Inspect GitHub Actions for the recovered integration checkpoint, then finalize state/status/QA, open Phase 1 PR and stop.",
+  "next_action": "Stop. On an explicit Phase 2 assignment, fetch phase-1-recovery (or its merged main equivalent), read AGENTS.md/status/state, run npm run setup and reuse /design-system plus /preview. Provide an interactive frontend preview and record explicit owner approval before Phase 3.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
@@ -130,5 +138,13 @@
     "do_not_depend_on_old_workspace": true,
     "snapshot_branch": "recovered-phase1-wip",
     "snapshot_commit": "a2b49e1a7665f19cb80adea1ddc3f6ab457cad1d"
-  }
+  },
+  "phase1_complete": true,
+  "limitations": [
+    "Recovered UI uses synthetic localStorage data and simulated auth/payments/messaging; not production services",
+    "Module contracts are not server authorization or tenant isolation",
+    "Real schema/migrations/auth and provider integrations belong to later approved phases",
+    "Chromium automation and six gallery axe scans are not a full assistive-technology audit",
+    "Production HTTPS, encrypted off-site backups, capacity validation and restore/rollback rehearsal remain later phases"
+  ]
 }
