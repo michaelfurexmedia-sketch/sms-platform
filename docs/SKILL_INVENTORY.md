@@ -1,29 +1,28 @@
 # Skill inventory
 
-Discovered 2026-11-26 from cloud and selected environment catalogs. Catalog presence does not guarantee companion tools/scripts, licenses or paid-service access. No paid service was installed or invoked.
+Reuse the prior discovery and instruction reads recorded in PHASE1_RECOVERY.md.
+No repeated inventory search, reference research, paid installation or subagents.
 
-| Available skill | Planned use / present status |
+| Available skill | Use and limits |
 | --- | --- |
-| ponytail | Read now; minimal documentation change and preservation of existing work |
-| graphify | Read now; applied its targeted-inspection path; no existing graph and no graph generated |
-| frontend-design | Read before Phase 1 visual implementation; original hierarchy/composition |
-| design-taste-frontend (Taste) | Read before visual work; one coherent direction and browser review |
-| design-system | Read before Phase 1 tokens/branding/components |
-| ui-ux-pro-max | Read before UI work; accessibility, interaction, responsive behavior; includes GSAP guidance |
-| ui-styling | Read before UI work; Tailwind/accessibility patterns |
-| impeccable | Read before UI work; critique, states and polish |
-| hallmark | Conditional new-page design; existing-design use requires its applicable trigger |
-| superdesign | Read before design work; check capability/cost first, no paid generation without approval |
-| chrome-devtools | Read before browser testing; verify underlying tool availability |
-| scrapling-official | Conditional public extraction if needed; avoid repeated research |
-| reverse-engineer-anything | Not needed for ordinary source analysis; no proprietary/private source extraction |
-| marketing-design | Deferred; no permanent brand or unnecessary generated imagery |
-| imagegen | Available, unnecessary for preparation |
-| openai-docs | Available, only applicable to OpenAI-related work |
-| documents / pdf / Presentations / Spreadsheets | Available, unrelated to this repository-preparation deliverable |
+| frontend-design, design-taste-frontend (Taste) | Editorial paper/cobalt direction, typography, disciplined spacing; instructions read earlier |
+| design-system, ui-styling, ui-ux-pro-max | Central tokens, semantic controls, responsive and accessibility requirements |
+| impeccable | Design review principles; referenced companion audit scripts unavailable |
+| Ponytail | Preserve working code, targeted changes and verification |
+| Graphify | No existing graph; targeted source/manifests appropriate; no graph generation claimed |
+| Superdesign | Earlier CLI preflight succeeded but no authentication; no canvas or generation used |
+| chrome-devtools | Earlier inspection guidance; MCP unavailable; Playwright equivalent tests used |
+| browser-testing | Newly read for this reconstruction; role-based interactions, keyboard/browser assertions and screenshot evidence |
+| creative-direction, motion-framer | Available in updated catalog; no new creative exploration or Framer dependency needed for CSS-only foundation |
+| hallmark, marketing-design, reverse-engineer-anything, scrapling-official | Catalogued; not needed for this bounded reconstruction |
+| documents, PDF, presentations, spreadsheets, imagegen, openai-docs and unrelated app skills | Available but not applicable |
 
-Other cloud skills discovered: Shopify/UCP, Higgsfield, Library, recipient resolution, template/skill creation, static previews, Pages, charts/visualizations, Sites, onboarding demos, learning, writing, image picking, Google Drive/Docs/Sheets/Slides/comments, plugin management, pets, personal context, user input and Canva. Not invoked: unrelated to current preparation.
+No dedicated installed architecture/database/security/DevOps skill was identified
+in the prior inventory. Do not claim its use. Backend/security implementation
+remains gated; contract/infra design follows saved requirements and prior official
+documentation. Missing skill companion scripts have not been run.
 
-GitHub connector is available and used for repository inspection/publication; no separate GitHub SKILL.md was listed. No dedicated architecture, database optimization, security engineering, DevOps or performance skill was listed; these responsibilities still apply through engineering work and official documentation. No standalone GSAP skill was listed.
-
-Future phase agents must read applicable instructions before implementation and record actual usage. Historical local DESIGN.md usage claims are not new executions. No numeric development-credit budget or model-switch control was exposed.
+Local executor/browser tools are unavailable in this continuation. Actual fresh
+execution uses GitHub Actions Node, Valkey, Playwright and Docker; results must
+be read from the exact workflow commit. Cloud GitHub tools persist source and
+verify read-back. Do not describe remote checks as local checks.

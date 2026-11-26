@@ -82,7 +82,7 @@ for (const width of [1440, 768, 390]) for (const theme of ["light", "dark"] as c
     expect(scan.violations).toEqual([]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     expect(errors).toEqual([]);
-    await page.screenshot({ path: "test-results/design-" + theme + "-" + width + ".png", fullPage: true });
+    await page.screenshot({ path: "test-results/design-" + theme + "-" + width + ".jpg", type: "jpeg", quality: 70, fullPage: true });
   });
 }
 test("reduced motion, retry state and health endpoint", async ({ page, request }) => {

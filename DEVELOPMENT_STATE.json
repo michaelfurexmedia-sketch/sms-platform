@@ -2,24 +2,26 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 1,
-  "active_milestone": "WIP: full Phase 1 test harness, module contracts and Docker",
+  "active_milestone": "WIP: lockfile and documentation; complete Docker validation",
   "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "75a356956782d60598c9f2b5f0cfbf20fbc7504e",
+  "last_known_implementation_checkpoint": "e8f6a79707ba417dbf4e9c0cc8735da581797b30",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
     "Pushed and verified initial reconstructed Next web, branding, environment validation and probe-only persistent worker",
     "Shared components, synthetic data and light/dark gallery reconstructed; dialog explicitly wraps forward/reverse focus",
-    "Module contracts, Docker Compose, synthetic preview data and fresh unit/browser/worker test scripts added"
+    "Module contracts, Docker Compose, synthetic preview data and fresh unit/browser/worker test scripts added",
+    "Fresh CI passed build, typecheck, lint, four unit tests, worker integration and 13 browser tests (including six accessibility scans)",
+    "Persisted CI-generated npm lockfile; added setup/deployment/design documentation"
   ],
   "pending_tasks": [
-    "Generate and commit lockfile from CI",
-    "Fix any new CI failures and rerun all checks",
-    "Format and finalize documentation",
-    "Create Phase 1 pull request after validation"
+    "Verify corrected Compose port mapping",
+    "Apply deterministic formatting from CI output",
+    "Review fresh visual evidence",
+    "Finalize current evidence and open Phase 1 PR"
   ],
   "partially_implemented_tasks": [
-    "Tests and Docker added; execution pending"
+    "Docker images built successfully; Compose readiness blocked by CI port collision, fixed in this checkpoint"
   ],
   "relevant_files": [
     "AGENTS.md",
@@ -37,23 +39,37 @@
   "test_results": {
     "historical": "Prior results preserved in docs/PHASE1_RECOVERY.md; not current verification",
     "current": {
-      "commit": "d5ee305b133e8f8d582e0f07606710d123d2f518",
-      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45754933437",
-      "install": "passed; audit reported zero vulnerabilities",
+      "commit": "e8f6a79707ba417dbf4e9c0cc8735da581797b30",
+      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45755834406",
+      "production_build": "passed",
+      "typecheck": "passed",
       "lint": "passed",
-      "typecheck": "failed: Next augments ProcessEnv with required NODE_ENV; validator input narrowed to generic environment dictionary in this checkpoint",
-      "remaining": "not run"
+      "unit": {
+        "passed": 4,
+        "failed": 0
+      },
+      "worker_integration": {
+        "passed": 1,
+        "failed": 0
+      },
+      "browser": {
+        "passed": 13,
+        "failed": 0,
+        "includes_accessibility_scans": 6
+      },
+      "docker": "images built; startup failed with queue port collision; fix pending verification",
+      "format": "pending"
     }
   },
   "known_bugs": [
-    "Earlier source's dialog focus and locator failures must be addressed in reconstructed components/tests"
+    "CI service and Compose both bound port 6379; CI Valkey moved to 16379"
   ],
   "required_dependencies": {
     "runtime": "Node 22",
     "package_manager": "npm",
     "queue": "Valkey 8.1.4",
     "database": "PostgreSQL planned; no application schema before Phase 3 approval",
-    "source": "package.json; lockfile pending CI generation"
+    "source": "package.json and committed package-lock.json"
   },
   "required_configuration": [
     "APP_MODE=demo",
@@ -64,13 +80,14 @@
     "ENABLE_LIVE_BILLING=false"
   ],
   "preview_status": {
-    "phase1": "Root foundation page saved; component gallery in progress",
+    "phase1": "Interactive component gallery and root entry saved; screenshots in CI artifact",
     "public_website": "Phase 2 not started",
     "customer_dashboard": "Phase 2 not started; old local demo inaccessible",
     "super_admin": "Phase 2 not started; old local demo inaccessible",
     "commands": [
-      "npm install (until lockfile is committed)",
-      "npm run dev"
+      "npm run setup",
+      "npm run dev",
+      "npm run build && npm start"
     ],
     "live_url": null
   },
@@ -79,7 +96,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Inspect latest workflow result. Fetch lockfile from export-generated step logs and persist it unchanged. Fix failures before final phase verification.",
+  "next_action": "Read workflow for this checkpoint. Save any Prettier changes exported in PHASE1_GENERATED markers; inspect visual evidence and Compose health; update final QA/state and rerun checks with formatting enforcement.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": false,

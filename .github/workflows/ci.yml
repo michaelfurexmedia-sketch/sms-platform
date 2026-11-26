@@ -16,7 +16,7 @@ jobs:
     services:
       valkey:
         image: valkey/valkey:8.1.4-alpine
-        ports: ["6379:6379"]
+        ports: ["16379:6379"]
         options: >-
           --health-cmd "valkey-cli ping"
           --health-interval 5s
@@ -25,7 +25,7 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: "1"
       APP_MODE: demo
-      QUEUE_URL: redis://127.0.0.1:6379
+      QUEUE_URL: redis://127.0.0.1:16379
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -45,6 +45,8 @@ jobs:
       - run: npm run test:worker
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - name: Export synthetic visual evidence for review
+        run: node scripts/export-visuals.mjs
       - name: Compose builds and health checks
         env:
           POSTGRES_PASSWORD: ci-synthetic-only

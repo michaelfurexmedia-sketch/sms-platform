@@ -1,11 +1,9 @@
 # Project status
 
-**Phase 1 WIP**, branch phase-1-recovery. Phase 2 not started.
+**Phase 1 WIP**, active branch phase-1-recovery. Actual application source is incrementally saved and verified on GitHub. Old local demo source remains inaccessible; the recovery record is preserved.
 
-Reconstructed and incrementally saved: Next standalone foundation, temporary centralized branding, component gallery, synthetic seed, module contracts, probe-only persistent worker, dev tooling, Docker Compose and test scripts. Old uncommitted demo source remains inaccessible; recovery history is preserved.
+Fresh CI on e8f6a79: production build, worker compile, lint and TypeScript passed; 4 unit tests, 1 persistent-worker integration test and all 13 browser tests passed, including six light/dark viewport accessibility scans. Docker images built, but startup encountered a CI port collision. The collision is fixed in this checkpoint and awaits rerun.
 
-Current milestone adds worker restart, browser interaction, six viewport/theme accessibility scans and Compose health validation. These new tests are pending CI. First fresh CI passed install/lint and exposed a TypeScript input error; that error was fixed. Historical results are not current certification.
+The npm lockfile, portable setup/deployment docs, design system and module contracts are saved. Remaining: corrected Compose readiness, formatting, screenshot review and final evidence/PR. See DEVELOPMENT_STATE.json for exact continuation.
 
-Next: retrieve the CI-generated lockfile, address failures, format and finalize docs, rerun all checks and open a Phase 1 PR. See DEVELOPMENT_STATE.json.
-
-Frontend approval: not recorded. Phase 2 requires an interactive preview and explicit owner approval before Phase 3 business backend implementation.
+**Owner approval:** not recorded. Phase 2 must include an interactive frontend preview and explicit approval before Phase 3. No live business backend or provider operation is implemented; Phase 1 uses synthetic UI and an infrastructure probe worker only.
