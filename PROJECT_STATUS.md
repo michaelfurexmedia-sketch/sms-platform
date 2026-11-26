@@ -1,17 +1,28 @@
-# Project status
+# FRONTEND COMPLETE — AWAITING OWNER APPROVAL
 
-Phase 1 complete. Phase 2 frontend implementation complete on `phase-2-frontend`; owner interactive review pending.
-Last verified implementation checkpoint: `db9cf013b34a78c7321bc71288f0949dbbb0be5a`.
+Phase 2.5 review on `phase-2-frontend`. Review candidate source:
+`599917b4a8916377007914dd15a862a474e3d3b5`. No approval is recorded.
 
-Fresh local checks passed: production build, TypeScript, lint, formatting, 19 unit tests, worker compilation/integration and 35 browser tests including 45 axe scans. [Final GitHub validation](https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45872896464) passed on Node 22, including Docker builds, four healthy services and the HTTP health probe.
+The actual application is running in the temporary managed cloud-browser preview:
+public `http://127.0.0.1:4173/`, customer `http://127.0.0.1:4173/app`,
+admin `http://127.0.0.1:4173/admin`. These are environment-local addresses, not
+public hosting. Use this chat's browser handoff. Exact local setup and expiry
+recovery are saved in [docs/PREVIEW.md](docs/PREVIEW.md).
 
-Public marketing, customer workflows and Super Admin frontend are implemented with synthetic browser-local services. See [verification and limits](docs/PHASE2_VERIFICATION.md).
-The source is portable; no external preview hostname has been published. Review commands and routes: [PREVIEW.md](docs/PREVIEW.md).
+Fresh Phase 2.5 checks on 2026-11-27: production build, TypeScript, lint,
+formatting and state validation passed; 35 browser tests passed (0 failed),
+including 45 accessibility scans. Cloud-browser navigation, themes, chart data,
+search dialogs and administrator customer filtering were also inspected.
+Prior Phase 2 unit/worker/Docker results remain separately recorded, not claimed
+as fresh local runs. See [review evidence](docs/PHASE25_REVIEW.md).
 
-[Draft PR #2](https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2) is open; main is unchanged.
+Public marketing, customer workflows and Super Admin frontend use synthetic
+browser-local services. There is no live messaging, billing, provider onboarding,
+real authentication or tenant security. No hosting was purchased and no design
+was rebuilt. [Draft PR #2](https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2)
+remains open; main is unchanged.
 
-Next: Phase 2.5 interactive owner review. Frontend approval is not recorded; Phase 3 backend is blocked. No live messaging, billing or provider operations.
-
-Phase 2.5: temporary cloud-browser preview launched and three entry routes verified.
-Startup compatibility adapter added; fresh production build passed and browser
-suite is running. Owner approval remains pending.
+STOP DEVELOPMENT. Await owner feedback or explicit approval. Requested revisions
+must use targeted patches, verification and pushed checkpoints. Record approved
+frontend commit, approver, time and evidence only after actual approval.
+Phase 3 and business backend/provider/production work remain blocked.

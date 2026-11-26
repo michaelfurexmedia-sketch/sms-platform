@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-27",
   "active_phase": 2,
-  "active_milestone": "Phase 2.5 \u2014 interactive preview review in progress",
+  "active_milestone": "FRONTEND COMPLETE \u2014 AWAITING OWNER APPROVAL",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "4840c0fba84e0b082d40905f34cfd6c78eeefa03",
+  "last_known_implementation_checkpoint": "599917b4a8916377007914dd15a862a474e3d3b5",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -12,11 +12,12 @@
     "Super Admin frontend with reasoned synthetic actions and audit entries",
     "Fresh local build, types, lint, 19 unit, worker integration, 35 browser tests and 45 axe scans passed",
     "Incremental implementation checkpoints pushed and source read back from GitHub",
-    "Final GitHub Actions Node 22 build/tests and Docker health checks passed; draft PR #2 opened without merging"
+    "Final GitHub Actions Node 22 build/tests and Docker health checks passed; draft PR #2 opened without merging",
+    "Phase 2.5 preview restored from GitHub; startup adapter pushed; three actual application routes opened in cloud browser; fresh 35 browser tests and 45 axe scans passed"
   ],
   "pending_tasks": [
-    "Provide interactive owner preview from saved source",
-    "Record explicit owner frontend approval before Phase 3"
+    "Owner interactive review and any requested targeted design revisions",
+    "Explicit owner approval with approved frontend commit, reviewer, date and evidence"
   ],
   "partially_implemented_tasks": [],
   "relevant_files": [
@@ -84,6 +85,23 @@
       "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45872896464",
       "ci_result": "success",
       "state_check": "passed"
+    },
+    "phase25": {
+      "date": "2026-11-27",
+      "commit": "599917b4a8916377007914dd15a862a474e3d3b5",
+      "production_build": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "format": "passed",
+      "state_check": "passed",
+      "browser": {
+        "passed": 35,
+        "failed": 0,
+        "accessibility_scans": 45,
+        "duration_seconds": 53.2
+      },
+      "manual_review": "Actual cloud-browser public/customer/admin pages, dashboard dark theme/chart data, search dialog/filter and admin customer filter verified",
+      "unit_worker_docker": "Not rerun locally for preview-only change; prior Phase 2 CI evidence retained separately"
     }
   },
   "known_bugs": [],
@@ -112,8 +130,8 @@
       "npm run dev",
       "npm run build && npm start"
     ],
-    "live_url": null,
-    "hosted_preview": "not published; reproducible commands and owner walkthrough in docs/PREVIEW.md",
+    "live_url": "http://127.0.0.1:4173/",
+    "hosted_preview": "Temporary managed cloud-browser preview running; no public deployment",
     "managed_preview": {
       "command": "sites-preview start <absolute-checkout>",
       "public_website": "http://127.0.0.1:4173/",
@@ -121,14 +139,20 @@
       "super_admin": "http://127.0.0.1:4173/admin",
       "scope": "Temporary environment URL; opens through this chat cloud browser, not a public deployment",
       "startup_adapter": "scripts/dev.mjs translates managed launcher flags to Next CLI options"
-    }
+    },
+    "live_url_scope": "Environment-local; use this chat cloud-browser handoff, not an ordinary browser on another machine"
   },
   "owner_approval_status": {
-    "frontend": "not_requested",
+    "frontend": "awaiting_owner_approval",
     "phase3_backend": "blocked_until_explicit_owner_approval",
-    "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
+    "review_candidate_commit": "599917b4a8916377007914dd15a862a474e3d3b5",
+    "approved_frontend_commit": null,
+    "approved_by": null,
+    "approved_at": null,
+    "evidence": null,
+    "note": "User must review the actual interactive frontend and explicitly approve. Test success and preview preparation do not imply approval."
   },
-  "next_action": "Finish fresh browser verification and save FRONTEND COMPLETE \u2014 AWAITING OWNER APPROVAL. Hand over the interactive cloud browser; no backend work.",
+  "next_action": "STOP DEVELOPMENT. Await owner review. Apply only requested frontend revisions with checkpoints. On explicit approval, record the approved frontend commit and evidence; do not silently start Phase 3.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
@@ -143,9 +167,11 @@
     "Imports: first XLSX worksheet, 5 MB/10,000 rows; existing North American phone normalization",
     "Attachments are metadata-only; schedules require an open browser; prices and provider estimates are illustrative",
     "Chromium/axe coverage is not a full cross-browser, human accessibility or production load audit",
-    "Hosted interactive owner preview and explicit approval remain pending",
+    "Preview is temporary and environment-local; explicit owner approval remains pending",
     "Production security, HTTPS, backups and recovery remain later phases"
   ],
   "pull_request": "https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2",
-  "phase2_frontend_complete": true
+  "phase2_frontend_complete": true,
+  "status": "FRONTEND COMPLETE \u2014 AWAITING OWNER APPROVAL",
+  "review_stage": "Phase 2.5"
 }
