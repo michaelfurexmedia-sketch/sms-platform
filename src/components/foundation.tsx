@@ -1,5 +1,5 @@
 "use client";
-import { useId, useRef, type ReactNode } from "react";
+import { useId, useRef, type ReactNode, type KeyboardEvent } from "react";
 import Link from "next/link";
 import { Button, EmptyState } from "./ui";
 
@@ -34,7 +34,11 @@ export function Pagination({ page, totalPages, onChange }: { page: number; total
   return <nav aria-label="Pagination" className="pagination"><Button variant="secondary" disabled={current === 1} onClick={() => onChange(current - 1)}>Previous</Button><span aria-live="polite">Page {current} of {count}</span><Button variant="secondary" disabled={current === count} onClick={() => onChange(current + 1)}>Next</Button></nav>;
 }
 export function Dropdown({ label, items }: { label: string; items: { label: string; href: string }[] }) {
-  return <details className="dropdown" onKeyDown={event => { if (event.key === "Escape") { event.currentTarget.open = false; event.currentTarget.querySelector("summary")?.focus(); } }}><summary>{label}</summary><ul>{items.map(item => <li key={item.href}><Link href={item.href}>{item.label}</Link></li>)}</ul></details>;
+  const ref = useRef<HTMLDetailsElement>(null);
+  function onKeyDown(event: KeyboardEvent<HTMLElement>) {
+    if (event.key === "Escape" && ref.current) { ref.current.open = false; ref.current.querySelector("summary")?.focus(); }
+  }
+  return <details ref={ref} className="dropdown"><summary onKeyDown={onKeyDown}>{label}</summary><ul>{items.map(item => <li key={item.href}><Link onKeyDown={onKeyDown} href={item.href}>{item.label}</Link></li>)}</ul></details>;
 }
 export function BarChart({ title, data }: { title: string; data: { label: string; value: number }[] }) {
   const id = useId();

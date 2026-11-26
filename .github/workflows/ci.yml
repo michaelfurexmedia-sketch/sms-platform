@@ -34,16 +34,29 @@ jobs:
       - name: Install reproducible dependencies when lockfile exists
         run: |
           if test -f package-lock.json; then npm ci; else npm install; fi
+      - name: Export generated lockfile for source persistence
+        run: node scripts/export-generated.mjs
       - name: Preserve dependency lock for recovery
         uses: actions/upload-artifact@v4
         with:
           name: dependency-lock
           path: package-lock.json
       - run: npm run check
-      - name: Integration and browser tests when available
+      - run: npm run test:worker
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - name: Compose builds and health checks
+        env:
+          POSTGRES_PASSWORD: ci-synthetic-only
         run: |
-          if test -f tests/worker.integration.ts; then npm run test:worker; fi
-          if test -f playwright.config.ts; then npx playwright install --with-deps chromium && npm run test:browser; fi
+          docker compose config --quiet
+          docker compose up -d --build --wait --wait-timeout 120
+          curl --fail http://127.0.0.1:3000/api/health
+      - name: Stop local containers
+        if: always()
+        env:
+          POSTGRES_PASSWORD: ci-synthetic-only
+        run: docker compose down
       - name: Preserve browser evidence
         if: always()
         uses: actions/upload-artifact@v4

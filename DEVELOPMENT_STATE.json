@@ -2,25 +2,24 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 1,
-  "active_milestone": "WIP: shared component gallery reconstructed; type validation fix",
+  "active_milestone": "WIP: full Phase 1 test harness, module contracts and Docker",
   "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "d5ee305b133e8f8d582e0f07606710d123d2f518",
+  "last_known_implementation_checkpoint": "75a356956782d60598c9f2b5f0cfbf20fbc7504e",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
     "Pushed and verified initial reconstructed Next web, branding, environment validation and probe-only persistent worker",
-    "Shared components, synthetic data and light/dark gallery reconstructed; dialog explicitly wraps forward/reverse focus"
+    "Shared components, synthetic data and light/dark gallery reconstructed; dialog explicitly wraps forward/reverse focus",
+    "Module contracts, Docker Compose, synthetic preview data and fresh unit/browser/worker test scripts added"
   ],
   "pending_tasks": [
-    "Reconstruct shared component gallery and explicit focus containment",
-    "Add module contracts and Docker Compose",
-    "Generate and commit package lockfile",
-    "Run fresh build, lint, types, unit, worker integration, browser and accessibility checks",
-    "Finalize documentation and open reviewed Phase 1 PR"
+    "Generate and commit lockfile from CI",
+    "Fix any new CI failures and rerun all checks",
+    "Format and finalize documentation",
+    "Create Phase 1 pull request after validation"
   ],
   "partially_implemented_tasks": [
-    "Foundation source checkpoint pending fresh CI results",
-    "Portable setup missing lockfile and Docker configuration"
+    "Tests and Docker added; execution pending"
   ],
   "relevant_files": [
     "AGENTS.md",
@@ -80,7 +79,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Run CI on this component checkpoint; add worker integration/browser tests, Docker configuration and module contracts. Generate/persist lockfile.",
+  "next_action": "Inspect latest workflow result. Fetch lockfile from export-generated step logs and persist it unchanged. Fix failures before final phase verification.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": false,
