@@ -29,3 +29,5 @@ Resolved from the fresh CI-generated npm lockfile; install with npm ci.
 Node 22 is the tested baseline. Valkey 8.1.4 (BSD-3-Clause) and PostgreSQL 17 (PostgreSQL License) are infrastructure services. Runtime packages are open source; no paid dependency was added. Licenses require their notices to remain with distributions. Lock metadata is not a legal review.
 
 ESLint 9 is deprecated upstream; retained for current jsx-a11y peer compatibility. The npm audit during initial CI reported zero vulnerabilities. Recheck dependencies at release boundaries; do not infer perpetual safety.
+
+Phase 2: read-excel-file 9.3.12 (MIT), dynamically imported browser readSheet API. Official README checked 2026-11-26: https://github.com/catamphetamine/read-excel-file . Preview limits: first worksheet, 5 MB, 10,000 rows.

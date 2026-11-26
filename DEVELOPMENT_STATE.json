@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-26",
   "active_phase": 2,
-  "active_milestone": "2.2 customer shell and dashboard \u2014 work in progress",
+  "active_milestone": "2.3\u20132.7 customer modules \u2014 WIP",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "ab453b50e0749d52acd388e11817067360a467e1",
+  "last_known_implementation_checkpoint": "4bd579cfe22997097cd9d4cb9917e5680ce94496",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -22,7 +22,8 @@
     "Combined local checks passed: build, types, lint, formatting, state gate, 16 unit, 1 worker integration and 16 browser tests including six accessibility scans",
     "Final combined GitHub Actions validation passed, including Docker builds and healthy web/worker/queue/database",
     "Phase 2 public source checkpoint ab453b5 pushed and read back",
-    "Public production build passed; customer shell and derived dashboard added"
+    "Public production build passed; customer shell and derived dashboard added",
+    "Inbox assignment/notes/templates/suppression, campaign scheduling/actions/export, CSV/XLSX mapping/review, customer module source added"
   ],
   "pending_tasks": [
     "2.1 public browser verification",
@@ -36,8 +37,9 @@
     "2.9 QA and preview"
   ],
   "partially_implemented_tasks": [
-    "Customer shell and dashboard types/lint passed; new module navigation awaits implementations",
-    "Public pages await browser QA"
+    "Customer modules implemented; browser QA pending",
+    "Number discovery and admin modules pending",
+    "Public accessibility fixes pending rerun"
   ],
   "relevant_files": [
     "AGENTS.md",
@@ -110,13 +112,16 @@
       "docker": "Combined CI pending; earlier foundation Docker run passed"
     },
     "phase2": {
-      "typecheck": "passed",
+      "typecheck": "passed before final accessibility adjustment",
       "lint": "passed",
-      "build": "pending",
-      "browser": "pending"
+      "unit": "18 passed",
+      "build": "passed before remaining customer module additions",
+      "browser": "2 interaction tests passed; 3 marketing axe scans failed (animation timing and landmark); fixes pending verification"
     }
   },
-  "known_bugs": [],
+  "known_bugs": [
+    "Marketing axe checks detected animation-transient contrast and missing preview landmark; correction pending rerun"
+  ],
   "required_dependencies": {
     "runtime": "Node 22",
     "package_manager": "npm",
@@ -149,7 +154,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Extend inbox, campaign controls and remaining module routes; run combined browser checks.",
+  "next_action": "Verify customer enhancements in browser; finish number discovery and administrative frontend; run full QA.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,

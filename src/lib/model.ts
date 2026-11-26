@@ -1,3 +1,4 @@
+import type { PreviewPreferences, AdminPreview } from "@/frontend/contracts";
 import { defaultPricing, type Pricing } from "./config";
 export type VerificationStatus =
   "Not started" | "Draft" | "In review" | "Changes needed" | "Approved";
@@ -33,6 +34,7 @@ export type Activity = {
   detail?: string;
 };
 export type Contact = {
+  customFields?: Record<string, string>;
   id: string;
   firstName: string;
   phone: string;
@@ -53,6 +55,9 @@ export type Message = {
   credits: number;
 };
 export type Thread = {
+  assignee?: string;
+  notes?: { id: string; text: string; at: string; author: string }[];
+  attachment?: { name: string; size: number };
   id: string;
   contactId: string;
   state: "Open" | "Closed";
@@ -80,7 +85,8 @@ export type Campaign = {
   scheduledAt: string;
   intervalDays: number;
   remaining: number;
-  state: "Draft" | "Scheduled" | "Completed" | "Paused";
+  state: "Draft" | "Scheduled" | "Completed" | "Paused" | "Canceled";
+  timeZone?: string;
   createdAt: string;
   recipients: Recipient[];
   runs: number;
@@ -112,6 +118,7 @@ export type Attempt = {
   totalCents: number;
 };
 export type Workspace = {
+  preview?: PreviewPreferences;
   id: string;
   email: string;
   createdAt: string;
@@ -141,6 +148,7 @@ export type Workspace = {
   activity: Activity[];
 };
 export type State = {
+  adminPreview?: AdminPreview;
   version: 1;
   activeId: string | null;
   workspaces: Workspace[];

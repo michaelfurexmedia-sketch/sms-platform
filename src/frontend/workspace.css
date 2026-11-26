@@ -238,3 +238,257 @@
     max-width: 130px;
   }
 }
+.legacy-app .thread-tools {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.thread-tools summary {
+  cursor: pointer;
+  min-height: 28px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.thread-tools-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 20px 0;
+}
+.thread-tools-grid section {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  min-width: 0;
+}
+.thread-tools-grid form {
+  display: grid;
+  gap: 12px;
+}
+.internal-note {
+  background: var(--wash);
+  padding: 14px;
+  font-size: 14px;
+  border-left: 2px solid var(--accent);
+}
+.legacy-app .inbox-list > select {
+  margin: 8px 16px;
+  max-width: calc(100% - 32px);
+  min-height: 44px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 8px;
+}
+.thread-tools .field {
+  margin: 12px 0;
+}
+.thread-tools input[type="file"] {
+  max-width: 100%;
+  font-size: 14px;
+}
+@media (max-width: 600px) {
+  .thread-tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.contact-tools {
+  padding: 0 0 24px;
+}
+.contact-tools details {
+  padding: 16px 0;
+}
+.bulk-contact-list {
+  display: grid;
+  gap: 8px;
+  max-height: 240px;
+  overflow: auto;
+  padding: 16px 0;
+}
+.bulk-contact-list label {
+  padding: 8px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.contact-tools form {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0;
+}
+.module-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 24px 0;
+}
+.module-columns > .panel,
+.module-form,
+.subscription-panel {
+  padding: 28px;
+}
+.module-form {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.module-form h2 {
+  font-size: 24px;
+}
+.module-form textarea,
+.workflow-nodes textarea {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  min-height: 100px;
+  width: 100%;
+}
+.module-form .field {
+  margin: 0;
+}
+.module-columns .panel h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.module-columns .panel p {
+  margin: 16px 0;
+}
+.module-columns pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 13px;
+}
+.template-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+.template-list .panel {
+  padding: 24px;
+}
+.template-list h2 {
+  font-size: 24px;
+}
+.template-list p {
+  margin: 16px 0;
+}
+.automation-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+}
+.automation-layout > .panel {
+  padding: 24px;
+}
+.flow-choice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  text-align: left;
+  width: 100%;
+  padding: 18px 8px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+}
+.flow-choice[aria-pressed="true"] {
+  background: var(--wash);
+}
+.workflow-nodes {
+  list-style: none;
+  display: grid;
+  gap: 24px;
+  padding: 24px 0;
+  margin: 0;
+}
+.workflow-nodes > li {
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  padding: 24px;
+  position: relative;
+}
+.workflow-nodes > li + li:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -25px;
+  height: 24px;
+  border-left: 1px solid var(--line);
+}
+.workflow-nodes .field {
+  margin: 16px 0;
+}
+.automation-layout .actions {
+  margin: 20px 0;
+}
+.execution-row {
+  border-bottom: 1px solid var(--line);
+  padding: 16px 0;
+}
+.plan-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 24px 0;
+}
+.plan-options > div {
+  border-top: 2px solid var(--ink);
+  padding: 20px 0;
+}
+.subscription-panel {
+  margin-bottom: 32px;
+}
+.subscription-panel > p {
+  margin: 16px 0;
+}
+.subscription-panel .module-form {
+  margin: 24px 0;
+}
+.legacy-app .field input,
+.legacy-app .field select {
+  background: var(--surface);
+  color: var(--ink);
+  min-width: 0;
+}
+.legacy-app .button {
+  min-height: 44px;
+}
+.legacy-app .panel {
+  border-radius: 6px;
+}
+@media (max-width: 1000px) {
+  .automation-layout {
+    grid-template-columns: 1fr;
+  }
+  .automation-layout > aside {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .automation-layout .flow-choice {
+    width: auto;
+  }
+  .module-columns {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .template-list,
+  .plan-options {
+    grid-template-columns: 1fr;
+  }
+  .module-columns > .panel,
+  .module-form,
+  .subscription-panel {
+    padding: 20px;
+  }
+}

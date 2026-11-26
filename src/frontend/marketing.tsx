@@ -28,9 +28,9 @@ export function Marketing({ page = "" }: { page?: string }) {
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <div className="preview-ribbon">
+        <aside className="preview-ribbon" aria-label="Preview status">
           Frontend preview · synthetic data · no live messages or payments
-        </div>
+        </aside>
         <header className="marketing-nav wrap">
           <Link href="/" className="wordmark">
             <MessageSquare size={24} aria-hidden="true" />

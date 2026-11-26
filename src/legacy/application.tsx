@@ -27,6 +27,11 @@ import {
   LogOut,
   Mail,
 } from "./ui";
+import {
+  CustomerModule,
+  SubscriptionPanel,
+  NumberPreferences,
+} from "@/frontend/modules";
 import { Dashboard, WorkspaceTools } from "@/frontend/workspace";
 import { brandVariables } from "@/config/brand";
 import "@/frontend/workspace.css";
@@ -190,7 +195,7 @@ function Content() {
     <>
       {prototype}
       <div
-        className={`app-shell ${admin ? "admin-shell" : ""} ${collapsed ? "collapsed" : ""}`}
+        className={`legacy-app app-shell ${admin ? "admin-shell" : ""} ${collapsed ? "collapsed" : ""}`}
         data-theme={theme}
         style={brandVariables(theme)}
       >
@@ -344,11 +349,27 @@ function Content() {
             ) : section === "campaigns" ? (
               <Campaigns w={w!} />
             ) : section === "numbers" ? (
-              <Numbers w={w!} />
+              <>
+                <Numbers w={w!} />
+                <NumberPreferences w={w!} />
+              </>
             ) : section === "team" ? (
               <Team w={w!} />
             ) : section === "billing" ? (
-              <Billing w={w!} />
+              <>
+                <SubscriptionPanel w={w!} />
+                <Billing w={w!} />
+              </>
+            ) : [
+                "compliance",
+                "templates",
+                "automations",
+                "analytics",
+                "integrations",
+                "settings",
+                "support",
+              ].includes(section) ? (
+              <CustomerModule key={w!.id + section} w={w!} section={section} />
             ) : (
               <Dashboard w={w!} />
             )}

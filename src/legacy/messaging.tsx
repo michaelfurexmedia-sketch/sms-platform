@@ -1,4 +1,12 @@
 "use client";
+import {
+  timeZones,
+  wallTime,
+  scheduleInstant,
+  downloadCSV,
+} from "@/frontend/scheduling";
+import { ContactTools } from "@/frontend/contacts-tools";
+import { InboxTools } from "@/frontend/inbox-tools";
 import { useMemo, useState, type ChangeEvent } from "react";
 import Link from "./navigation";
 import { useStore } from "@/lib/store";
@@ -107,6 +115,7 @@ export function Contacts({ w }: { w: Workspace }) {
       />
       <ErrorNotice message={error} />
       {notice && <Notice tone="success">{notice}</Notice>}
+      <ContactTools w={w} />
       <div className="panel">
         <div className="toolbar contact-filters">
           <label className="search-input">
@@ -300,11 +309,27 @@ function ImportContacts({
     [source, setSource] = useState(""),
     [defaultStatus, setDefaultStatus] = useState<ContactStatus>("Lead"),
     [defaultGroup, setDefaultGroup] = useState("");
+  const [reading, setReading] = useState(false),
+    [fileName, setFileName] = useState("");
   const read = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     try {
-      const parsed = parseCSV(await file.text());
+      setReading(true);
+      if (file.size > 5 * 1024 * 1024)
+        throw Error("Preview imports are limited to 5 MB.");
+      if (!/\.(csv|xlsx)$/i.test(file.name))
+        throw Error("Choose a CSV or XLSX file.");
+      const parsed = /\.xlsx$/i.test(file.name)
+        ? (await (await import("read-excel-file/browser")).readSheet(file)).map(
+            (row) => row.map((cell) => (cell === null ? "" : String(cell))),
+          )
+        : parseCSV(await file.text());
+      if (parsed.length > 10001)
+        throw Error(
+          "Preview imports support up to 10,000 rows. Split larger files for this browser demo.",
+        );
+      setFileName(file.name);
       if (parsed.length < 2)
         throw Error("Your CSV needs a header and at least one contact row.");
       setRows(parsed);
@@ -325,6 +350,8 @@ function ImportContacts({
       setStep(1);
     } catch (e) {
       setError((e as Error).message);
+    } finally {
+      setReading(false);
     }
   };
   const mapped = useMemo(
@@ -360,7 +387,16 @@ function ImportContacts({
       seen.add(p);
       if (!validPhone(p)) invalid++;
     }
-    return { duplicates, invalid };
+    const suppressed = mapped.filter(
+      (c) =>
+        c.status === "Opted out" ||
+        w.contacts.some(
+          (x) =>
+            normalizePhone(x.phone) === normalizePhone(c.phone) &&
+            x.status === "Opted out",
+        ),
+    ).length;
+    return { duplicates, invalid, suppressed };
   }, [mapped, w.contacts]);
   const commit = () => {
     try {
@@ -368,7 +404,22 @@ function ImportContacts({
         throw Error(
           "Add an opt-in source for every subscribed contact, or import as Leads.",
         );
-      const r = mutate((s) => importContacts(s, w.id, mapped));
+      const r = mutate((s) => {
+        const result = importContacts(s, w.id, mapped);
+        const v = workspace(s, w.id);
+        v.preview ??= {};
+        v.preview.imports = [
+          ...(v.preview.imports || []),
+          {
+            id: uid(),
+            at: now(),
+            file: fileName,
+            ...result,
+            suppressed: summary.suppressed,
+          },
+        ];
+        return result;
+      });
       onDone(
         `Imported ${r.added} new rows; ${r.duplicates} duplicate rows; ${r.invalid} invalid rows. Duplicate rows are retained for review and excluded from campaigns.`,
       );
@@ -389,17 +440,28 @@ function ImportContacts({
     >
       <div className="import-body">
         <p>
-          Use fictional information in this prototype. Your CSV stays in this
+          Use fictional information in this prototype. Your file stays in this
           browser.
         </p>
         <ErrorNotice message={error} />
         {step === 0 ? (
           <>
             <Field
-              label="CSV file"
+              label="CSV or XLSX file"
               hint="Include a header row. Phone is required; first name, status, group, tags, and opt-in source are optional."
             >
-              <input type="file" accept=".csv,text/csv" onChange={read} />
+              <input
+                type="file"
+                accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                onChange={read}
+                disabled={reading}
+              />
+              {reading && (
+                <p role="status">Reading and validating spreadsheet…</p>
+              )}
+              <small>
+                XLSX: first worksheet. Up to 5 MB and 10,000 data rows.
+              </small>
             </Field>
             <details>
               <summary>View CSV example</summary>
@@ -488,7 +550,48 @@ function ImportContacts({
               <span>
                 <b>{count(summary.invalid)}</b> invalid numbers
               </span>
+              <span>
+                <b>{count(summary.suppressed)}</b> suppressed
+              </span>
             </div>
+            <Button
+              variant="ghost"
+              onClick={() =>
+                downloadCSV("import-review.csv", [
+                  ["Row", "Phone", "Review"],
+                  ...mapped.map((c, i) => [
+                    i + 2,
+                    c.phone,
+                    !validPhone(c.phone)
+                      ? "Invalid number"
+                      : c.status === "Opted out" ||
+                          w.contacts.some(
+                            (x) =>
+                              normalizePhone(x.phone) ===
+                                normalizePhone(c.phone) &&
+                              x.status === "Opted out",
+                          )
+                        ? "Confirmed opt-out"
+                        : w.contacts.some(
+                              (x) =>
+                                normalizePhone(x.phone) ===
+                                normalizePhone(c.phone),
+                            ) ||
+                            mapped
+                              .slice(0, i)
+                              .some(
+                                (x) =>
+                                  normalizePhone(x.phone) ===
+                                  normalizePhone(c.phone),
+                              )
+                          ? "Duplicate"
+                          : "Ready",
+                  ]),
+                ])
+              }
+            >
+              Download import review
+            </Button>
             <div className="table-wrap messaging-table">
               <table>
                 <thead>
@@ -625,6 +728,16 @@ function ContactDetail({
           <option>Unknown handset</option>
         </select>
       </Field>
+      {contact.customFields && (
+        <dl>
+          {Object.entries(contact.customFields).map(([key, value]) => (
+            <div key={key}>
+              <dt>{key}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
       {contact.duplicate && (
         <Notice>
           This is a duplicate import row. It is excluded from campaigns.
@@ -668,7 +781,8 @@ export function Campaigns({ w }: { w: Workspace }) {
   const [editing, setEditing] = useState<string | null>(null),
     [report, setReport] = useState<string | null>(null),
     [error, setError] = useState(""),
-    [query, setQuery] = useState("");
+    [query, setQuery] = useState(""),
+    [campaignState, setCampaignState] = useState("All");
   const create = () => {
     try {
       const c = newCampaign(w);
@@ -680,8 +794,10 @@ export function Campaigns({ w }: { w: Workspace }) {
   };
   const current = w.campaigns.find((c) => c.id === editing),
     reportCampaign = w.campaigns.find((c) => c.id === report);
-  const filtered = w.campaigns.filter((c) =>
-    c.name.toLowerCase().includes(query.toLowerCase()),
+  const filtered = w.campaigns.filter(
+    (c) =>
+      c.name.toLowerCase().includes(query.toLowerCase()) &&
+      (campaignState === "All" || c.state === campaignState),
   );
   return (
     <>
@@ -713,6 +829,22 @@ export function Campaigns({ w }: { w: Workspace }) {
               onChange={(e) => setQuery(e.target.value)}
             />
           </label>
+          <select
+            aria-label="Campaign status"
+            value={campaignState}
+            onChange={(e) => setCampaignState(e.target.value)}
+          >
+            {[
+              "All",
+              "Draft",
+              "Scheduled",
+              "Paused",
+              "Completed",
+              "Canceled",
+            ].map((x) => (
+              <option key={x}>{x}</option>
+            ))}
+          </select>
           <span className="muted">{count(w.campaigns.length)} campaigns</span>
         </div>
         {!w.campaigns.length ? (
@@ -782,6 +914,25 @@ export function Campaigns({ w }: { w: Workspace }) {
                         }
                       >
                         {c.state === "Draft" ? "Resume draft" : "View report"}
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          const copy = {
+                            ...structuredClone(c),
+                            id: uid(),
+                            name: c.name + " copy",
+                            state: "Draft" as const,
+                            createdAt: now(),
+                            runs: 0,
+                            credits: 0,
+                            recipients: [],
+                          };
+                          mutate((s) => saveCampaign(s, w.id, copy));
+                          setEditing(copy.id);
+                        }}
+                      >
+                        Duplicate
                       </Button>
                     </td>
                   </tr>
@@ -1038,22 +1189,46 @@ function CampaignEditor({
             </select>
           </Field>
           {c.mode !== "Now" && (
-            <Field
-              label="First send date and time"
-              hint="Uses your browser’s local timezone."
-            >
-              <input
-                type="datetime-local"
-                value={c.scheduledAt ? localDateInput(c.scheduledAt) : ""}
-                onChange={(e) =>
-                  update({
-                    scheduledAt: e.target.value
-                      ? new Date(e.target.value).toISOString()
-                      : "",
-                  })
+            <>
+              <Field label="Schedule time zone">
+                <select
+                  value={c.timeZone || "UTC"}
+                  onChange={(e) => update({ timeZone: e.target.value })}
+                >
+                  {timeZones.map((z) => (
+                    <option key={z}>{z}</option>
+                  ))}
+                </select>
+              </Field>
+              <Field
+                label="First send date and time"
+                hint={
+                  "Time zone: " +
+                  (c.timeZone || "UTC") +
+                  ". Recurrences use elapsed 24-hour days."
                 }
-              />
-            </Field>
+              >
+                <input
+                  type="datetime-local"
+                  value={
+                    c.scheduledAt
+                      ? wallTime(c.scheduledAt, c.timeZone || "UTC")
+                      : ""
+                  }
+                  onChange={(e) => {
+                    try {
+                      update({
+                        scheduledAt: e.target.value
+                          ? scheduleInstant(e.target.value, c.timeZone || "UTC")
+                          : "",
+                      });
+                    } catch (err) {
+                      setError((err as Error).message);
+                    }
+                  }}
+                />
+              </Field>
+            </>
           )}
           {c.mode === "Recurring" && (
             <div className="form-grid">
@@ -1135,12 +1310,6 @@ function CampaignEditor({
     </Modal>
   );
 }
-function localDateInput(value: string) {
-  const d = new Date(value);
-  return new Date(d.getTime() - d.getTimezoneOffset() * 60000)
-    .toISOString()
-    .slice(0, 16);
-}
 function RecipientTable({ rows }: { rows: Recipient[] }) {
   return (
     <div className="table-wrap messaging-table recipient-table">
@@ -1185,6 +1354,7 @@ function CampaignReport({
   const { mutate } = useStore();
   const [filter, setFilter] = useState("All"),
     [error, setError] = useState("");
+  const [canceling, setCanceling] = useState(false);
   const labels = ["Queued", "Sent", "Delivered", "Failed", "Excluded"];
   const matching = (r: Recipient, label: string) =>
     label === "All" ||
@@ -1244,6 +1414,23 @@ function CampaignReport({
         messages. Report shows the latest occurrence; {count(c.credits)} credits
         used across {c.runs} occurrence{c.runs === 1 ? "" : "s"}.
       </p>
+      <Button
+        variant="secondary"
+        onClick={() =>
+          downloadCSV("campaign-report.csv", [
+            ["Name", "Phone", "Status", "Reason", "Segments"],
+            ...c.recipients.map((r) => [
+              r.name,
+              r.phone,
+              r.status,
+              r.reason,
+              r.segments,
+            ]),
+          ])
+        }
+      >
+        Download delivery report
+      </Button>
       <Button variant="ghost" onClick={() => setFilter("All")}>
         Show all recipients
       </Button>
@@ -1260,6 +1447,46 @@ function CampaignReport({
             <Button variant="secondary" onClick={toggle}>
               {c.state === "Scheduled" ? "Pause schedule" : "Resume schedule"}
             </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                mutate((s) => {
+                  workspace(s, w.id).campaigns.find(
+                    (x) => x.id === c.id,
+                  )!.state = "Draft";
+                });
+                onClose();
+              }}
+            >
+              Return to draft to edit
+            </Button>
+            <Button variant="danger" onClick={() => setCanceling(true)}>
+              Cancel campaign
+            </Button>
+            {canceling && (
+              <div role="group" aria-label="Confirm cancellation">
+                <p>
+                  Cancel future occurrences? Existing delivery history remains.
+                </p>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    mutate((s) => {
+                      const v = workspace(s, w.id);
+                      v.campaigns.find((x) => x.id === c.id)!.state =
+                        "Canceled";
+                      activity(v, "Campaign canceled", c.name);
+                    });
+                    setCanceling(false);
+                  }}
+                >
+                  Confirm cancellation
+                </Button>
+                <Button variant="ghost" onClick={() => setCanceling(false)}>
+                  Keep campaign
+                </Button>
+              </div>
+            )}
             {c.state === "Scheduled" && (
               <Button onClick={run}>Run next occurrence now (demo)</Button>
             )}
@@ -1279,6 +1506,7 @@ export function InboxScreen({ w }: { w: Workspace }) {
     [query, setQuery] = useState(""),
     [filter, setFilter] = useState("All"),
     [numberFilter, setNumberFilter] = useState("All numbers"),
+    [employeeFilter, setEmployeeFilter] = useState("All employees"),
     [sender, setSender] = useState(w.numbers[0] || ""),
     [error, setError] = useState(""),
     [newThread, setNewThread] = useState(false),
@@ -1294,6 +1522,8 @@ export function InboxScreen({ w }: { w: Workspace }) {
           .includes(query.toLowerCase()) &&
         (filter === "All" ||
           (filter === "Unread" ? t.unread : t.state === filter)) &&
+        (employeeFilter === "All employees" ||
+          (t.assignee || "Unassigned") === employeeFilter) &&
         (numberFilter === "All numbers" ||
           t.messages.some((m) => m.number === numberFilter))
       );
@@ -1432,6 +1662,20 @@ export function InboxScreen({ w }: { w: Workspace }) {
               </select>
             </div>
           </div>
+          <select
+            aria-label="Filter employee"
+            value={employeeFilter}
+            onChange={(e) => setEmployeeFilter(e.target.value)}
+          >
+            <option>All employees</option>
+            <option>Unassigned</option>
+            <option>{w.email}</option>
+            {w.members
+              .filter((m) => m.email !== w.email)
+              .map((m) => (
+                <option key={m.id}>{m.email}</option>
+              ))}
+          </select>
           <div className="conversation-list">
             {list.map((t) => {
               const c = w.contacts.find((c) => c.id === t.contactId);
@@ -1503,9 +1747,10 @@ export function InboxScreen({ w }: { w: Workspace }) {
                   </small>
                 </div>
                 <Button variant="secondary" onClick={toggleState}>
-                  {thread.state === "Open" ? "Close conversation" : "Reopen"}
+                  {thread.state === "Open" ? "Archive conversation" : "Reopen"}
                 </Button>
               </header>
+              <InboxTools w={w} thread={thread} onReply={updateDraft} />
               <div className="thread-messages" aria-live="polite">
                 {thread.messages.length === 0 && (
                   <p className="muted">
