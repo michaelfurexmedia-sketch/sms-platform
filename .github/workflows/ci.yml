@@ -1,13 +1,13 @@
-name: Phase 1 validation
+name: Platform validation
 on:
   push:
-    branches: [main, phase-1-recovery]
+    branches: [main, phase-1-recovery, phase-2-frontend]
   pull_request:
     branches: [main]
 permissions:
   contents: read
 concurrency:
-  group: phase1-${{ github.ref }}
+  group: platform-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   verify:

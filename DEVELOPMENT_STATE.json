@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "updated": "2026-11-26",
-  "active_phase": 1,
-  "active_milestone": "Phase 1 complete; stop before Phase 2",
-  "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "54ffca7f333b79b0311ee68e06dc9045d9664556",
+  "active_phase": 2,
+  "active_milestone": "2.1 public frontend \u2014 work in progress",
+  "active_branch": "phase-2-frontend",
+  "last_known_implementation_checkpoint": "95118b0ca371e486a048f28e4fc033464d12c10f",
   "completed_tasks": [
     "Verified recovery commit 7d47272",
     "Checked executor once: unavailable; original files remain inaccessible",
@@ -23,9 +23,19 @@
     "Final combined GitHub Actions validation passed, including Docker builds and healthy web/worker/queue/database"
   ],
   "pending_tasks": [
-    "Await explicit Phase 2 assignment; do not begin automatically"
+    "2.1 public browser verification",
+    "2.2 customer shell and dashboard",
+    "2.3 inbox enhancements",
+    "2.4 campaigns",
+    "2.5 imports",
+    "2.6 compliance and numbers",
+    "2.7 remaining customer modules",
+    "2.8 admin frontend",
+    "2.9 QA and preview"
   ],
-  "partially_implemented_tasks": [],
+  "partially_implemented_tasks": [
+    "Public frontend implemented; build/browser and editorial QA pending"
+  ],
   "relevant_files": [
     "AGENTS.md",
     "docs/PHASE1_RECOVERY.md",
@@ -95,6 +105,12 @@
         "includes_accessibility_scans": 6
       },
       "docker": "Combined CI pending; earlier foundation Docker run passed"
+    },
+    "phase2": {
+      "typecheck": "passed",
+      "lint": "passed",
+      "build": "pending",
+      "browser": "pending"
     }
   },
   "known_bugs": [],
@@ -130,7 +146,7 @@
     "phase3_backend": "blocked_until_explicit_owner_approval",
     "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
   },
-  "next_action": "Stop. On an explicit Phase 2 assignment, fetch phase-1-recovery (or its merged main equivalent), read AGENTS.md/status/state, run npm run setup and reuse /design-system plus /preview. Provide an interactive frontend preview and record explicit owner approval before Phase 3.",
+  "next_action": "Verify and checkpoint public pages, then extend the existing customer shell.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,

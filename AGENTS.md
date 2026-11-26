@@ -3,7 +3,7 @@
 ## Authority and current scope
 
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: recover and complete Phase 1 only. Read docs/PHASE1_RECOVERY.md before changing files. Do not start Phase 2.
+- Current assignment: complete Phase 2 frontend on phase-2-frontend. Phase 1 is complete. Preserve its recovery record. Stop at interactive preview and owner approval; do not begin Phase 3.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 
