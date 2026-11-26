@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "updated": "2026-11-26",
+  "active_phase": 1,
+  "active_milestone": "WIP: reconstruct shared components and add comprehensive validation",
+  "active_branch": "phase-1-recovery",
+  "last_known_implementation_checkpoint": "d5ee305b133e8f8d582e0f07606710d123d2f518",
+  "completed_tasks": [
+    "Verified recovery commit 7d47272",
+    "Checked executor once: unavailable; original files remain inaccessible",
+    "Pushed and verified initial reconstructed Next web, branding, environment validation and probe-only persistent worker"
+  ],
+  "pending_tasks": [
+    "Reconstruct shared component gallery and explicit focus containment",
+    "Add module contracts and Docker Compose",
+    "Generate and commit package lockfile",
+    "Run fresh build, lint, types, unit, worker integration, browser and accessibility checks",
+    "Finalize documentation and open reviewed Phase 1 PR"
+  ],
+  "partially_implemented_tasks": [
+    "Foundation source checkpoint pending fresh CI results",
+    "Portable setup missing lockfile and Docker configuration"
+  ],
+  "relevant_files": [
+    "AGENTS.md",
+    "docs/PHASE1_RECOVERY.md",
+    "src/config/brand.ts",
+    "src/app/layout.tsx",
+    "src/app/page.tsx",
+    "src/server/env.ts",
+    "src/server/queue.ts",
+    "apps/worker/index.ts",
+    "apps/worker/processor.ts",
+    "tests/foundation.test.ts",
+    ".github/workflows/ci.yml"
+  ],
+  "test_results": {
+    "historical": "Prior results preserved in docs/PHASE1_RECOVERY.md; not current verification",
+    "current": {
+      "commit": "d5ee305b133e8f8d582e0f07606710d123d2f518",
+      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45754933437",
+      "status": "in_progress",
+      "local_execution": "unavailable"
+    }
+  },
+  "known_bugs": [
+    "Earlier source's dialog focus and locator failures must be addressed in reconstructed components/tests"
+  ],
+  "required_dependencies": {
+    "runtime": "Node 22",
+    "package_manager": "npm",
+    "queue": "Valkey 8.1.4",
+    "database": "PostgreSQL planned; no application schema before Phase 3 approval",
+    "source": "package.json; lockfile pending CI generation"
+  },
+  "required_configuration": [
+    "APP_MODE=demo",
+    "APP_URL",
+    "QUEUE_URL required only for worker",
+    "WORKER_HEALTH_PORT",
+    "ENABLE_LIVE_SMS=false",
+    "ENABLE_LIVE_BILLING=false"
+  ],
+  "preview_status": {
+    "phase1": "Root foundation page saved; component gallery in progress",
+    "public_website": "Phase 2 not started",
+    "customer_dashboard": "Phase 2 not started; old local demo inaccessible",
+    "super_admin": "Phase 2 not started; old local demo inaccessible",
+    "commands": [
+      "npm install (until lockfile is committed)",
+      "npm run dev"
+    ],
+    "live_url": null
+  },
+  "owner_approval_status": {
+    "frontend": "not_requested",
+    "phase3_backend": "blocked_until_explicit_owner_approval",
+    "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
+  },
+  "next_action": "Read current GitHub Actions result for d5ee305, fix any dependency/build errors, then add shared components and fresh browser tests in an incremental checkpoint.",
+  "recovery": {
+    "source_reconstructed": true,
+    "original_files_recovered": false,
+    "record": "docs/PHASE1_RECOVERY.md",
+    "do_not_depend_on_old_workspace": true
+  }
+}

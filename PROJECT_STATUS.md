@@ -1,31 +1,14 @@
 # Project status
 
-Updated: 2026-11-26 (Asia/Karachi).
+Updated: 2026-11-26. **Phase 1 WIP; Phase 2 not started.**
 
-**Assignment: recover and complete Phase 1. Blocked by unavailable executor.**
+Active branch: phase-1-recovery. [Machine-readable continuation state](DEVELOPMENT_STATE.json).
+Initial reconstructed source is saved at d5ee305b133e8f8d582e0f07606710d123d2f518; GitHub source read-back succeeded. CI is running; no new test pass is claimed yet.
 
-The previous session implemented the foundation in an uncommitted local
-working tree. Its last recorded checks passed build, TypeScript, lint,
-16 unit tests and one worker integration test. Browser suite: seven passed,
-two failed; six accessibility scans passed. These are historical results,
-not tests run against this documentation checkpoint.
+Previous executor and backups remain inaccessible. Reconstruction is authorized; no old source was recovered or overwritten. The recovery record remains unchanged. The original local customer/admin demo is not present on GitHub and is not represented as restored.
 
-GitHub's preparation commit was inspected: only main at
-61984b4ff16495f8ceb65fb04b61849bba0f8b17, no implementation branch and no
-workflow runs. The recovery branch adds documentation only.
+Next: shared components/focus fix, module contracts, portable Docker configuration, lockfile and fresh comprehensive checks. See development state for exact continuation.
 
-Read [the recovery checkpoint](docs/PHASE1_RECOVERY.md) for exact paths,
-known implementation, validation evidence and remaining fixes. The prior
-filesystem and backup have not been recovered or proven lost. Do not
-reconstruct or overwrite them without checking when runtime access returns.
+**Approval gate:** Phase 2 must include an interactive frontend preview and explicit owner approval before Phase 3 backend work. Approval is not recorded. Phase 1 includes only infrastructure probe scaffolding, not messaging, billing, authentication or tenant services.
 
-Remaining: recover files; fix dialog focus and browser locator; finish visual
-review/documentation/formatting; rerun required checks; commit and push
-implementation checkpoints; verify source files on GitHub. Phase 2 has not
-started. No live transactions, number purchases or SMS are authorized.
-
-## Checkpoint policy
-
-Commit incrementally and push verified work to a development branch.
-Preserve unfinished work as clearly marked WIP after a secret check.
-Never force-push, discard unrelated work or claim unrun tests passed.
+Every meaningful milestone must push implementation plus updated status/state. Unfinished checkpoints are WIP. Never force-push or merge unstable work into main.

@@ -97,3 +97,164 @@ Keep responses concise without sacrificing accuracy or completeness. Reuse proje
 - Preserve unfinished work in clearly marked WIP checkpoints after checking for secrets; never describe WIP or historical test results as newly verified.
 - Do not reset, clean, delete, overwrite or discard existing files during recovery. Do not force-push or overwrite unrelated changes.
 - When runtime access fails, distinguish inaccessible files from confirmed lost files. GitHub source access is not access to uncommitted workspace files.
+
+
+# PERMANENT DEVELOPMENT PERSISTENCE AND CREDIT PROTECTION PROTOCOL
+
+Official repository:
+https://github.com/michaelfurexmedia-sketch/sms-platform.git
+
+## Critical problem
+
+Previous development sessions became inaccessible after development credits were exhausted.
+Uncommitted implementation files could not be accessed when development resumed.
+This must not happen again.
+GitHub must become the permanent source of truth for all project implementation, configuration, documentation, and development progress.
+Do not depend on conversation history or temporary development environments to preserve implementation.
+
+## 1. Automatic session initialization
+
+At the beginning of every development session:
+- Connect to the official GitHub repository.
+- Fetch the latest remote branches.
+- Identify the active development branch.
+- Read AGENTS.md.
+- Read PROJECT_STATUS.md.
+- Read DEVELOPMENT_STATE.json.
+- Identify the last saved implementation checkpoint.
+- Inspect only relevant source files.
+- Restore required dependencies using the lockfile.
+- Restore the development environment using documented setup commands.
+- Continue from the last saved implementation.
+
+Do not require access to a previous temporary development environment if the implementation is already available on GitHub.
+Do not restart completed phases.
+
+## 2. Incremental implementation checkpoints
+
+Never leave an entire development phase uncommitted.
+Divide every phase into small, independently recoverable implementation milestones.
+After completing each meaningful milestone:
+1. Review modified files.
+2. Run targeted verification.
+3. Update project progress.
+4. Commit actual implementation files.
+5. Push the commit to the active development branch.
+6. Verify the remote commit exists.
+
+Do not wait until the end of an entire phase to commit and push.
+Create recoverable checkpoints even when the complete phase is unfinished.
+Clearly label unfinished checkpoints as work in progress.
+
+## 3. Credit exhaustion protection
+
+Assume that the development environment could become unavailable at any moment.
+Do not accumulate large amounts of unsaved implementation.
+Prefer small implementation batches followed by immediate persistence.
+If the environment provides information about remaining credits or execution limits, use it to prioritize saving implementation before exhaustion.
+Do not rely on receiving an advance warning before credits expire.
+
+## 4. Persistent development state
+
+Create and maintain DEVELOPMENT_STATE.json containing:
+- Active development phase
+- Active milestone
+- Active Git branch
+- Last known implementation checkpoint
+- Completed tasks
+- Pending tasks
+- Partially implemented tasks
+- Relevant files
+- Test results
+- Known bugs
+- Required dependencies
+- Required configuration
+- Preview status
+- Owner approval status
+- Exact next development action
+
+Update this state at every meaningful checkpoint.
+Also maintain a concise human-readable PROJECT_STATUS.md.
+Store these files in GitHub, not only in temporary workspace storage.
+
+## 5. Portable development environment
+
+Make the development environment reproducible from the repository.
+Maintain:
+- Package manager lockfile
+- Runtime version configuration
+- Environment variable template
+- Dockerfiles
+- Docker Compose configuration
+- Database migrations
+- Synthetic development seed data
+- Setup scripts
+- Test scripts
+- Preview commands
+
+A fresh environment must be able to restore the project without requiring unavailable files from previous sessions.
+Do not commit real credentials, authentication tokens, private keys, production databases, or customer information.
+
+## 6. Session recovery
+
+If the previous development environment is inaccessible:
+- Do not treat this as a reason to stop development.
+- Open a fresh environment if supported.
+- Clone or fetch the existing repository.
+- Restore the latest saved development branch.
+- Read the persistent development state.
+- Install dependencies.
+- Restore local development services.
+- Resume from the last available implementation checkpoint.
+
+Only reconstruct work that was genuinely not persisted.
+Do not repeat completed architecture research, reference website inspections, design exploration, skill discovery, or implementation.
+If no execution environment is available at all, report that specific limitation rather than claiming to have continued development.
+
+## 7. Git branch management
+
+Use the existing sms-platform repository exclusively.
+Preserve the existing recovery branch and recovery record.
+Use clearly identified development branches for unfinished work.
+Do not force-push.
+Do not overwrite unrelated changes.
+Do not merge unstable work into the production branch.
+Use pull requests or verified merges after completing phase requirements.
+
+## 8. Preview persistence
+
+Store all frontend source code and preview configuration in GitHub.
+When frontend preview sessions expire, recreate the preview from the saved repository rather than rebuilding the frontend.
+Document the commands and routes for:
+- Public website
+- Customer dashboard
+- Super Admin Portal
+
+Maintain synthetic demo data for frontend preview purposes.
+Do not require real Twilio or Stripe credentials for frontend design previews.
+
+## 9. Owner approval checkpoint
+
+Frontend development must include an interactive preview.
+Do not begin backend development until the owner explicitly approves the frontend.
+Persist this approval status in DEVELOPMENT_STATE.json and PROJECT_STATUS.md.
+If approval has not been recorded, remain at the frontend review phase.
+
+## 10. Permanent project requirements
+
+- Use the original sms-platform repository.
+- Do not create sms-platform-2.
+- The official platform name remains undecided.
+- Use centralized temporary branding.
+- Create an original premium design.
+- Use Textla only as a functionality reference.
+- Use Ijadi only as a creative quality reference.
+- Use all applicable installed skills efficiently.
+- Minimize development credits.
+- Preserve working functionality.
+- Do not use Vercel.
+- Maintain portable VPS and Docker compatibility.
+
+Save this entire protocol in AGENTS.md.
+Apply it to every current and future development phase.
+Never claim implementation has been saved unless the actual source files have been committed, pushed, and verified on GitHub.
