@@ -143,27 +143,9 @@ function Content() {
       </div>
     );
   const prototype = (
-    <div className="prototype-bar" role="region" aria-label="Preview mode">
-      <span>
-        <b>Interactive prototype</b>
-        <span className="prototype-description">
-          {" "}
-          — fictional data, no real messages or payments
-        </span>
-      </span>
-      <div className="role-switch" aria-label="Prototype-only role switcher">
-        <span>View as</span>
-        <button
-          aria-pressed={!admin}
-          onClick={() => router.push(w ? "/app/" : "/signup/")}
-        >
-          Customer
-        </button>
-        <button aria-pressed={admin} onClick={() => router.push("/admin/")}>
-          Owner admin
-        </button>
-      </div>
-    </div>
+    <p className="preview-note" aria-label="Preview mode">
+      Demo workspace · fictional data · no live messages or payments
+    </p>
   );
   if (!app && !admin)
     return (
@@ -312,7 +294,7 @@ function Content() {
               </button>
             )}
             <small>
-              Prototype roles are for review.
+              Synthetic preview data.
               <br />
               Production access is not connected.
             </small>

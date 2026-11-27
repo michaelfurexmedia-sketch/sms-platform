@@ -58,7 +58,6 @@ export function Footer() {
       <nav aria-label="Footer navigation">
         <Link href="/features/">Features</Link>
         <Link href="/pricing/">Pricing</Link>
-        <Link href="/admin/">Owner demo</Link>
       </nav>
       <small>Interactive frontend prototype. All activity is simulated.</small>
     </footer>

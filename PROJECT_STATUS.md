@@ -7,3 +7,7 @@ Baseline source is already on GitHub and preserved in this checkpoint ancestry. 
 ## Palette checkpoint
 
 Central light/dark semantic colors now use exact Ink Navy, Pearl White and Electric Coral. Coral actions use navy foreground; text links use contrast-safe tonal variants. Removed obsolete green base tokens and blue aliases. Existing self-hosted fonts retained. Fresh TypeScript/lint and 22 unit tests passed, including contrast checks; browser/build verification pending. This is an unfinished redesign, not owner approval. Next: public composition, customer density and local-only admin separation.
+
+## Layout and separation checkpoint
+
+Implemented navy hero product stage, quieter editorial/pricing composition, compact navy workspace navigation and operational tables. Removed public administrator switch behavior and links. Admin server routes default closed; dedicated local-only owner launcher and login placeholder added. See docs/PHASE26_ADMIN_SECURITY.md. Build, types, lint and 23 unit checks passed before final login-page addition; browser suite running. Phase 3 authorization remains unimplemented and blocked.

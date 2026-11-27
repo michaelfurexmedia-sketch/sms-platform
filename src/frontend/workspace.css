@@ -637,3 +637,119 @@
   height: 20px;
   flex-shrink: 0;
 }
+
+/* Sustained-use workspace: quiet surfaces, compact data, stable navy navigation. */
+.legacy-app .sidebar {
+  background: var(--navigation);
+  color: var(--navigation-text);
+  border-color: var(--navigation-border);
+  padding: 24px 14px 16px;
+  width: 240px;
+}
+.legacy-app .sidebar nav > a {
+  color: var(--navigation-muted);
+  border-radius: 4px;
+  gap: 10px;
+  padding: 10px;
+}
+.legacy-app .sidebar nav > a:hover,
+.legacy-app .sidebar nav > a[aria-current="page"] {
+  background: var(--navigation-active);
+  color: var(--navigation-text);
+}
+.legacy-app .sidebar nav > a[aria-current="page"] {
+  box-shadow: inset 3px 0 var(--accent);
+}
+.legacy-app .sidebar .workspace-name,
+.legacy-app .sidebar .workspace-avatar {
+  background: var(--navigation-active);
+  border-color: var(--navigation-border);
+}
+.legacy-app .sidebar .workspace-name {
+  margin-bottom: 18px;
+  border-radius: 4px;
+}
+.legacy-app .sidebar .sidebar-bottom,
+.legacy-app .sidebar .sidebar-credit span {
+  color: var(--navigation-muted);
+}
+.legacy-app .sidebar a:focus-visible,
+.legacy-app .sidebar button:focus-visible {
+  outline-color: var(--accent);
+}
+.legacy-app .nav-count {
+  color: var(--on-accent);
+}
+.legacy-app .workspace-main h1 {
+  font-size: 30px;
+  letter-spacing: -0.035em;
+}
+.legacy-app .workspace-main h2 {
+  font-size: 21px;
+}
+.legacy-app .workspace-main h3 {
+  font-size: 18px;
+}
+.legacy-app .workspace-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.dashboard-metrics strong,
+.legacy-app .stat-value,
+.legacy-app td {
+  font-variant-numeric: tabular-nums;
+}
+.dashboard-metrics {
+  background: var(--surface);
+}
+.dashboard-metrics > div {
+  padding: 20px;
+  border-bottom: 0;
+  border-right: 1px solid var(--line);
+}
+.dashboard-metrics > div:last-child {
+  border-right: 0;
+}
+.dashboard-metrics strong {
+  font-size: 28px;
+}
+.dashboard-onboarding {
+  padding: 20px;
+  margin-bottom: 24px;
+}
+.legacy-app .panel th {
+  background: var(--secondary-background);
+  font-weight: 500;
+}
+.legacy-app .panel td {
+  padding-block: 13px;
+}
+.legacy-app .panel tbody tr:hover {
+  background: var(--hover);
+}
+.legacy-app .btn {
+  border-radius: 6px;
+}
+.legacy-app .module-form,
+.legacy-app .module-columns > .panel {
+  padding: 24px;
+}
+.legacy-app .sidebar-bottom small {
+  font-size: 11px;
+  line-height: 1.5;
+}
+.admin-shell .dashboard-metrics strong {
+  font-size: 27px;
+}
+.admin-shell .health-strip {
+  background: var(--surface);
+  padding: 16px;
+}
+@media (max-width: 600px) {
+  .legacy-app .workspace-main h1 {
+    font-size: 26px;
+  }
+  .dashboard-metrics > div {
+    padding: 16px 12px;
+  }
+}

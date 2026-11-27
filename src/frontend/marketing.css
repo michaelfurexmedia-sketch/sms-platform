@@ -433,3 +433,114 @@
 .marketing .demo-toolbar {
   font-size: 13px;
 }
+
+/* Editorial canvas: one dramatic product stage, then quieter reading sections. */
+.marketing .marketing-hero {
+  max-width: none;
+  padding: 76px max(32px, calc((100vw - 1264px) / 2)) 80px;
+  background: var(--paper);
+  color: var(--ink);
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+}
+.marketing .hero-intro h1 {
+  font-size: clamp(44px, 4.8vw, 72px);
+  max-width: 16ch;
+}
+.marketing .hero-intro .eyebrow {
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.marketing .hero-demo {
+  padding: 24px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+.marketing .hero-demo .demo {
+  border-radius: 4px;
+}
+.marketing .marketing-nav {
+  min-height: 84px;
+}
+.marketing .marketing-principles {
+  padding-block: 22px;
+  font-size: 15px;
+}
+.marketing .workflow-demo {
+  border: 0;
+  border-left: 2px solid var(--accent);
+  background: transparent;
+  padding-left: 32px;
+}
+.marketing .marketing-feature-index > a {
+  grid-template-columns: 1fr auto;
+  gap: 8px 24px;
+}
+.marketing .marketing-feature-index > a p {
+  grid-column: 1;
+}
+.marketing .marketing-feature-index > a span {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+.marketing .pricing-plans {
+  gap: 0;
+  border-bottom: 1px solid var(--line);
+}
+.marketing .pricing-plans article {
+  padding: 28px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+.marketing .pricing-plans article:nth-child(2) {
+  background: var(--surface);
+  border-top: 3px solid var(--accent);
+}
+.marketing .marketing-close {
+  background: var(--secondary-background);
+  margin-top: 24px;
+  padding-block: 56px;
+}
+.marketing .marketing-footer {
+  padding-block: 56px;
+}
+.preview-note {
+  margin: 0;
+  padding: 6px 24px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  background: var(--paper);
+  text-align: right;
+}
+@media (max-width: 850px) {
+  .marketing .marketing-hero {
+    grid-template-columns: 1fr;
+    gap: 36px;
+    padding: 48px 24px;
+  }
+  .marketing .hero-demo {
+    max-width: 100%;
+    padding: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .marketing .marketing-feature-index > a {
+    grid-template-columns: 1fr;
+  }
+  .marketing .marketing-feature-index > a span {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .marketing .pricing-plans article {
+    padding-inline: 12px;
+    border-right: 0;
+  }
+  .preview-note {
+    text-align: left;
+  }
+}

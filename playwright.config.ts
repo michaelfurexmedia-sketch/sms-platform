@@ -14,7 +14,13 @@ export default defineConfig({
   webServer: {
     command: "npm start",
     url: "http://127.0.0.1:4175/api/health",
-    env: { PORT: "4175", APP_HOST: "127.0.0.1", APP_MODE: "demo" },
+    env: {
+      PORT: "4175",
+      APP_HOST: "127.0.0.1",
+      APP_MODE: "demo",
+      OWNER_PREVIEW: "local-only",
+      SITES_MANAGED_LINUX_CONTAINER: "",
+    },
     reuseExistingServer: false,
     timeout: 60000,
   },

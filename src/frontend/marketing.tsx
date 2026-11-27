@@ -28,7 +28,7 @@ export function Marketing({ page = "" }: { page?: string }) {
         <a className="skip-link" href="#main">
           Skip to content
         </a>
-        <aside className="preview-ribbon" aria-label="Preview status">
+        <aside className="preview-note" aria-label="Preview status">
           Frontend preview · synthetic data · no live messages or payments
         </aside>
         <header className="marketing-nav wrap">
@@ -63,10 +63,13 @@ export function Marketing({ page = "" }: { page?: string }) {
         <main id="main">
           {!page ? (
             <>
-              <section className="marketing-hero wrap">
+              <section
+                className="marketing-hero wrap"
+                style={brandVariables("dark")}
+              >
                 <div className="hero-intro">
                   <span className="eyebrow">
-                    Business messaging, considered.
+                    One workspace. Every conversation.
                   </span>
                   <h1>
                     A small message.
@@ -89,7 +92,7 @@ export function Marketing({ page = "" }: { page?: string }) {
                     needed.
                   </small>
                 </div>
-                <div className="hero-demo">
+                <div className="hero-demo" style={brandVariables("light")}>
                   <div className="demo-caption">
                     <span>Inside your next conversation</span>
                     <span>Interactive demo</span>
@@ -451,7 +454,7 @@ export function Marketing({ page = "" }: { page?: string }) {
             <Link href="/privacy">Privacy policy</Link>
             <Link href="/terms">Terms of service</Link>
             <Link href="/acceptable-use">Acceptable use</Link>
-            <Link href="/admin">Admin preview</Link>
+
             <Link href="/design-system">Design system</Link>
           </nav>
         </footer>

@@ -1,5 +1,9 @@
 import { spawn } from "node:child_process";
 
+if (process.env.OWNER_PREVIEW)
+  throw new Error(
+    "Use npm run preview:owner for the local administrator preview",
+  );
 // Keep ordinary Next CLI options; adapt the managed preview launcher's flags.
 const args = process.argv.slice(2).flatMap((arg) => {
   if (arg === "--strictPort") return [];
