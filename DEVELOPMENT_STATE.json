@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-28",
   "active_phase": 3,
-  "active_milestone": "3.1 WIP \u2014 request boundary primitives",
+  "active_milestone": "3.1 WIP \u2014 request boundaries and authorization policies",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "d1e2adbcec4fe0d5b57d4a50ddd8efc977a2d3c0",
+  "last_known_implementation_checkpoint": "bd5ec984b36d62e9ff543ee4b424172deb04a6c8",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -28,7 +28,7 @@
     "3.8 full verification"
   ],
   "partially_implemented_tasks": [
-    "3.1 request parsing, pagination, same-origin validation and redacted errors; not yet wired to business routes"
+    "3.1 request boundaries and separate workspace/platform authorization policies; not wired to APIs or sessions"
   ],
   "relevant_files": [
     "AGENTS.md",
@@ -150,7 +150,7 @@
     "phase31": {
       "lint": "passed",
       "typecheck": "passed",
-      "unit": "26 passed",
+      "unit": "28 passed",
       "integration": "not implemented"
     }
   },
@@ -168,7 +168,8 @@
     "QUEUE_URL required only for worker",
     "WORKER_HEALTH_PORT",
     "ENABLE_LIVE_SMS=false",
-    "ENABLE_LIVE_BILLING=false"
+    "ENABLE_LIVE_BILLING=false",
+    "OWNER_ADMIN_EMAIL: configure privately for explicit server-side provisioning; identity supplied by owner"
   ],
   "preview_status": {
     "public_website": "http://localhost:3000/",
@@ -193,7 +194,7 @@
     "evidence": "Owner replied to the explicit frontend approval question: yea it's good but need some changes we can do changes when the backend is complete",
     "note": "Current frontend approved for backend progression; unspecified design changes deferred until backend completion. No backend implementation performed by this approval checkpoint."
   },
-  "next_action": "Complete 3.1 backend modules and permission/rate-limit integration, then PostgreSQL migrations and Better Auth. Verify a stable Prisma release; npm default was a release candidate. Preserve approved frontend.",
+  "next_action": "Complete backend modules and distributed rate limits. Implement PostgreSQL schemas/migrations and Better Auth using pinned stable versions, then wire verified session/grant records to permission checks. No production route protection is claimed yet.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,

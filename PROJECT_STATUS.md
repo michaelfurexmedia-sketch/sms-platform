@@ -1,6 +1,6 @@
 # PHASE 3 IN PROGRESS
 
-Milestone 3.1 WIP: added tested request-boundary helpers (bounded streaming JSON, pagination validation, same-origin checks and safe error responses). No business route is connected yet. Fresh lint, TypeScript and 26 unit tests passed. Database/authentication/tenant isolation and frontend integration remain pending; no production security claim. Next: finish 3.1 modules/permissions/rate limiting, then stable Prisma/PostgreSQL and Better Auth.
+Milestone 3.1 WIP: added tested request-boundary helpers (bounded streaming JSON, pagination validation, same-origin checks and safe error responses). No business route is connected yet. Fresh lint, TypeScript and 28 unit tests passed. Database/authentication/tenant isolation and frontend integration remain pending; no production security claim. Next: finish 3.1 modules/permissions/rate limiting, then stable Prisma/PostgreSQL and Better Auth.
 
 ## FRONTEND APPROVED — DESIGN REFINEMENTS DEFERRED
 
@@ -30,3 +30,7 @@ The frontend approval gate is satisfied. Next: separately assigned Phase 3, pres
 Rechecked implementation `5d7e0f9` from approval checkpoint `c2e8a82`. Fresh build, TypeScript, lint, 23 unit tests, worker compilation, 37 browser tests (45 accessibility scans), formatting and state validation passed. No new application defects found in covered scenarios. Corrected a stale approval-pending limitation in development state; no visual or application behavior changed.
 
 Synthetic data/integrations, real authentication/permissions and business database remain intentional later-phase dependencies. See [verification scope, configuration and limitations](docs/PHASE26_REVERIFICATION.md). Phase 3 was not started. This verification commit is the commit containing this entry.
+
+## Phase 3 authorization checkpoint
+
+Added workspace and platform role policies with negative tests for foreign memberships, expired/unverified sessions, missing/revoked grants and absent/stale MFA. Not yet connected to real sessions or routes. Frontend unchanged. Owner provisioning will use privately configured email, not a hardcoded signup privilege. See docs/PHASE3_PROGRESS.md for dependencies and exact next actions.
