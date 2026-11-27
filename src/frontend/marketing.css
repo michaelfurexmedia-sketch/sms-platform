@@ -544,3 +544,15 @@
     text-align: left;
   }
 }
+.marketing .marketing-hero .btn.secondary {
+  background: var(--surface);
+  color: var(--ink);
+}
+.legacy-app .bubble.out {
+  color: var(--on-accent);
+}
+
+.marketing .hero-demo .demo-action .btn {
+  background: var(--ink);
+  color: var(--paper);
+}

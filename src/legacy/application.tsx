@@ -143,9 +143,9 @@ function Content() {
       </div>
     );
   const prototype = (
-    <p className="preview-note" aria-label="Preview mode">
+    <aside className="preview-note" aria-label="Preview mode">
       Demo workspace · fictional data · no live messages or payments
-    </p>
+    </aside>
   );
   if (!app && !admin)
     return (

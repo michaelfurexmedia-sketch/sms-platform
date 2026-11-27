@@ -25,3 +25,7 @@ docs/PHASE1_RECOVERY.md. Retain that historical record unchanged.
 Phase 1 acceptance passed at 54ffca7f333b79b0311ee68e06dc9045d9664556.
 Phase 2 assignment is preserved in docs/PHASE2_SCOPE.md. Frontend owner approval
 has not been recorded.
+
+## Phase 2.6 owner revision
+
+Revised palette/typography, marketing composition, customer data hierarchy, public admin-switch removal, local-only admin entry, responsive accessibility and final verification precede owner review. Phase 3 remains blocked until explicit approval of the revised commit. Owner provisioning, MFA, separate sessions and per-operation server authorization are mandatory first backend requirements.

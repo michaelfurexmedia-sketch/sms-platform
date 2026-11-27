@@ -1,13 +1,24 @@
-# FRONTEND REVISION IN PROGRESS
+# FRONTEND REVISED — AWAITING OWNER APPROVAL
 
-Phase 2.6 on `phase-2-frontend`. Recoverable pre-redesign frontend: `5aa78af30c96d02ce7defc39f10cb2189e1edb83` (source checkpoint `599917b`). Owner rejected the prior visual direction; Phase 3 remains blocked.
+Phase 2.6 on `phase-2-frontend`. Final review candidate is the commit containing
+this status; earlier recoverable implementation checkpoint: `a8dd3ff037347cb019cd6b18bfe4b24cf392518e`.
 
-Baseline source is already on GitHub and preserved in this checkpoint ancestry. No implementation rewritten. Current checks are pending; historical results remain in DEVELOPMENT_STATE.json. Next: semantic color/type milestone, then marketing, customer, admin separation, accessibility and final preview. Each milestone must be committed, pushed and source read back.
+Implemented exact navy/pearl/coral semantic themes, accessible action text,
+navy hero and editorial/pricing refinements, compact workspace typography/tables,
+navy navigation and admin operations styling. Working synthetic flows retained.
+Public role switching and admin links removed. Default admin routes return 404;
+owner preview is opt-in local-only. Separate login placeholder makes no auth claim.
 
-## Palette checkpoint
+Fresh checks: build, TypeScript, lint, formatting, state validation, 23 unit tests,
+37 browser tests (45 axe scans), responsive layout, dialog focus and reduced motion
+passed. Default-server admin denial and absence of public privilege controls tested.
+No worker change; historical worker checks were not rerun. Chromium/axe coverage
+is not full cross-browser or independent human accessibility certification.
 
-Central light/dark semantic colors now use exact Ink Navy, Pearl White and Electric Coral. Coral actions use navy foreground; text links use contrast-safe tonal variants. Removed obsolete green base tokens and blue aliases. Existing self-hosted fonts retained. Fresh TypeScript/lint and 22 unit tests passed, including contrast checks; browser/build verification pending. This is an unfinished redesign, not owner approval. Next: public composition, customer density and local-only admin separation.
+See [preview instructions](docs/PREVIEW.md) and [security boundary](docs/PHASE26_ADMIN_SECURITY.md).
+Use synthetic data only. MFA, verified owner provisioning, server sessions and
+per-operation authorization remain mandatory Phase 3 work, not completed security.
+No Vercel, hosting purchase or live provider operations. Final brand undecided.
 
-## Layout and separation checkpoint
-
-Implemented navy hero product stage, quieter editorial/pricing composition, compact navy workspace navigation and operational tables. Removed public administrator switch behavior and links. Admin server routes default closed; dedicated local-only owner launcher and login placeholder added. See docs/PHASE26_ADMIN_SECURITY.md. Build, types, lint and 23 unit checks passed before final login-page addition; browser suite running. Phase 3 authorization remains unimplemented and blocked.
+STOP. Await owner review and explicit approval of the revised commit. Phase 3
+remains blocked. Preserve approved design when backend work is later authorized.

@@ -291,45 +291,8 @@
   top: 5px;
   right: 0;
 }
-.legacy-app .prototype-bar {
-  min-height: 38px;
-  padding: 7px 24px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  background: var(--ink);
-  color: var(--white);
-  position: relative;
-  z-index: 50;
-}
-.legacy-app .prototype-bar b {
-  font-weight: 500;
-}
 .legacy-app .prototype-description {
   opacity: 0.65;
-}
-.legacy-app .role-switch {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-.legacy-app .role-switch > span {
-  margin-right: 7px;
-  opacity: 0.65;
-}
-.legacy-app .role-switch button {
-  color: var(--white);
-  padding: 5px 10px;
-  border-radius: 5px;
-  min-height: 28px;
-}
-.legacy-app .role-switch button[aria-pressed="true"] {
-  background: var(--white);
-  color: var(--ink);
 }
 .legacy-app .public-header {
   display: flex;
@@ -1945,23 +1908,6 @@
 @media (max-width: 600px) {
   .legacy-app .wrap {
     padding-inline: 22px;
-  }
-  .legacy-app .prototype-bar {
-    padding: 8px 12px;
-    flex-wrap: wrap;
-    font-size: 11px;
-    justify-content: center;
-  }
-  .legacy-app .prototype-bar > span {
-    display: none;
-  }
-  .legacy-app .role-switch {
-    font-size: 11px;
-  }
-  .legacy-app .role-switch:before {
-    content: "Prototype";
-    margin-right: 14px;
-    font-weight: 500;
   }
   .legacy-app .public-header > .mobile-toggle {
     display: inline-flex;

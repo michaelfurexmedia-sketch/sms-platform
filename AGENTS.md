@@ -3,7 +3,7 @@
 ## Authority and current scope
 
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: Phase 2.6 premium frontend refinement on phase-2-frontend. Prior frontend is not approved. Preserve working flows; apply owner palette and private-admin separation. Do not begin Phase 3 before explicit approval.
+- Current assignment: Phase 2.6 complete, FRONTEND REVISED — AWAITING OWNER APPROVAL on phase-2-frontend. Prior frontend is not approved. Preserve working flows; apply owner palette and private-admin separation. Do not begin Phase 3 before explicit approval.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 

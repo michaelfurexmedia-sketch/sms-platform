@@ -639,45 +639,45 @@
 }
 
 /* Sustained-use workspace: quiet surfaces, compact data, stable navy navigation. */
-.legacy-app .sidebar {
+.legacy-app .app-shell .sidebar {
   background: var(--navigation);
   color: var(--navigation-text);
   border-color: var(--navigation-border);
   padding: 24px 14px 16px;
   width: 240px;
 }
-.legacy-app .sidebar nav > a {
+.legacy-app .app-shell .sidebar nav > a {
   color: var(--navigation-muted);
   border-radius: 4px;
   gap: 10px;
   padding: 10px;
 }
-.legacy-app .sidebar nav > a:hover,
-.legacy-app .sidebar nav > a[aria-current="page"] {
+.legacy-app .app-shell .sidebar nav > a:hover,
+.legacy-app .app-shell .sidebar nav > a[aria-current="page"] {
   background: var(--navigation-active);
   color: var(--navigation-text);
 }
-.legacy-app .sidebar nav > a[aria-current="page"] {
+.legacy-app .app-shell .sidebar nav > a[aria-current="page"] {
   box-shadow: inset 3px 0 var(--accent);
 }
-.legacy-app .sidebar .workspace-name,
-.legacy-app .sidebar .workspace-avatar {
+.legacy-app .app-shell .sidebar .workspace-name,
+.legacy-app .app-shell .sidebar .workspace-avatar {
   background: var(--navigation-active);
   border-color: var(--navigation-border);
 }
-.legacy-app .sidebar .workspace-name {
+.legacy-app .app-shell .sidebar .workspace-name {
   margin-bottom: 18px;
   border-radius: 4px;
 }
-.legacy-app .sidebar .sidebar-bottom,
-.legacy-app .sidebar .sidebar-credit span {
+.legacy-app .app-shell .sidebar .sidebar-bottom,
+.legacy-app .app-shell .sidebar .sidebar-credit span {
   color: var(--navigation-muted);
 }
-.legacy-app .sidebar a:focus-visible,
-.legacy-app .sidebar button:focus-visible {
+.legacy-app .app-shell .sidebar a:focus-visible,
+.legacy-app .app-shell .sidebar button:focus-visible {
   outline-color: var(--accent);
 }
-.legacy-app .nav-count {
+.legacy-app .app-shell .nav-count {
   color: var(--on-accent);
 }
 .legacy-app .workspace-main h1 {
@@ -734,7 +734,7 @@
 .legacy-app .module-columns > .panel {
   padding: 24px;
 }
-.legacy-app .sidebar-bottom small {
+.legacy-app .app-shell .sidebar-bottom small {
   font-size: 11px;
   line-height: 1.5;
 }
@@ -752,4 +752,32 @@
   .dashboard-metrics > div {
     padding: 16px 12px;
   }
+}
+.legacy-app .app-shell .sidebar .logo {
+  background: transparent;
+  color: var(--navigation-text);
+}
+.legacy-app .app-shell .sidebar .workspace-name small,
+.legacy-app .app-shell .sidebar-bottom > a,
+.legacy-app .app-shell .sidebar-bottom > button {
+  color: var(--navigation-muted);
+}
+.legacy-app .app-shell .sidebar-credit {
+  background: var(--navigation-active);
+}
+.legacy-app .app-shell .sidebar-credit a {
+  color: var(--navigation-text);
+}
+
+.legacy-app > .preview-note {
+  margin: 0;
+  padding: 6px 24px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  background: var(--paper);
+  text-align: right;
+}
+.legacy-app .app-shell .sidebar-bottom small {
+  color: var(--navigation-muted);
 }

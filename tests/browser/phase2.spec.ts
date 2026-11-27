@@ -405,3 +405,20 @@ test("frontend resource sample records transfer size and load timing", async ({
   });
   expect(sample.jsTransferredBytes).toBeLessThan(1500000);
 });
+
+test("public and customer interfaces have no platform privilege switch", async ({
+  page,
+}) => {
+  for (const route of ["/", "/login", "/signup", "/preview"]) {
+    await page.goto(route);
+    await expect(page.locator('a[href*="/admin"], .role-switch')).toHaveCount(
+      0,
+    );
+    await expect(page.getByRole("button", { name: "Owner admin" })).toHaveCount(
+      0,
+    );
+  }
+  await enterDemo(page);
+  await expect(page.locator('a[href*="/admin"], .role-switch')).toHaveCount(0);
+  expect((await page.goto("/preview/admin"))?.status()).toBe(404);
+});

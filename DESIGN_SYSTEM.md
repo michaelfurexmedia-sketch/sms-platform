@@ -70,3 +70,7 @@ Desktop/tablet/mobile review widths: 1440, 768 and 390px. Automated checks cover
 both application themes, keyboard dialogs, reduced motion and overflow.
 
 Phase 2.6 tokens include navigation, surfaces, hover/disabled, inputs/dialogs, focus, charts, shadows and independent status colors. `accentText` differs from action coral for accessible small text. Unit checks enforce 4.5:1 for selected normal-text pairs and 3:1 focus contrast in both themes. This does not replace rendered-page axe and keyboard testing.
+
+## Phase 2.6 composition
+
+Navy product stage, pearl reading canvas and coral action accents. Marketing keeps the interactive message demonstration, editorial feature index and tier comparison. Customer/admin use navy navigation, 26–30px page titles, 18–21px section headings, compact tables and tabular financial numerals. Existing Bricolage Grotesque/Geist fonts are self-hosted from OFL-licensed packages. No new fonts, imagery or motion libraries. Legacy compatibility selectors remain where still used; semantic base colors no longer use the old green palette.

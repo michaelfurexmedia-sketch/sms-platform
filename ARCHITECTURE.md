@@ -71,7 +71,7 @@ The browser-local provider is the single demo state source. Typed preview
 contracts in `src/frontend/contracts.ts` prepare replacement service boundaries.
 CSV/XLSX imports run client-side; XLSX parsing is loaded on demand.
 
-Admin role switching is a review control, never an authorization mechanism.
+Public role switching has been removed. Admin routes fail closed unless the explicit local-only preview configuration is active; see docs/PHASE26_ADMIN_SECURITY.md. This preview is not production authentication.
 Audit entries, balances, invoices, registration results, provider health and
 checkout outcomes are synthetic. An audit UI is not an immutable financial ledger.
 The probe worker does not execute business schedules; demo schedules require an
