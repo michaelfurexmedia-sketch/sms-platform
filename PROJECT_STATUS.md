@@ -1,4 +1,8 @@
-# FRONTEND APPROVED — DESIGN REFINEMENTS DEFERRED
+# PHASE 3 IN PROGRESS
+
+Milestone 3.1 WIP: added tested request-boundary helpers (bounded streaming JSON, pagination validation, same-origin checks and safe error responses). No business route is connected yet. Fresh lint, TypeScript and 26 unit tests passed. Database/authentication/tenant isolation and frontend integration remain pending; no production security claim. Next: finish 3.1 modules/permissions/rate limiting, then stable Prisma/PostgreSQL and Better Auth.
+
+## FRONTEND APPROVED — DESIGN REFINEMENTS DEFERRED
 
 Owner approved frontend commit `5d7e0f9df8a975c376aea6252cad914a23fd5539` on 2026-11-28, with unspecified design changes deferred until backend completion. Approval evidence is recorded in DEVELOPMENT_STATE.json. Branch: `phase-2-frontend`.
 

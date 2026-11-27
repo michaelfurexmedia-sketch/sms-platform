@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "updated": "2026-11-28",
-  "active_phase": 2,
-  "active_milestone": "Phase 2.6 approved; Phase 3 ready",
+  "active_phase": 3,
+  "active_milestone": "3.1 WIP \u2014 request boundary primitives",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "5d7e0f9df8a975c376aea6252cad914a23fd5539",
+  "last_known_implementation_checkpoint": "d1e2adbcec4fe0d5b57d4a50ddd8efc977a2d3c0",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -18,10 +18,18 @@
     "Phase 2.6 palette, public/customer/admin refinements, removal of privilege switching, local-only admin entry, responsive/accessibility verification"
   ],
   "pending_tasks": [
-    "Phase 3 backend implementation under its assigned scope",
-    "Collect and apply deferred owner design refinements after backend completion"
+    "3.1 modules, authorization and distributed rate limits",
+    "3.2 PostgreSQL schemas/migrations/seed",
+    "3.3 Better Auth and mandatory owner MFA",
+    "3.4 tenant isolation",
+    "3.5 permissions",
+    "3.6 durable business workers",
+    "3.7 real frontend integration",
+    "3.8 full verification"
   ],
-  "partially_implemented_tasks": [],
+  "partially_implemented_tasks": [
+    "3.1 request parsing, pagination, same-origin validation and redacted errors; not yet wired to business routes"
+  ],
   "relevant_files": [
     "AGENTS.md",
     "docs/PHASE2_SCOPE.md",
@@ -138,6 +146,12 @@
       "format": "passed",
       "state_check": "passed",
       "record": "docs/PHASE26_REVERIFICATION.md"
+    },
+    "phase31": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "unit": "26 passed",
+      "integration": "not implemented"
     }
   },
   "known_bugs": [],
@@ -179,7 +193,7 @@
     "evidence": "Owner replied to the explicit frontend approval question: yea it's good but need some changes we can do changes when the backend is complete",
     "note": "Current frontend approved for backend progression; unspecified design changes deferred until backend completion. No backend implementation performed by this approval checkpoint."
   },
-  "next_action": "Begin separately assigned Phase 3 using the approved frontend. Prioritize real owner-only authentication/MFA, server authorization, customer authentication and tenant isolation. Defer unspecified visual changes until backend completion.",
+  "next_action": "Complete 3.1 backend modules and permission/rate-limit integration, then PostgreSQL migrations and Better Auth. Verify a stable Prisma release; npm default was a release candidate. Preserve approved frontend.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
@@ -199,6 +213,6 @@
   ],
   "pull_request": "https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2",
   "phase2_frontend_complete": true,
-  "status": "FRONTEND APPROVED \u2014 DESIGN REFINEMENTS DEFERRED",
+  "status": "PHASE 3 IN PROGRESS",
   "review_stage": "Phase 2.6"
 }
