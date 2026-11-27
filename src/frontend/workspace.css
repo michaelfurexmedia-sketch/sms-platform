@@ -564,7 +564,7 @@
 .legacy-app .demo-bottom {
   color: var(--ink);
   font-size: 13px;
-  background: var(--legacy-mist);
+  background: var(--secondary-background);
 }
 .legacy-app .sidebar nav {
   overflow: auto;
@@ -602,7 +602,7 @@
 .legacy-app .button-primary {
   background: var(--accent);
   color: var(--on-accent);
-  border-color: var(--accent);
+  border-color: var(--accent-text);
 }
 .legacy-app .button-secondary {
   background: var(--surface);
@@ -611,7 +611,7 @@
 }
 .legacy-app .button-danger {
   background: var(--danger);
-  color: var(--surface);
+  color: var(--on-danger);
   border-color: var(--danger);
 }
 .legacy-app .button-quiet {

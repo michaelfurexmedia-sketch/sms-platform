@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-27",
   "active_phase": 2,
-  "active_milestone": "2.6.0 \u2014 preserved baseline; refinement in progress",
+  "active_milestone": "2.6.1 \u2014 semantic palette checkpoint; layout refinement pending",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "5aa78af30c96d02ce7defc39f10cb2189e1edb83",
+  "last_known_implementation_checkpoint": "1c99efc06e3c4c967f6818b6fc29de365907140f",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -13,7 +13,8 @@
     "Fresh local build, types, lint, 19 unit, worker integration, 35 browser tests and 45 axe scans passed",
     "Incremental implementation checkpoints pushed and source read back from GitHub",
     "Final GitHub Actions Node 22 build/tests and Docker health checks passed; draft PR #2 opened without merging",
-    "Phase 2.5 preview restored from GitHub; startup adapter pushed; three actual application routes opened in cloud browser; fresh 35 browser tests and 45 axe scans passed"
+    "Phase 2.5 preview restored from GitHub; startup adapter pushed; three actual application routes opened in cloud browser; fresh 35 browser tests and 45 axe scans passed",
+    "2.6.1 semantic navy/pearl/coral tokens and accessible foregrounds; existing licensed fonts retained"
   ],
   "pending_tasks": [
     "2.6.1 Color tokens and typography",
@@ -110,7 +111,11 @@
       "unit_worker_docker": "Not rerun locally for preview-only change; prior Phase 2 CI evidence retained separately"
     },
     "phase26": {
-      "status": "Not yet run; earlier results are historical"
+      "unit": "22 passed, including 3 palette/contrast tests",
+      "typecheck": "passed",
+      "lint": "passed",
+      "browser": "pending",
+      "production_build": "pending"
     }
   },
   "known_bugs": [],
@@ -161,7 +166,7 @@
     "evidence": null,
     "note": "Owner rejected prior visual direction and requested Phase 2.6; no approval."
   },
-  "next_action": "Implement 2.6.1 semantic navy/pearl/coral tokens and typography; persist each milestone. Phase 3 blocked.",
+  "next_action": "Refine public website composition (2.6.2), then customer hierarchy and local-only admin separation. Do not consider palette checkpoint a completed redesign.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,

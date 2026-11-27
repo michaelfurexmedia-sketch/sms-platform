@@ -1,6 +1,6 @@
 @import "tailwindcss";
 :root {
-  font-family: "Geist", sans-serif;
+  font-family: "Geist", Arial, sans-serif;
   color: var(--ink);
   background: var(--paper);
 }
@@ -28,13 +28,13 @@ textarea {
   touch-action: manipulation;
 }
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus);
   outline-offset: 4px;
 }
 h1,
 h2,
 h3 {
-  font-family: "Bricolage Grotesque", sans-serif;
+  font-family: "Bricolage Grotesque", "Geist", Arial, sans-serif;
   font-weight: 500;
   letter-spacing: -0.035em;
   line-height: 1.08;
@@ -81,4 +81,21 @@ p {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+input,
+textarea,
+select {
+  background: var(--input-background);
+}
+button:disabled,
+input:disabled,
+select:disabled {
+  color: var(--disabled-text);
+  background: var(--disabled-background);
+  cursor: not-allowed;
+}
+.modal {
+  background: var(--dialog-background);
+  box-shadow: var(--shadow);
 }

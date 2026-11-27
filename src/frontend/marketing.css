@@ -52,7 +52,7 @@
 }
 .marketing h1 em {
   font-style: normal;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .marketing .hero-intro > p {
   font-size: 18px;
@@ -132,7 +132,7 @@
   margin: 0;
 }
 .workflow-demo svg {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .marketing-feature-index {
   padding-top: 80px;
@@ -155,7 +155,7 @@
 }
 .marketing-feature-index span {
   font-size: 14px;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .marketing-usecases article {
   border-bottom: 1px solid var(--line);
@@ -426,7 +426,7 @@
 .marketing .demo-bottom {
   color: var(--ink);
   font-size: 13px;
-  background: var(--legacy-mist);
+  background: var(--secondary-background);
 }
 .marketing .demo-date,
 .marketing .demo-meta,
