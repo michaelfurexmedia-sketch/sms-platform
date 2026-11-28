@@ -80,8 +80,11 @@ export function ContactTools({ w }: { w: Workspace }) {
             <table>
               <thead>
                 <tr>
-                  <th>File</th>
+                  <th>Batch / file</th>
+                  <th>Total</th>
                   <th>Added</th>
+                  <th>Skipped</th>
+                  <th>Review required</th>
                   <th>Duplicates</th>
                   <th>Invalid</th>
                   <th>Suppressed</th>
@@ -91,8 +94,14 @@ export function ContactTools({ w }: { w: Workspace }) {
               <tbody>
                 {w.preview.imports.map((i) => (
                   <tr key={i.id}>
-                    <td>{i.file}</td>
+                    <td>
+                      {i.name || i.file}
+                      <small>{i.name ? i.file : ""}</small>
+                    </td>
+                    <td>{i.total ?? "—"}</td>
                     <td>{i.added}</td>
+                    <td>{i.skipped ?? "—"}</td>
+                    <td>{i.reviewRequired ?? "—"}</td>
                     <td>{i.duplicates}</td>
                     <td>{i.invalid}</td>
                     <td>{i.suppressed}</td>

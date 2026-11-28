@@ -2,9 +2,9 @@
   "schema_version": 1,
   "updated": "2026-11-28",
   "active_phase": 2,
-  "active_milestone": "2.7.1 \u2014 configurable plans and scope transition",
+  "active_milestone": "2.7.2 contacts, tags and safe imports \u2014 browser acceptance pending",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "70bc3739397da10eb486495a12ffb79c4d66856b",
+  "last_known_implementation_checkpoint": "17c9e46b7a7bd2c5adc983f924e64838c96f83da",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -160,6 +160,12 @@
       "browser": "3 pricing/navigation tests passed at 1440, 768 and 390px",
       "accessibility": "3 axe scans passed",
       "scope": "Plan changes only; complete Phase 2.7 acceptance pending"
+    },
+    "phase27_contacts": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "unit": "34 passed",
+      "browser": "pending"
     }
   },
   "known_bugs": [],

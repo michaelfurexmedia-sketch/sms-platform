@@ -458,6 +458,15 @@ export function setContactStatus(
   const w = workspace(s, id),
     c = w.contacts.find((c) => c.id === contactId);
   if (!c) return;
+  if (status === "Opted out") {
+    w.preview ??= {};
+    w.preview.suppressedPhones = [
+      ...new Set([
+        ...(w.preview.suppressedPhones || []),
+        normalizePhone(c.phone),
+      ]),
+    ];
+  }
   for (const item of w.contacts.filter(
     (x) => normalizePhone(x.phone) === normalizePhone(c.phone),
   ))
@@ -499,11 +508,12 @@ export function recipients(
   c: Pick<Campaign, "text" | "fallback" | "audience">,
 ): Recipient[] {
   const seen = new Set<string>();
-  const opted = new Set(
-    w.contacts
+  const opted = new Set([
+    ...(w.preview?.suppressedPhones || []),
+    ...w.contacts
       .filter((x) => x.status === "Opted out")
       .map((x) => normalizePhone(x.phone)),
-  );
+  ]);
   return w.contacts
     .filter(
       (x) =>
@@ -670,6 +680,7 @@ export function reply(
     contact = w.contacts.find((c) => c.id === contactId);
   if (!contact || !text.trim()) throw Error("Write a reply first.");
   if (
+    w.preview?.suppressedPhones?.includes(normalizePhone(contact.phone)) ||
     w.contacts.some(
       (c) =>
         normalizePhone(c.phone) === normalizePhone(contact.phone) &&

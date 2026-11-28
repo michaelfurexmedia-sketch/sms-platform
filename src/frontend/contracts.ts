@@ -17,6 +17,9 @@ export type Automation = {
   }[];
 };
 export type PreviewPreferences = {
+  tags?: string[];
+  suppressedPhones?: string[];
+  deletedContacts?: import("@/lib/model").Contact[];
   plan?: string;
   autoRecharge?: boolean;
   rechargeThreshold?: number;
@@ -28,6 +31,11 @@ export type PreviewPreferences = {
     id: string;
     at: string;
     file: string;
+    name?: string;
+    fingerprint?: string;
+    total?: number;
+    skipped?: number;
+    reviewRequired?: number;
     added: number;
     duplicates: number;
     invalid: number;

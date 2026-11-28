@@ -5,9 +5,11 @@ import {
   scheduleInstant,
   downloadCSV,
 } from "@/frontend/scheduling";
+import { ContactEditor, TagManager } from "@/frontend/contact-editor";
+import { ContactImport } from "@/frontend/contact-import";
 import { ContactTools } from "@/frontend/contacts-tools";
 import { InboxTools } from "@/frontend/inbox-tools";
-import { useMemo, useState, useEffect, type ChangeEvent } from "react";
+import { useState, useEffect } from "react";
 import Link, { useSearchParams } from "./navigation";
 import { useStore } from "@/lib/store";
 import { count, date, money } from "@/lib/config";
@@ -16,10 +18,7 @@ import {
   activity,
   demoContacts,
   importContacts,
-  parseCSV,
   normalizePhone,
-  validPhone,
-  setContactStatus,
   workspace,
   uid,
   now,
@@ -32,7 +31,6 @@ import {
   sendRequirements,
   deliverCampaign,
   type Workspace,
-  type Contact,
   type ContactStatus,
   type Campaign,
   type Recipient,
@@ -77,6 +75,7 @@ export function Contacts({ w }: { w: Workspace }) {
     [status, setStatus] = useState("All statuses"),
     [group, setGroup] = useState("All groups"),
     [tag, setTag] = useState("All tags"),
+    [adding, setAdding] = useState(false),
     [importing, setImporting] = useState(false),
     [selected, setSelected] = useState<string | null>(null),
     [notice, setNotice] = useState(""),
@@ -124,6 +123,10 @@ export function Contacts({ w }: { w: Workspace }) {
       />
       <ErrorNotice message={error} />
       {notice && <Notice tone="success">{notice}</Notice>}
+      <div className="actions">
+        <Button onClick={() => setAdding(true)}>Add contact</Button>
+        <TagManager w={w} />
+      </div>
       <ContactTools w={w} />
       <nav aria-label="Contact pagination" className="actions">
         <Button
@@ -285,505 +288,23 @@ export function Contacts({ w }: { w: Workspace }) {
         Temporary delivery failures remain available for review.
       </p>
       {importing && (
-        <ImportContacts
+        <ContactImport
           w={w}
           onClose={() => setImporting(false)}
           onDone={(message) => {
-            setImporting(false);
             setNotice(message);
           }}
         />
       )}
+      {adding && <ContactEditor w={w} onClose={() => setAdding(false)} />}
       {contact && (
-        <ContactDetail
+        <ContactEditor
           w={w}
           contact={contact}
           onClose={() => setSelected(null)}
         />
       )}
     </>
-  );
-}
-
-type ImportKey =
-  "phone" | "firstName" | "status" | "tags" | "group" | "consent";
-const importLabels: Record<ImportKey, string> = {
-  phone: "Phone number",
-  firstName: "First name",
-  status: "Contact status",
-  tags: "Tags",
-  group: "Group",
-  consent: "Opt-in source",
-};
-function ImportContacts({
-  w,
-  onClose,
-  onDone,
-}: {
-  w: Workspace;
-  onClose: () => void;
-  onDone: (message: string) => void;
-}) {
-  const { mutate } = useStore();
-  const [rows, setRows] = useState<string[][]>([]),
-    [mapping, setMapping] = useState<Record<ImportKey, number>>({
-      phone: -1,
-      firstName: -1,
-      status: -1,
-      tags: -1,
-      group: -1,
-      consent: -1,
-    }),
-    [step, setStep] = useState(0),
-    [error, setError] = useState(""),
-    [source, setSource] = useState(""),
-    [defaultStatus, setDefaultStatus] = useState<ContactStatus>("Lead"),
-    [defaultGroup, setDefaultGroup] = useState("");
-  const [reading, setReading] = useState(false),
-    [fileName, setFileName] = useState("");
-  const read = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      setReading(true);
-      if (file.size > 5 * 1024 * 1024)
-        throw Error("Preview imports are limited to 5 MB.");
-      if (!/\.(csv|xlsx)$/i.test(file.name))
-        throw Error("Choose a CSV or XLSX file.");
-      const parsed = /\.xlsx$/i.test(file.name)
-        ? (await (await import("read-excel-file/browser")).readSheet(file)).map(
-            (row) => row.map((cell) => (cell === null ? "" : String(cell))),
-          )
-        : parseCSV(await file.text());
-      if (parsed.length > 10001)
-        throw Error(
-          "Preview imports support up to 10,000 rows. Split larger files for this browser demo.",
-        );
-      setFileName(file.name);
-      if (parsed.length < 2)
-        throw Error("Your CSV needs a header and at least one contact row.");
-      setRows(parsed);
-      const headers = parsed[0].map((x) =>
-        x.toLowerCase().replace(/[ _-]/g, ""),
-      );
-      const locate = (names: string[]) =>
-        headers.findIndex((x) => names.includes(x));
-      setMapping({
-        phone: locate(["phone", "phonenumber", "mobile", "number"]),
-        firstName: locate(["firstname", "name"]),
-        status: locate(["status", "contactstatus"]),
-        tags: locate(["tags", "tag"]),
-        group: locate(["group", "groups"]),
-        consent: locate(["consent", "optinsource", "source"]),
-      });
-      setError("");
-      setStep(1);
-    } catch (e) {
-      setError((e as Error).message);
-    } finally {
-      setReading(false);
-    }
-  };
-  const mapped = useMemo(
-    () =>
-      rows.slice(1).map((row) => {
-        const value = (key: ImportKey) =>
-          mapping[key] >= 0 ? (row[mapping[key]] || "").trim() : "";
-        const rawStatus = value("status");
-        const matched = statuses.find(
-          (x) => x.toLowerCase() === rawStatus.toLowerCase(),
-        );
-        return {
-          phone: value("phone"),
-          firstName: value("firstName"),
-          status: matched || defaultStatus,
-          tags: value("tags")
-            .split(/[;|,]/)
-            .map((x) => x.trim())
-            .filter(Boolean),
-          group: value("group") || defaultGroup,
-          consent: value("consent") || source,
-        } as Omit<Contact, "id">;
-      }),
-    [rows, mapping, source, defaultStatus, defaultGroup],
-  );
-  const summary = useMemo(() => {
-    const seen = new Set(w.contacts.map((c) => normalizePhone(c.phone)));
-    let duplicates = 0,
-      invalid = 0;
-    for (const c of mapped) {
-      const p = normalizePhone(c.phone);
-      if (seen.has(p)) duplicates++;
-      seen.add(p);
-      if (!validPhone(p)) invalid++;
-    }
-    const suppressed = mapped.filter(
-      (c) =>
-        c.status === "Opted out" ||
-        w.contacts.some(
-          (x) =>
-            normalizePhone(x.phone) === normalizePhone(c.phone) &&
-            x.status === "Opted out",
-        ),
-    ).length;
-    return { duplicates, invalid, suppressed };
-  }, [mapped, w.contacts]);
-  const commit = () => {
-    try {
-      if (mapped.some((c) => c.status === "Subscribed" && !c.consent.trim()))
-        throw Error(
-          "Add an opt-in source for every subscribed contact, or import as Leads.",
-        );
-      const r = mutate((s) => {
-        const result = importContacts(s, w.id, mapped);
-        const v = workspace(s, w.id);
-        v.preview ??= {};
-        v.preview.imports = [
-          ...(v.preview.imports || []),
-          {
-            id: uid(),
-            at: now(),
-            file: fileName,
-            ...result,
-            suppressed: summary.suppressed,
-          },
-        ];
-        return result;
-      });
-      onDone(
-        `Imported ${r.added} new rows; ${r.duplicates} duplicate rows; ${r.invalid} invalid rows. Duplicate rows are retained for review and excluded from campaigns.`,
-      );
-    } catch (e) {
-      setError((e as Error).message);
-    }
-  };
-  return (
-    <Modal
-      title={
-        step === 0
-          ? "Import your contacts"
-          : step === 1
-            ? "Match your columns"
-            : "Review your import"
-      }
-      onClose={onClose}
-    >
-      <div className="import-body">
-        <p>
-          Use fictional information in this prototype. Your file stays in this
-          browser.
-        </p>
-        <ErrorNotice message={error} />
-        {step === 0 ? (
-          <>
-            <Field
-              label="CSV or XLSX file"
-              hint="Include a header row. Phone is required; first name, status, group, tags, and opt-in source are optional."
-            >
-              <input
-                type="file"
-                accept=".csv,.xlsx,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                onChange={read}
-                disabled={reading}
-              />
-              {reading && (
-                <p role="status">Reading and validating spreadsheet…</p>
-              )}
-              <small>
-                XLSX: first worksheet. Up to 5 MB and 10,000 data rows.
-              </small>
-            </Field>
-            <details>
-              <summary>View CSV example</summary>
-              <pre>
-                phone,firstName,status,group,consent{"\n"}
-                2025550101,Jamie,Subscribed,Regulars,Demo website checkbox
-              </pre>
-            </details>
-          </>
-        ) : step === 1 ? (
-          <>
-            <div className="form-grid">
-              {(Object.keys(importLabels) as ImportKey[]).map((key) => (
-                <Field
-                  key={key}
-                  label={importLabels[key] + (key === "phone" ? " *" : "")}
-                >
-                  <select
-                    value={mapping[key]}
-                    onChange={(e) =>
-                      setMapping({ ...mapping, [key]: +e.target.value })
-                    }
-                  >
-                    <option value={-1}>
-                      {key === "phone" ? "Choose phone column" : "Not mapped"}
-                    </option>
-                    {rows[0].map((h, i) => (
-                      <option value={i} key={i}>
-                        {h || `Column ${i + 1}`}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-              ))}
-            </div>
-            <div className="form-grid">
-              <Field label="Default status for unmapped or unknown values">
-                <select
-                  value={defaultStatus}
-                  onChange={(e) =>
-                    setDefaultStatus(e.target.value as ContactStatus)
-                  }
-                >
-                  {statuses.map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
-                </select>
-              </Field>
-              <Field label="Default group">
-                <input
-                  value={defaultGroup}
-                  onChange={(e) => setDefaultGroup(e.target.value)}
-                  placeholder="e.g. Spring bookings"
-                />
-              </Field>
-            </div>
-            <Field
-              label="Default opt-in source"
-              hint="Required for subscribed contacts when no source is supplied in the CSV."
-            >
-              <input
-                value={source}
-                onChange={(e) => setSource(e.target.value)}
-                placeholder="e.g. Unchecked checkbox on booking form"
-              />
-            </Field>
-            <Button
-              disabled={mapping.phone < 0}
-              onClick={() => {
-                setStep(2);
-                setError("");
-              }}
-            >
-              Preview import
-            </Button>
-          </>
-        ) : (
-          <>
-            <div className="import-summary">
-              <span>
-                <b>{count(mapped.length)}</b> rows
-              </span>
-              <span>
-                <b>{count(summary.duplicates)}</b> duplicates
-              </span>
-              <span>
-                <b>{count(summary.invalid)}</b> invalid numbers
-              </span>
-              <span>
-                <b>{count(summary.suppressed)}</b> suppressed
-              </span>
-            </div>
-            <Button
-              variant="ghost"
-              onClick={() =>
-                downloadCSV("import-review.csv", [
-                  ["Row", "Phone", "Review"],
-                  ...mapped.map((c, i) => [
-                    i + 2,
-                    c.phone,
-                    !validPhone(c.phone)
-                      ? "Invalid number"
-                      : c.status === "Opted out" ||
-                          w.contacts.some(
-                            (x) =>
-                              normalizePhone(x.phone) ===
-                                normalizePhone(c.phone) &&
-                              x.status === "Opted out",
-                          )
-                        ? "Confirmed opt-out"
-                        : w.contacts.some(
-                              (x) =>
-                                normalizePhone(x.phone) ===
-                                normalizePhone(c.phone),
-                            ) ||
-                            mapped
-                              .slice(0, i)
-                              .some(
-                                (x) =>
-                                  normalizePhone(x.phone) ===
-                                  normalizePhone(c.phone),
-                              )
-                          ? "Duplicate"
-                          : "Ready",
-                  ]),
-                ])
-              }
-            >
-              Download import review
-            </Button>
-            <div className="table-wrap messaging-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Status</th>
-                    <th>Group</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mapped.slice(0, 10).map((c, i) => (
-                    <tr key={i}>
-                      <td>{c.firstName || "Unnamed"}</td>
-                      <td>{phone(c.phone)}</td>
-                      <td>
-                        <Badge>
-                          {validPhone(c.phone) ? c.status : "Invalid number"}
-                        </Badge>
-                      </td>
-                      <td>{c.group || "—"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="muted">
-              Showing the first {Math.min(10, mapped.length)} of {mapped.length}{" "}
-              rows. All rows will be imported; invalid and duplicate rows remain
-              marked for review.
-            </p>
-            <div className="actions">
-              <Button variant="secondary" onClick={() => setStep(1)}>
-                Back to mapping
-              </Button>
-              <Button onClick={commit}>
-                Import {count(mapped.length)} rows
-              </Button>
-            </div>
-          </>
-        )}
-      </div>
-    </Modal>
-  );
-}
-function ContactDetail({
-  w,
-  contact,
-  onClose,
-}: {
-  w: Workspace;
-  contact: Contact;
-  onClose: () => void;
-}) {
-  const { mutate } = useStore();
-  const [draft, setDraft] = useState({ ...contact, tags: [...contact.tags] }),
-    [tags, setTags] = useState(contact.tags.join(", ")),
-    [error, setError] = useState("");
-  const save = () => {
-    try {
-      if (draft.status === "Subscribed" && !draft.consent.trim())
-        throw Error("Record how this contact agreed to receive campaigns.");
-      mutate((s) => {
-        const current = workspace(s, w.id);
-        const c = current.contacts.find((c) => c.id === contact.id)!;
-        Object.assign(c, {
-          firstName: draft.firstName,
-          group: draft.group,
-          consent: draft.consent,
-          tags: tags
-            .split(",")
-            .map((x) => x.trim())
-            .filter(Boolean),
-          delivery: draft.delivery,
-        });
-        setContactStatus(s, w.id, contact.id, draft.status);
-      });
-      onClose();
-    } catch (e) {
-      setError((e as Error).message);
-    }
-  };
-  return (
-    <Modal title={contact.firstName || "Contact details"} onClose={onClose}>
-      <p>{phone(contact.phone)}</p>
-      <ErrorNotice message={error} />
-      <Field label="First name">
-        <input
-          value={draft.firstName}
-          onChange={(e) => setDraft({ ...draft, firstName: e.target.value })}
-        />
-      </Field>
-      <div className="form-grid">
-        <Field label="Contact status">
-          <select
-            value={draft.status}
-            onChange={(e) =>
-              setDraft({ ...draft, status: e.target.value as ContactStatus })
-            }
-          >
-            {statuses.map((x) => (
-              <option key={x}>{x}</option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Group">
-          <input
-            value={draft.group}
-            onChange={(e) => setDraft({ ...draft, group: e.target.value })}
-          />
-        </Field>
-      </div>
-      <Field label="Tags" hint="Separate tags with commas.">
-        <input value={tags} onChange={(e) => setTags(e.target.value)} />
-      </Field>
-      <Field label="Opt-in source">
-        <textarea
-          value={draft.consent}
-          onChange={(e) => setDraft({ ...draft, consent: e.target.value })}
-        />
-      </Field>
-      <Field label="Delivery review (demo control)">
-        <select
-          value={draft.delivery || ""}
-          onChange={(e) =>
-            setDraft({
-              ...draft,
-              delivery: (e.target.value as Contact["delivery"]) || undefined,
-            })
-          }
-        >
-          <option value="">No delivery issue</option>
-          <option>Temporarily unreachable</option>
-          <option>Unknown handset</option>
-        </select>
-      </Field>
-      {contact.customFields && (
-        <dl>
-          {Object.entries(contact.customFields).map(([key, value]) => (
-            <div key={key}>
-              <dt>{key}</dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-      {contact.duplicate && (
-        <Notice>
-          This is a duplicate import row. It is excluded from campaigns.
-        </Notice>
-      )}
-      <p className="muted">
-        Status updates apply to this phone number across the business. A Lead
-        may receive individual replies but not campaigns.
-      </p>
-      <div className="actions">
-        <Button onClick={save}>Save contact</Button>
-        <Button variant="secondary" onClick={onClose}>
-          Cancel
-        </Button>
-      </div>
-    </Modal>
   );
 }
 

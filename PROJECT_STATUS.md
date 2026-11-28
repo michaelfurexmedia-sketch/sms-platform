@@ -2,7 +2,9 @@
 
 Owner requested Phase 2.7 before further backend development. Requirements: docs/PHASE27_REQUIREMENTS.md. Preserve backend WIP at `70bc3739397da10eb486495a12ffb79c4d66856b`; it is not connected authentication or production authorization.
 
-Current milestone: central configurable Starter $19, Professional $39 (recommended), Enterprise Contact Sales, with 1/5/10 active-number limits. No message allowances or provider/payment success claims. Contact/import/tag, inbox, wallet, number workflows, architecture specifications and full acceptance remain pending.
+Contact/import checkpoint: add/edit/remove contacts without invented consent; workspace-scoped tag CRUD/bulk assignment; bounded CSV/XLSX validation, named idempotent import history, suppression preservation. Fresh lint, types and 34 unit tests passed; browser acceptance pending.
+
+Previous milestone: central configurable Starter $19, Professional $39 (recommended), Enterprise Contact Sales, with 1/5/10 active-number limits. No message allowances or provider/payment success claims. Contact/import/tag, inbox, wallet, number workflows, architecture specifications and full acceptance remain pending.
 
 Fresh checkpoint verification: production build, TypeScript, lint, state check and 30 unit tests passed. Three pricing/navigation browser tests and three axe scans passed at desktop/tablet/mobile widths. These checks do not constitute full Phase 2.7 acceptance.
 
