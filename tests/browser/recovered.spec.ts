@@ -1,14 +1,12 @@
 import { test, expect } from "@playwright/test";
 
-test("recovered public, customer and admin previews retain their routes", async ({
+test("recovered public and customer previews retain their routes", async ({
   page,
 }) => {
   const errors: string[] = [];
   page.on("pageerror", (error) => errors.push(error.message));
   await page.goto("/preview");
-  await expect(
-    page.getByText("Interactive prototype", { exact: true }),
-  ).toBeVisible();
+  await expect(page.getByLabel("Preview mode")).toBeVisible();
   await expect(
     page.getByRole("link", { name: "Explore the demo", exact: true }),
   ).toBeVisible();
@@ -22,15 +20,12 @@ test("recovered public, customer and admin previews retain their routes", async 
     "app/campaigns",
     "app/inbox",
     "app/billing",
-    "admin",
     "pricing",
     "signup",
   ]) {
     await page.goto("/preview/" + path);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    await expect(
-      page.getByText("Interactive prototype", { exact: true }),
-    ).toBeVisible();
+    await expect(page.getByLabel("Preview mode")).toBeVisible();
   }
   expect(errors).toEqual([]);
 });

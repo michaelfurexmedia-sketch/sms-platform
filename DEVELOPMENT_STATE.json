@@ -1,53 +1,48 @@
 {
   "schema_version": 1,
-  "updated": "2026-11-26",
-  "active_phase": 1,
-  "active_milestone": "Phase 1 complete; stop before Phase 2",
-  "active_branch": "phase-1-recovery",
-  "last_known_implementation_checkpoint": "54ffca7f333b79b0311ee68e06dc9045d9664556",
+  "updated": "2026-11-28",
+  "active_phase": 2,
+  "active_milestone": "2.7.2 contacts, tags and safe imports \u2014 browser acceptance pending",
+  "active_branch": "phase-2-frontend",
+  "last_known_implementation_checkpoint": "17c9e46b7a7bd2c5adc983f924e64838c96f83da",
   "completed_tasks": [
-    "Verified recovery commit 7d47272",
-    "Checked executor once: unavailable; original files remain inaccessible",
-    "Pushed and verified initial reconstructed Next web, branding, environment validation and probe-only persistent worker",
-    "Shared components, synthetic data and light/dark gallery reconstructed; dialog explicitly wraps forward/reverse focus",
-    "Module contracts, Docker Compose, synthetic preview data and fresh unit/browser/worker test scripts added",
-    "Fresh CI passed build, typecheck, lint, four unit tests, worker integration and 13 browser tests (including six accessibility scans)",
-    "Persisted CI-generated npm lockfile; added setup/deployment/design documentation",
-    "All four Docker services reached healthy and web HTTP probe passed",
-    "Visually reviewed desktop light, tablet dark and mobile light screenshots",
-    "Applied deterministic Prettier formatting generated in CI",
-    "Original workspace returned; all 16 original unit tests passed again; raw WIP snapshot committed and verified on GitHub",
-    "Recovered previews retained under /preview with original storage key and journey tests",
-    "Recovered dialogs reuse shared focus fix; corrected demo locator and mobile table overflow verified",
-    "Combined local checks passed: build, types, lint, formatting, state gate, 16 unit, 1 worker integration and 16 browser tests including six accessibility scans",
-    "Final combined GitHub Actions validation passed, including Docker builds and healthy web/worker/queue/database"
+    "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
+    "Phase 2 public marketing, customer shell and dashboard",
+    "Inbox, campaigns, contacts CSV/XLSX mapping and customer business modules",
+    "Super Admin frontend with reasoned synthetic actions and audit entries",
+    "Fresh local build, types, lint, 19 unit, worker integration, 35 browser tests and 45 axe scans passed",
+    "Incremental implementation checkpoints pushed and source read back from GitHub",
+    "Final GitHub Actions Node 22 build/tests and Docker health checks passed; draft PR #2 opened without merging",
+    "Phase 2.5 preview restored from GitHub; startup adapter pushed; three actual application routes opened in cloud browser; fresh 35 browser tests and 45 axe scans passed",
+    "2.6.1 semantic navy/pearl/coral tokens and accessible foregrounds; existing licensed fonts retained",
+    "Phase 2.6 palette, public/customer/admin refinements, removal of privilege switching, local-only admin entry, responsive/accessibility verification",
+    "2.7.1 centralized owner plan definitions, public pricing and customer subscription presentation"
   ],
   "pending_tasks": [
-    "Await explicit Phase 2 assignment; do not begin automatically"
+    "2.7 contact CRUD and workspace-owned tags",
+    "2.7 validated named CSV/XLSX imports",
+    "2.7 inbox interactions and responsive review",
+    "2.7 wallet and number provisioning integration boundaries",
+    "2.7 marketing coverage and backend dependency specifications",
+    "2.7 full build, types, lint, unit/browser/accessibility verification and interactive preview"
   ],
-  "partially_implemented_tasks": [],
+  "partially_implemented_tasks": [
+    "3.1 request boundaries and separate workspace/platform authorization policies; not wired to APIs or sessions"
+  ],
   "relevant_files": [
     "AGENTS.md",
-    "docs/PHASE1_RECOVERY.md",
+    "docs/PHASE2_SCOPE.md",
+    "docs/PHASE2_VERIFICATION.md",
+    "docs/PREVIEW.md",
+    "src/frontend",
+    "src/legacy",
+    "src/lib",
     "src/config/brand.ts",
-    "src/app/layout.tsx",
-    "src/app/page.tsx",
-    "src/server/env.ts",
-    "src/server/queue.ts",
-    "apps/worker/index.ts",
-    "apps/worker/processor.ts",
-    "tests/foundation.test.ts",
-    ".github/workflows/ci.yml",
-    "src/legacy/application.tsx",
-    "src/legacy/navigation.tsx",
-    "src/lib/model.ts",
-    "tests/journeys.test.ts",
-    "tests/browser/recovered.spec.ts",
-    "docs/RECOVERY_RESOLUTION.md"
+    "tests/browser/phase2.spec.ts",
+    ".github/workflows/ci.yml"
   ],
   "test_results": {
-    "historical": "Prior results preserved in docs/PHASE1_RECOVERY.md; not current verification",
-    "current": {
+    "phase1": {
       "commit": "54ffca7f333b79b0311ee68e06dc9045d9664556",
       "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45820084123",
       "result": "success",
@@ -73,16 +68,17 @@
       },
       "docker": "passed: both images built, four services healthy, HTTP health 200"
     },
-    "local_recovered_combination": {
+    "phase2": {
+      "commit": "db9cf013b34a78c7321bc71288f0949dbbb0be5a",
       "date": "2026-11-26",
-      "build": "passed",
-      "worker_compile": "passed",
+      "setup": "passed",
+      "production_build": "passed",
       "typecheck": "passed",
       "lint": "passed",
       "format": "passed",
-      "state_check": "passed",
+      "worker_compile": "passed",
       "unit": {
-        "passed": 16,
+        "passed": 19,
         "failed": 0
       },
       "worker_integration": {
@@ -90,11 +86,86 @@
         "failed": 0
       },
       "browser": {
-        "passed": 16,
+        "passed": 35,
         "failed": 0,
-        "includes_accessibility_scans": 6
+        "accessibility_scans": 45
       },
-      "docker": "Combined CI pending; earlier foundation Docker run passed"
+      "ci_docker": "passed: both images built; web, worker, queue and database healthy; HTTP health probe passed",
+      "workflow_run": "https://github.com/michaelfurexmedia-sketch/sms-platform/actions/runs/45872896464",
+      "ci_result": "success",
+      "state_check": "passed"
+    },
+    "phase25": {
+      "date": "2026-11-27",
+      "commit": "599917b4a8916377007914dd15a862a474e3d3b5",
+      "production_build": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "format": "passed",
+      "state_check": "passed",
+      "browser": {
+        "passed": 35,
+        "failed": 0,
+        "accessibility_scans": 45,
+        "duration_seconds": 53.2
+      },
+      "manual_review": "Actual cloud-browser public/customer/admin pages, dashboard dark theme/chart data, search dialog/filter and admin customer filter verified",
+      "unit_worker_docker": "Not rerun locally for preview-only change; prior Phase 2 CI evidence retained separately"
+    },
+    "phase26": {
+      "date": "2026-11-27",
+      "production_build": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "unit": {
+        "passed": 23,
+        "failed": 0
+      },
+      "browser": {
+        "passed": 37,
+        "failed": 0,
+        "accessibility_scans": 45,
+        "duration_seconds": 55.7
+      },
+      "format": "passed",
+      "state_check": "passed",
+      "security": "Default production admin routes and legacy admin alias return 404; no customer admin links or role switches. This is not Phase 3 authentication testing.",
+      "visual_review": "Desktop marketing/admin and mobile marketing screenshots inspected; route-wide runtime checks and responsive screenshots generated. Not an independent human audit.",
+      "worker": "Not rerun: no worker changes; historical evidence remains separate"
+    },
+    "phase26_reverification": {
+      "date": "2026-11-28",
+      "implementation_commit": "5d7e0f9df8a975c376aea6252cad914a23fd5539",
+      "build": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "unit": "23 passed",
+      "worker_compile": "passed",
+      "browser": "37 passed; 45 accessibility scans",
+      "format": "passed",
+      "state_check": "passed",
+      "record": "docs/PHASE26_REVERIFICATION.md"
+    },
+    "phase31": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "unit": "28 passed",
+      "integration": "not implemented"
+    },
+    "phase27_checkpoint1": {
+      "production_build": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "unit": "30 passed",
+      "browser": "3 pricing/navigation tests passed at 1440, 768 and 390px",
+      "accessibility": "3 axe scans passed",
+      "scope": "Plan changes only; complete Phase 2.7 acceptance pending"
+    },
+    "phase27_contacts": {
+      "lint": "passed",
+      "typecheck": "passed",
+      "unit": "34 passed",
+      "browser": "pending"
     }
   },
   "known_bugs": [],
@@ -111,26 +182,34 @@
     "QUEUE_URL required only for worker",
     "WORKER_HEALTH_PORT",
     "ENABLE_LIVE_SMS=false",
-    "ENABLE_LIVE_BILLING=false"
+    "ENABLE_LIVE_BILLING=false",
+    "OWNER_ADMIN_EMAIL: configure privately for explicit server-side provisioning; identity supplied by owner"
   ],
   "preview_status": {
-    "phase1": "Interactive shared library at /design-system; recovered previews retained",
-    "public_website": "Recovered synthetic preview: /preview; Phase 2 not completed",
-    "customer_dashboard": "Recovered synthetic preview: /preview/app; choose Explore demo workspace",
-    "super_admin": "Recovered synthetic preview: /preview/admin; no operational authorization",
+    "public_website": "http://localhost:3000/",
+    "customer_dashboard": "http://localhost:3000/app",
+    "super_admin": "http://127.0.0.1:3001/admin/login; local-only owner preview",
     "commands": [
       "npm run setup",
-      "npm run dev",
-      "npm run build && npm start"
+      "npm run build",
+      "npm start",
+      "npm run preview:owner (separate terminal)"
     ],
-    "live_url": null
+    "hosted_preview": "No public deployment; ordinary browser preview reproduced on owner computer",
+    "source": "docs/PREVIEW.md"
   },
   "owner_approval_status": {
-    "frontend": "not_requested",
-    "phase3_backend": "blocked_until_explicit_owner_approval",
-    "note": "Phase 1 infrastructure probe foundation only; no business backend implementation. Phase 2 must provide interactive preview and record explicit approval before Phase 3."
+    "frontend": "approved",
+    "phase3_backend": "paused_by_owner_until_phase27_review",
+    "review_candidate_commit": "5d7e0f9df8a975c376aea6252cad914a23fd5539",
+    "approved_frontend_commit": "5d7e0f9df8a975c376aea6252cad914a23fd5539",
+    "approved_by": "Project owner (conversation)",
+    "approved_at": "2026-11-28",
+    "evidence": "Owner replied to the explicit frontend approval question: yea it's good but need some changes we can do changes when the backend is complete",
+    "note": "Current frontend approved for backend progression; unspecified design changes deferred until backend completion. No backend implementation performed by this approval checkpoint.",
+    "phase27": "pending"
   },
-  "next_action": "Stop. On an explicit Phase 2 assignment, fetch phase-1-recovery (or its merged main equivalent), read AGENTS.md/status/state, run npm run setup and reuse /design-system plus /preview. Provide an interactive frontend preview and record explicit owner approval before Phase 3.",
+  "next_action": "Implement contact/tag/import workflows, then inbox, wallet and number management; verify complete Phase 2.7 and wait for owner approval before resuming Phase 3.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
@@ -141,10 +220,25 @@
   },
   "phase1_complete": true,
   "limitations": [
-    "Recovered UI uses synthetic localStorage data and simulated auth/payments/messaging; not production services",
-    "Module contracts are not server authorization or tenant isolation",
-    "Real schema/migrations/auth and provider integrations belong to later approved phases",
-    "Chromium automation and six gallery axe scans are not a full assistive-technology audit",
-    "Production HTTPS, encrypted off-site backups, capacity validation and restore/rollback rehearsal remain later phases"
+    "Browser-local synthetic services; no real authentication, tenant security, SMS, billing or provider operations",
+    "Imports: first XLSX worksheet, 5 MB/10,000 rows; existing North American phone normalization",
+    "Attachments are metadata-only; schedules require an open browser; prices and provider estimates are illustrative",
+    "Chromium/axe coverage is not a full cross-browser, human accessibility or production load audit",
+    "Preview is local and synthetic; frontend approval recorded on 2026-11-28; production authorization remains pending",
+    "Production security, HTTPS, backups and recovery remain later phases"
+  ],
+  "pull_request": "https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2",
+  "phase2_frontend_complete": true,
+  "status": "PHASE 2.7 IN PROGRESS \u2014 PHASE 3 PAUSED",
+  "review_stage": "Phase 2.7",
+  "paused_phase3_tasks": [
+    "3.1 modules, authorization and distributed rate limits",
+    "3.2 PostgreSQL schemas/migrations/seed",
+    "3.3 Better Auth and mandatory owner MFA",
+    "3.4 tenant isolation",
+    "3.5 permissions",
+    "3.6 durable business workers",
+    "3.7 real frontend integration",
+    "3.8 full verification"
   ]
 }

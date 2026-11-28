@@ -1,3 +1,4 @@
+import type { PreviewPreferences, AdminPreview } from "@/frontend/contracts";
 import { defaultPricing, type Pricing } from "./config";
 export type VerificationStatus =
   "Not started" | "Draft" | "In review" | "Changes needed" | "Approved";
@@ -33,6 +34,7 @@ export type Activity = {
   detail?: string;
 };
 export type Contact = {
+  customFields?: Record<string, string>;
   id: string;
   firstName: string;
   phone: string;
@@ -53,6 +55,9 @@ export type Message = {
   credits: number;
 };
 export type Thread = {
+  assignee?: string;
+  notes?: { id: string; text: string; at: string; author: string }[];
+  attachment?: { name: string; size: number };
   id: string;
   contactId: string;
   state: "Open" | "Closed";
@@ -80,7 +85,8 @@ export type Campaign = {
   scheduledAt: string;
   intervalDays: number;
   remaining: number;
-  state: "Draft" | "Scheduled" | "Completed" | "Paused";
+  state: "Draft" | "Scheduled" | "Completed" | "Paused" | "Canceled";
+  timeZone?: string;
   createdAt: string;
   recipients: Recipient[];
   runs: number;
@@ -112,6 +118,7 @@ export type Attempt = {
   totalCents: number;
 };
 export type Workspace = {
+  preview?: PreviewPreferences;
   id: string;
   email: string;
   createdAt: string;
@@ -141,6 +148,7 @@ export type Workspace = {
   activity: Activity[];
 };
 export type State = {
+  adminPreview?: AdminPreview;
   version: 1;
   activeId: string | null;
   workspaces: Workspace[];
@@ -450,6 +458,15 @@ export function setContactStatus(
   const w = workspace(s, id),
     c = w.contacts.find((c) => c.id === contactId);
   if (!c) return;
+  if (status === "Opted out") {
+    w.preview ??= {};
+    w.preview.suppressedPhones = [
+      ...new Set([
+        ...(w.preview.suppressedPhones || []),
+        normalizePhone(c.phone),
+      ]),
+    ];
+  }
   for (const item of w.contacts.filter(
     (x) => normalizePhone(x.phone) === normalizePhone(c.phone),
   ))
@@ -462,6 +479,13 @@ export function setContactStatus(
 }
 const gsmBasic =
   "@£$¥èéùìòÇ\nØø\rÅåΔ_ΦΓΛΩΠΨΣΘΞ ÆæßÉ !\"#¤%&'()*+,-./0123456789:;<=>?¡ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÑÜ§¿abcdefghijklmnopqrstuvwxyzäöñüà";
+export function messageEncoding(text: string): "GSM-7" | "Unicode" {
+  return [...text].every(
+    (c) => gsmBasic.includes(c) || "^{}\\[~]|€".includes(c),
+  )
+    ? "GSM-7"
+    : "Unicode";
+}
 export function segments(text: string) {
   if (!text.length) return 0;
   let length = 0;
@@ -484,11 +508,12 @@ export function recipients(
   c: Pick<Campaign, "text" | "fallback" | "audience">,
 ): Recipient[] {
   const seen = new Set<string>();
-  const opted = new Set(
-    w.contacts
+  const opted = new Set([
+    ...(w.preview?.suppressedPhones || []),
+    ...w.contacts
       .filter((x) => x.status === "Opted out")
       .map((x) => normalizePhone(x.phone)),
-  );
+  ]);
   return w.contacts
     .filter(
       (x) =>
@@ -522,6 +547,9 @@ export const estimatedCredits = (r: Recipient[]) =>
   r.filter((x) => x.status !== "Excluded").reduce((n, x) => n + x.segments, 0);
 export function sendRequirements(w: Workspace, credits: number) {
   return [
+    w.preview?.settings?.admin?.suspended === "true"
+      ? "This demo account is suspended."
+      : "",
     !w.numbers.length ? "Get a toll-free number." : "",
     w.verification.status !== "Approved"
       ? "Complete SMS verification and wait for approval."
@@ -652,6 +680,7 @@ export function reply(
     contact = w.contacts.find((c) => c.id === contactId);
   if (!contact || !text.trim()) throw Error("Write a reply first.");
   if (
+    w.preview?.suppressedPhones?.includes(normalizePhone(contact.phone)) ||
     w.contacts.some(
       (c) =>
         normalizePhone(c.phone) === normalizePhone(contact.phone) &&

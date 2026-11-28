@@ -1,4 +1,5 @@
 "use client";
+import { downloadCSV } from "@/frontend/scheduling";
 import Link from "./navigation";
 import { Modal as FoundationModal } from "@/components/ui";
 import {
@@ -209,7 +210,7 @@ export function Empty({
   return (
     <div className="empty">
       {icon && <div className="empty-icon">{icon}</div>}
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <p>{children}</p>
       {action}
     </div>
@@ -308,6 +309,18 @@ export function ReceiptView({
           <Download size={16} /> Print receipt
         </Button>
       </div>
+      <Button
+        variant="secondary"
+        onClick={() =>
+          downloadCSV("invoice-demo.csv", [
+            ["Description", "Quantity", "Unit cents"],
+            ...receipt.lines.map((l) => [l.label, l.quantity, l.unitCents]),
+            ["Total cents", 1, receipt.totalCents],
+          ])
+        }
+      >
+        Download invoice
+      </Button>
     </Modal>
   );
 }

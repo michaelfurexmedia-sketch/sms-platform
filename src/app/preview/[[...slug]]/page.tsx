@@ -1,3 +1,4 @@
+import { customerRoutes } from "@/frontend/routes";
 import Application from "@/legacy/application";
 import { brandVariables } from "@/config/brand";
 import "@/legacy/styles.css";
@@ -9,18 +10,7 @@ export function generateStaticParams() {
     ["signup"],
     ["login"],
     ["app"],
-    ...["inbox", "contacts", "campaigns", "numbers", "team", "billing"].map(
-      (s) => ["app", s],
-    ),
-    ["admin"],
-    ...[
-      "overview",
-      "users",
-      "verification",
-      "numbers",
-      "payments",
-      "settings",
-    ].map((s) => ["admin", s]),
+    ...customerRoutes.map((s) => ["app", s]),
   ].map((slug) => ({ slug }));
 }
 export const dynamicParams = false;

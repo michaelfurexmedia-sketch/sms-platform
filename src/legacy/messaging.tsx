@@ -1,17 +1,24 @@
 "use client";
-import { useMemo, useState, type ChangeEvent } from "react";
-import Link from "./navigation";
+import {
+  timeZones,
+  wallTime,
+  scheduleInstant,
+  downloadCSV,
+} from "@/frontend/scheduling";
+import { ContactEditor, TagManager } from "@/frontend/contact-editor";
+import { ContactImport } from "@/frontend/contact-import";
+import { ContactTools } from "@/frontend/contacts-tools";
+import { InboxTools } from "@/frontend/inbox-tools";
+import { useState, useEffect } from "react";
+import Link, { useSearchParams } from "./navigation";
 import { useStore } from "@/lib/store";
-import { count, date } from "@/lib/config";
+import { count, date, money } from "@/lib/config";
 import { services } from "@/lib/services";
 import {
   activity,
   demoContacts,
   importContacts,
-  parseCSV,
   normalizePhone,
-  validPhone,
-  setContactStatus,
   workspace,
   uid,
   now,
@@ -19,11 +26,11 @@ import {
   recipients,
   estimatedCredits,
   segments,
+  messageEncoding,
   personalize,
   sendRequirements,
   deliverCampaign,
   type Workspace,
-  type Contact,
   type ContactStatus,
   type Campaign,
   type Recipient,
@@ -68,10 +75,17 @@ export function Contacts({ w }: { w: Workspace }) {
     [status, setStatus] = useState("All statuses"),
     [group, setGroup] = useState("All groups"),
     [tag, setTag] = useState("All tags"),
+    [adding, setAdding] = useState(false),
     [importing, setImporting] = useState(false),
     [selected, setSelected] = useState<string | null>(null),
     [notice, setNotice] = useState(""),
     [error, setError] = useState("");
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const id = searchParams.get("contact");
+    if (id) setSelected(id);
+  }, [searchParams]);
+  const [contactPage, setContactPage] = useState(0);
   const groups = [...new Set(w.contacts.map((c) => c.group).filter(Boolean))],
     tags = [...new Set(w.contacts.flatMap((c) => c.tags))];
   const filtered = w.contacts.filter(
@@ -83,6 +97,8 @@ export function Contacts({ w }: { w: Workspace }) {
       (group === "All groups" || c.group === group) &&
       (tag === "All tags" || c.tags.includes(tag)),
   );
+  const maxPage = Math.max(0, Math.ceil(filtered.length / 25) - 1),
+    safePage = Math.min(contactPage, maxPage);
   const contact = w.contacts.find((c) => c.id === selected);
   const sample = () => {
     try {
@@ -107,6 +123,30 @@ export function Contacts({ w }: { w: Workspace }) {
       />
       <ErrorNotice message={error} />
       {notice && <Notice tone="success">{notice}</Notice>}
+      <div className="actions">
+        <Button onClick={() => setAdding(true)}>Add contact</Button>
+        <TagManager w={w} />
+      </div>
+      <ContactTools w={w} />
+      <nav aria-label="Contact pagination" className="actions">
+        <Button
+          variant="ghost"
+          disabled={safePage === 0}
+          onClick={() => setContactPage(safePage - 1)}
+        >
+          Previous contacts
+        </Button>
+        <span>
+          Page {safePage + 1} of {maxPage + 1} · {filtered.length} contacts
+        </span>
+        <Button
+          variant="ghost"
+          disabled={safePage === maxPage}
+          onClick={() => setContactPage(safePage + 1)}
+        >
+          Next contacts
+        </Button>
+      </nav>
       <div className="panel">
         <div className="toolbar contact-filters">
           <label className="search-input">
@@ -179,46 +219,48 @@ export function Contacts({ w }: { w: Workspace }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {filtered.map((c) => (
-                    <tr key={c.id}>
-                      <td>
-                        <button
-                          className="table-link"
-                          onClick={() => setSelected(c.id)}
-                        >
-                          {c.firstName || "Unnamed contact"}
-                        </button>
-                        <small>{phone(c.phone)}</small>
-                      </td>
-                      <td>
-                        <Badge>{c.status}</Badge>
-                      </td>
-                      <td>
-                        {c.group || "No group"}
-                        <small>{c.tags.join(", ") || "No tags"}</small>
-                      </td>
-                      <td className="consent-cell">
-                        {c.consent || "Not recorded"}
-                      </td>
-                      <td>
-                        {c.duplicate ? (
-                          <Badge>Duplicate row</Badge>
-                        ) : c.delivery ? (
-                          <span className="review-label">{c.delivery}</span>
-                        ) : (
-                          <span className="muted">—</span>
-                        )}
-                      </td>
-                      <td>
-                        <Button
-                          variant="ghost"
-                          onClick={() => setSelected(c.id)}
-                        >
-                          Details
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                  {filtered
+                    .slice(safePage * 25, (safePage + 1) * 25)
+                    .map((c) => (
+                      <tr key={c.id}>
+                        <td>
+                          <button
+                            className="table-link"
+                            onClick={() => setSelected(c.id)}
+                          >
+                            {c.firstName || "Unnamed contact"}
+                          </button>
+                          <small>{phone(c.phone)}</small>
+                        </td>
+                        <td>
+                          <Badge>{c.status}</Badge>
+                        </td>
+                        <td>
+                          {c.group || "No group"}
+                          <small>{c.tags.join(", ") || "No tags"}</small>
+                        </td>
+                        <td className="consent-cell">
+                          {c.consent || "Not recorded"}
+                        </td>
+                        <td>
+                          {c.duplicate ? (
+                            <Badge>Duplicate row</Badge>
+                          ) : c.delivery ? (
+                            <span className="review-label">{c.delivery}</span>
+                          ) : (
+                            <span className="muted">—</span>
+                          )}
+                        </td>
+                        <td>
+                          <Button
+                            variant="ghost"
+                            onClick={() => setSelected(c.id)}
+                          >
+                            Details
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
@@ -246,401 +288,23 @@ export function Contacts({ w }: { w: Workspace }) {
         Temporary delivery failures remain available for review.
       </p>
       {importing && (
-        <ImportContacts
+        <ContactImport
           w={w}
           onClose={() => setImporting(false)}
           onDone={(message) => {
-            setImporting(false);
             setNotice(message);
           }}
         />
       )}
+      {adding && <ContactEditor w={w} onClose={() => setAdding(false)} />}
       {contact && (
-        <ContactDetail
+        <ContactEditor
           w={w}
           contact={contact}
           onClose={() => setSelected(null)}
         />
       )}
     </>
-  );
-}
-
-type ImportKey =
-  "phone" | "firstName" | "status" | "tags" | "group" | "consent";
-const importLabels: Record<ImportKey, string> = {
-  phone: "Phone number",
-  firstName: "First name",
-  status: "Contact status",
-  tags: "Tags",
-  group: "Group",
-  consent: "Opt-in source",
-};
-function ImportContacts({
-  w,
-  onClose,
-  onDone,
-}: {
-  w: Workspace;
-  onClose: () => void;
-  onDone: (message: string) => void;
-}) {
-  const { mutate } = useStore();
-  const [rows, setRows] = useState<string[][]>([]),
-    [mapping, setMapping] = useState<Record<ImportKey, number>>({
-      phone: -1,
-      firstName: -1,
-      status: -1,
-      tags: -1,
-      group: -1,
-      consent: -1,
-    }),
-    [step, setStep] = useState(0),
-    [error, setError] = useState(""),
-    [source, setSource] = useState(""),
-    [defaultStatus, setDefaultStatus] = useState<ContactStatus>("Lead"),
-    [defaultGroup, setDefaultGroup] = useState("");
-  const read = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      const parsed = parseCSV(await file.text());
-      if (parsed.length < 2)
-        throw Error("Your CSV needs a header and at least one contact row.");
-      setRows(parsed);
-      const headers = parsed[0].map((x) =>
-        x.toLowerCase().replace(/[ _-]/g, ""),
-      );
-      const locate = (names: string[]) =>
-        headers.findIndex((x) => names.includes(x));
-      setMapping({
-        phone: locate(["phone", "phonenumber", "mobile", "number"]),
-        firstName: locate(["firstname", "name"]),
-        status: locate(["status", "contactstatus"]),
-        tags: locate(["tags", "tag"]),
-        group: locate(["group", "groups"]),
-        consent: locate(["consent", "optinsource", "source"]),
-      });
-      setError("");
-      setStep(1);
-    } catch (e) {
-      setError((e as Error).message);
-    }
-  };
-  const mapped = useMemo(
-    () =>
-      rows.slice(1).map((row) => {
-        const value = (key: ImportKey) =>
-          mapping[key] >= 0 ? (row[mapping[key]] || "").trim() : "";
-        const rawStatus = value("status");
-        const matched = statuses.find(
-          (x) => x.toLowerCase() === rawStatus.toLowerCase(),
-        );
-        return {
-          phone: value("phone"),
-          firstName: value("firstName"),
-          status: matched || defaultStatus,
-          tags: value("tags")
-            .split(/[;|,]/)
-            .map((x) => x.trim())
-            .filter(Boolean),
-          group: value("group") || defaultGroup,
-          consent: value("consent") || source,
-        } as Omit<Contact, "id">;
-      }),
-    [rows, mapping, source, defaultStatus, defaultGroup],
-  );
-  const summary = useMemo(() => {
-    const seen = new Set(w.contacts.map((c) => normalizePhone(c.phone)));
-    let duplicates = 0,
-      invalid = 0;
-    for (const c of mapped) {
-      const p = normalizePhone(c.phone);
-      if (seen.has(p)) duplicates++;
-      seen.add(p);
-      if (!validPhone(p)) invalid++;
-    }
-    return { duplicates, invalid };
-  }, [mapped, w.contacts]);
-  const commit = () => {
-    try {
-      if (mapped.some((c) => c.status === "Subscribed" && !c.consent.trim()))
-        throw Error(
-          "Add an opt-in source for every subscribed contact, or import as Leads.",
-        );
-      const r = mutate((s) => importContacts(s, w.id, mapped));
-      onDone(
-        `Imported ${r.added} new rows; ${r.duplicates} duplicate rows; ${r.invalid} invalid rows. Duplicate rows are retained for review and excluded from campaigns.`,
-      );
-    } catch (e) {
-      setError((e as Error).message);
-    }
-  };
-  return (
-    <Modal
-      title={
-        step === 0
-          ? "Import your contacts"
-          : step === 1
-            ? "Match your columns"
-            : "Review your import"
-      }
-      onClose={onClose}
-    >
-      <div className="import-body">
-        <p>
-          Use fictional information in this prototype. Your CSV stays in this
-          browser.
-        </p>
-        <ErrorNotice message={error} />
-        {step === 0 ? (
-          <>
-            <Field
-              label="CSV file"
-              hint="Include a header row. Phone is required; first name, status, group, tags, and opt-in source are optional."
-            >
-              <input type="file" accept=".csv,text/csv" onChange={read} />
-            </Field>
-            <details>
-              <summary>View CSV example</summary>
-              <pre>
-                phone,firstName,status,group,consent{"\n"}
-                2025550101,Jamie,Subscribed,Regulars,Demo website checkbox
-              </pre>
-            </details>
-          </>
-        ) : step === 1 ? (
-          <>
-            <div className="form-grid">
-              {(Object.keys(importLabels) as ImportKey[]).map((key) => (
-                <Field
-                  key={key}
-                  label={importLabels[key] + (key === "phone" ? " *" : "")}
-                >
-                  <select
-                    value={mapping[key]}
-                    onChange={(e) =>
-                      setMapping({ ...mapping, [key]: +e.target.value })
-                    }
-                  >
-                    <option value={-1}>
-                      {key === "phone" ? "Choose phone column" : "Not mapped"}
-                    </option>
-                    {rows[0].map((h, i) => (
-                      <option value={i} key={i}>
-                        {h || `Column ${i + 1}`}
-                      </option>
-                    ))}
-                  </select>
-                </Field>
-              ))}
-            </div>
-            <div className="form-grid">
-              <Field label="Default status for unmapped or unknown values">
-                <select
-                  value={defaultStatus}
-                  onChange={(e) =>
-                    setDefaultStatus(e.target.value as ContactStatus)
-                  }
-                >
-                  {statuses.map((x) => (
-                    <option key={x}>{x}</option>
-                  ))}
-                </select>
-              </Field>
-              <Field label="Default group">
-                <input
-                  value={defaultGroup}
-                  onChange={(e) => setDefaultGroup(e.target.value)}
-                  placeholder="e.g. Spring bookings"
-                />
-              </Field>
-            </div>
-            <Field
-              label="Default opt-in source"
-              hint="Required for subscribed contacts when no source is supplied in the CSV."
-            >
-              <input
-                value={source}
-                onChange={(e) => setSource(e.target.value)}
-                placeholder="e.g. Unchecked checkbox on booking form"
-              />
-            </Field>
-            <Button
-              disabled={mapping.phone < 0}
-              onClick={() => {
-                setStep(2);
-                setError("");
-              }}
-            >
-              Preview import
-            </Button>
-          </>
-        ) : (
-          <>
-            <div className="import-summary">
-              <span>
-                <b>{count(mapped.length)}</b> rows
-              </span>
-              <span>
-                <b>{count(summary.duplicates)}</b> duplicates
-              </span>
-              <span>
-                <b>{count(summary.invalid)}</b> invalid numbers
-              </span>
-            </div>
-            <div className="table-wrap messaging-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Status</th>
-                    <th>Group</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mapped.slice(0, 10).map((c, i) => (
-                    <tr key={i}>
-                      <td>{c.firstName || "Unnamed"}</td>
-                      <td>{phone(c.phone)}</td>
-                      <td>
-                        <Badge>
-                          {validPhone(c.phone) ? c.status : "Invalid number"}
-                        </Badge>
-                      </td>
-                      <td>{c.group || "—"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="muted">
-              Showing the first {Math.min(10, mapped.length)} of {mapped.length}{" "}
-              rows. All rows will be imported; invalid and duplicate rows remain
-              marked for review.
-            </p>
-            <div className="actions">
-              <Button variant="secondary" onClick={() => setStep(1)}>
-                Back to mapping
-              </Button>
-              <Button onClick={commit}>
-                Import {count(mapped.length)} rows
-              </Button>
-            </div>
-          </>
-        )}
-      </div>
-    </Modal>
-  );
-}
-function ContactDetail({
-  w,
-  contact,
-  onClose,
-}: {
-  w: Workspace;
-  contact: Contact;
-  onClose: () => void;
-}) {
-  const { mutate } = useStore();
-  const [draft, setDraft] = useState({ ...contact, tags: [...contact.tags] }),
-    [tags, setTags] = useState(contact.tags.join(", ")),
-    [error, setError] = useState("");
-  const save = () => {
-    try {
-      if (draft.status === "Subscribed" && !draft.consent.trim())
-        throw Error("Record how this contact agreed to receive campaigns.");
-      mutate((s) => {
-        const current = workspace(s, w.id);
-        const c = current.contacts.find((c) => c.id === contact.id)!;
-        Object.assign(c, {
-          firstName: draft.firstName,
-          group: draft.group,
-          consent: draft.consent,
-          tags: tags
-            .split(",")
-            .map((x) => x.trim())
-            .filter(Boolean),
-          delivery: draft.delivery,
-        });
-        setContactStatus(s, w.id, contact.id, draft.status);
-      });
-      onClose();
-    } catch (e) {
-      setError((e as Error).message);
-    }
-  };
-  return (
-    <Modal title={contact.firstName || "Contact details"} onClose={onClose}>
-      <p>{phone(contact.phone)}</p>
-      <ErrorNotice message={error} />
-      <Field label="First name">
-        <input
-          value={draft.firstName}
-          onChange={(e) => setDraft({ ...draft, firstName: e.target.value })}
-        />
-      </Field>
-      <div className="form-grid">
-        <Field label="Contact status">
-          <select
-            value={draft.status}
-            onChange={(e) =>
-              setDraft({ ...draft, status: e.target.value as ContactStatus })
-            }
-          >
-            {statuses.map((x) => (
-              <option key={x}>{x}</option>
-            ))}
-          </select>
-        </Field>
-        <Field label="Group">
-          <input
-            value={draft.group}
-            onChange={(e) => setDraft({ ...draft, group: e.target.value })}
-          />
-        </Field>
-      </div>
-      <Field label="Tags" hint="Separate tags with commas.">
-        <input value={tags} onChange={(e) => setTags(e.target.value)} />
-      </Field>
-      <Field label="Opt-in source">
-        <textarea
-          value={draft.consent}
-          onChange={(e) => setDraft({ ...draft, consent: e.target.value })}
-        />
-      </Field>
-      <Field label="Delivery review (demo control)">
-        <select
-          value={draft.delivery || ""}
-          onChange={(e) =>
-            setDraft({
-              ...draft,
-              delivery: (e.target.value as Contact["delivery"]) || undefined,
-            })
-          }
-        >
-          <option value="">No delivery issue</option>
-          <option>Temporarily unreachable</option>
-          <option>Unknown handset</option>
-        </select>
-      </Field>
-      {contact.duplicate && (
-        <Notice>
-          This is a duplicate import row. It is excluded from campaigns.
-        </Notice>
-      )}
-      <p className="muted">
-        Status updates apply to this phone number across the business. A Lead
-        may receive individual replies but not campaigns.
-      </p>
-      <div className="actions">
-        <Button onClick={save}>Save contact</Button>
-        <Button variant="secondary" onClick={onClose}>
-          Cancel
-        </Button>
-      </div>
-    </Modal>
   );
 }
 
@@ -668,7 +332,8 @@ export function Campaigns({ w }: { w: Workspace }) {
   const [editing, setEditing] = useState<string | null>(null),
     [report, setReport] = useState<string | null>(null),
     [error, setError] = useState(""),
-    [query, setQuery] = useState("");
+    [query, setQuery] = useState(""),
+    [campaignState, setCampaignState] = useState("All");
   const create = () => {
     try {
       const c = newCampaign(w);
@@ -680,8 +345,10 @@ export function Campaigns({ w }: { w: Workspace }) {
   };
   const current = w.campaigns.find((c) => c.id === editing),
     reportCampaign = w.campaigns.find((c) => c.id === report);
-  const filtered = w.campaigns.filter((c) =>
-    c.name.toLowerCase().includes(query.toLowerCase()),
+  const filtered = w.campaigns.filter(
+    (c) =>
+      c.name.toLowerCase().includes(query.toLowerCase()) &&
+      (campaignState === "All" || c.state === campaignState),
   );
   return (
     <>
@@ -713,6 +380,22 @@ export function Campaigns({ w }: { w: Workspace }) {
               onChange={(e) => setQuery(e.target.value)}
             />
           </label>
+          <select
+            aria-label="Campaign status"
+            value={campaignState}
+            onChange={(e) => setCampaignState(e.target.value)}
+          >
+            {[
+              "All",
+              "Draft",
+              "Scheduled",
+              "Paused",
+              "Completed",
+              "Canceled",
+            ].map((x) => (
+              <option key={x}>{x}</option>
+            ))}
+          </select>
           <span className="muted">{count(w.campaigns.length)} campaigns</span>
         </div>
         {!w.campaigns.length ? (
@@ -783,6 +466,25 @@ export function Campaigns({ w }: { w: Workspace }) {
                       >
                         {c.state === "Draft" ? "Resume draft" : "View report"}
                       </Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => {
+                          const copy = {
+                            ...structuredClone(c),
+                            id: uid(),
+                            name: c.name + " copy",
+                            state: "Draft" as const,
+                            createdAt: now(),
+                            runs: 0,
+                            credits: 0,
+                            recipients: [],
+                          };
+                          mutate((s) => saveCampaign(s, w.id, copy));
+                          setEditing(copy.id);
+                        }}
+                      >
+                        Duplicate
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -829,7 +531,8 @@ function CampaignEditor({
   const { mutate } = useStore();
   const [step, setStep] = useState(0),
     [error, setError] = useState(""),
-    [previewName, setPreviewName] = useState("Jamie");
+    [previewName, setPreviewName] = useState("Jamie"),
+    [reviewed, setReviewed] = useState(false);
   const update = (patch: Partial<Campaign>) => {
     try {
       mutate((s) => saveCampaign(s, w.id, { ...c, ...patch }));
@@ -992,8 +695,8 @@ function CampaignEditor({
                 {preview || "Your message preview will appear here."}
               </div>
               <small>
-                {segments(preview)} segment{segments(preview) === 1 ? "" : "s"}{" "}
-                for this preview
+                {messageEncoding(preview)} · {segments(preview)} segment
+                {segments(preview) === 1 ? "" : "s"} for this preview
               </small>
             </div>
           </div>
@@ -1038,22 +741,46 @@ function CampaignEditor({
             </select>
           </Field>
           {c.mode !== "Now" && (
-            <Field
-              label="First send date and time"
-              hint="Uses your browser’s local timezone."
-            >
-              <input
-                type="datetime-local"
-                value={c.scheduledAt ? localDateInput(c.scheduledAt) : ""}
-                onChange={(e) =>
-                  update({
-                    scheduledAt: e.target.value
-                      ? new Date(e.target.value).toISOString()
-                      : "",
-                  })
+            <>
+              <Field label="Schedule time zone">
+                <select
+                  value={c.timeZone || "UTC"}
+                  onChange={(e) => update({ timeZone: e.target.value })}
+                >
+                  {timeZones.map((z) => (
+                    <option key={z}>{z}</option>
+                  ))}
+                </select>
+              </Field>
+              <Field
+                label="First send date and time"
+                hint={
+                  "Time zone: " +
+                  (c.timeZone || "UTC") +
+                  ". Recurrences use elapsed 24-hour days."
                 }
-              />
-            </Field>
+              >
+                <input
+                  type="datetime-local"
+                  value={
+                    c.scheduledAt
+                      ? wallTime(c.scheduledAt, c.timeZone || "UTC")
+                      : ""
+                  }
+                  onChange={(e) => {
+                    try {
+                      update({
+                        scheduledAt: e.target.value
+                          ? scheduleInstant(e.target.value, c.timeZone || "UTC")
+                          : "",
+                      });
+                    } catch (err) {
+                      setError((err as Error).message);
+                    }
+                  }}
+                />
+              </Field>
+            </>
           )}
           {c.mode === "Recurring" && (
             <div className="form-grid">
@@ -1100,6 +827,16 @@ function CampaignEditor({
           </p>
         </>
       )}
+      {step === 3 && (
+        <label className="compliance-confirmation">
+          <input
+            type="checkbox"
+            checked={reviewed}
+            onChange={(e) => setReviewed(e.target.checked)}
+          />{" "}
+          I reviewed consent, excluded recipients, sender and estimated usage.
+        </label>
+      )}
       <div className="wizard-footer">
         <Button variant="ghost" onClick={onClose}>
           Save draft & close
@@ -1117,6 +854,7 @@ function CampaignEditor({
           ) : (
             <Button
               disabled={
+                !reviewed ||
                 blocked.length > 0 ||
                 !eligible.length ||
                 !c.text.trim() ||
@@ -1129,17 +867,16 @@ function CampaignEditor({
           )}
         </div>
       </div>
+      <p className="muted">
+        Illustrative estimated cost: {money(Math.ceil(credits * 1.5))} at $0.015
+        per segment, excluding carrier and number charges. Final pricing may
+        differ.
+      </p>
       <small className="muted">
         Draft changes are saved automatically in this browser.
       </small>
     </Modal>
   );
-}
-function localDateInput(value: string) {
-  const d = new Date(value);
-  return new Date(d.getTime() - d.getTimezoneOffset() * 60000)
-    .toISOString()
-    .slice(0, 16);
 }
 function RecipientTable({ rows }: { rows: Recipient[] }) {
   return (
@@ -1185,6 +922,7 @@ function CampaignReport({
   const { mutate } = useStore();
   const [filter, setFilter] = useState("All"),
     [error, setError] = useState("");
+  const [canceling, setCanceling] = useState(false);
   const labels = ["Queued", "Sent", "Delivered", "Failed", "Excluded"];
   const matching = (r: Recipient, label: string) =>
     label === "All" ||
@@ -1244,6 +982,23 @@ function CampaignReport({
         messages. Report shows the latest occurrence; {count(c.credits)} credits
         used across {c.runs} occurrence{c.runs === 1 ? "" : "s"}.
       </p>
+      <Button
+        variant="secondary"
+        onClick={() =>
+          downloadCSV("campaign-report.csv", [
+            ["Name", "Phone", "Status", "Reason", "Segments"],
+            ...c.recipients.map((r) => [
+              r.name,
+              r.phone,
+              r.status,
+              r.reason,
+              r.segments,
+            ]),
+          ])
+        }
+      >
+        Download delivery report
+      </Button>
       <Button variant="ghost" onClick={() => setFilter("All")}>
         Show all recipients
       </Button>
@@ -1260,6 +1015,46 @@ function CampaignReport({
             <Button variant="secondary" onClick={toggle}>
               {c.state === "Scheduled" ? "Pause schedule" : "Resume schedule"}
             </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                mutate((s) => {
+                  workspace(s, w.id).campaigns.find(
+                    (x) => x.id === c.id,
+                  )!.state = "Draft";
+                });
+                onClose();
+              }}
+            >
+              Return to draft to edit
+            </Button>
+            <Button variant="danger" onClick={() => setCanceling(true)}>
+              Cancel campaign
+            </Button>
+            {canceling && (
+              <div role="group" aria-label="Confirm cancellation">
+                <p>
+                  Cancel future occurrences? Existing delivery history remains.
+                </p>
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    mutate((s) => {
+                      const v = workspace(s, w.id);
+                      v.campaigns.find((x) => x.id === c.id)!.state =
+                        "Canceled";
+                      activity(v, "Campaign canceled", c.name);
+                    });
+                    setCanceling(false);
+                  }}
+                >
+                  Confirm cancellation
+                </Button>
+                <Button variant="ghost" onClick={() => setCanceling(false)}>
+                  Keep campaign
+                </Button>
+              </div>
+            )}
             {c.state === "Scheduled" && (
               <Button onClick={run}>Run next occurrence now (demo)</Button>
             )}
@@ -1279,6 +1074,7 @@ export function InboxScreen({ w }: { w: Workspace }) {
     [query, setQuery] = useState(""),
     [filter, setFilter] = useState("All"),
     [numberFilter, setNumberFilter] = useState("All numbers"),
+    [employeeFilter, setEmployeeFilter] = useState("All employees"),
     [sender, setSender] = useState(w.numbers[0] || ""),
     [error, setError] = useState(""),
     [newThread, setNewThread] = useState(false),
@@ -1294,6 +1090,8 @@ export function InboxScreen({ w }: { w: Workspace }) {
           .includes(query.toLowerCase()) &&
         (filter === "All" ||
           (filter === "Unread" ? t.unread : t.state === filter)) &&
+        (employeeFilter === "All employees" ||
+          (t.assignee || "Unassigned") === employeeFilter) &&
         (numberFilter === "All numbers" ||
           t.messages.some((m) => m.number === numberFilter))
       );
@@ -1432,6 +1230,20 @@ export function InboxScreen({ w }: { w: Workspace }) {
               </select>
             </div>
           </div>
+          <select
+            aria-label="Filter employee"
+            value={employeeFilter}
+            onChange={(e) => setEmployeeFilter(e.target.value)}
+          >
+            <option>All employees</option>
+            <option>Unassigned</option>
+            <option>{w.email}</option>
+            {w.members
+              .filter((m) => m.email !== w.email)
+              .map((m) => (
+                <option key={m.id}>{m.email}</option>
+              ))}
+          </select>
           <div className="conversation-list">
             {list.map((t) => {
               const c = w.contacts.find((c) => c.id === t.contactId);
@@ -1503,9 +1315,10 @@ export function InboxScreen({ w }: { w: Workspace }) {
                   </small>
                 </div>
                 <Button variant="secondary" onClick={toggleState}>
-                  {thread.state === "Open" ? "Close conversation" : "Reopen"}
+                  {thread.state === "Open" ? "Archive conversation" : "Reopen"}
                 </Button>
               </header>
+              <InboxTools w={w} thread={thread} onReply={updateDraft} />
               <div className="thread-messages" aria-live="polite">
                 {thread.messages.length === 0 && (
                   <p className="muted">

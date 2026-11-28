@@ -2,25 +2,25 @@
   --font-display: "Bricolage Grotesque", sans-serif;
   --font-body: "Geist", sans-serif;
   --white: var(--surface);
-  --cobalt: var(--accent);
-  --blue-soft: var(--wash);
+  --action-accent: var(--accent);
+  --accent-soft: var(--wash);
   --color-paper: var(--paper);
   --color-white: var(--surface);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-cobalt: var(--accent);
-  --color-cobalt-dark: var(--accent);
-  --color-blue-light: var(--wash);
+  --action-accent: var(--accent);
+  --action-hover: var(--accent-hover);
+  --accent-soft: var(--wash);
   --color-green: var(--success);
   --color-red: var(--danger);
-  --color-mist: var(--legacy-mist);
-  --mist: var(--legacy-mist);
-  --color-green-bg: var(--legacy-success-bg);
-  --color-red-bg: var(--legacy-danger-bg);
-  --color-amber: var(--legacy-amber);
-  --color-amber-bg: var(--legacy-amber-bg);
-  --color-overlay: var(--legacy-overlay);
+  --color-mist: var(--secondary-background);
+  --mist: var(--secondary-background);
+  --color-green-bg: var(--success-background);
+  --color-red-bg: var(--danger-background);
+  --color-amber: var(--warning);
+  --color-amber-bg: var(--warning-background);
+  --color-overlay: var(--overlay);
   --button-bg: var(--accent);
   --button-fg: var(--on-accent);
   --radius: 12px;
@@ -122,7 +122,7 @@
 .legacy-app select:focus-visible,
 .legacy-app textarea:focus-visible,
 .legacy-app summary:focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
 .legacy-app button:active:not(:disabled),
@@ -171,7 +171,7 @@
 .legacy-app input[type="radio"] {
   width: 18px;
   min-height: 18px;
-  accent-color: var(--accent);
+  accent-color: var(--accent-text);
   flex-shrink: 0;
 }
 .legacy-app input:disabled,
@@ -239,7 +239,7 @@
   color: var(--button-fg);
 }
 .legacy-app .btn.primary:hover {
-  background: var(--color-cobalt-dark);
+  background: var(--action-hover);
 }
 .legacy-app .btn.secondary {
   background: var(--white);
@@ -276,7 +276,7 @@
   height: 34px;
   display: grid;
   place-items: center;
-  color: var(--accent);
+  color: var(--accent-text);
   position: relative;
 }
 .legacy-app .brand-mark svg {
@@ -291,45 +291,8 @@
   top: 5px;
   right: 0;
 }
-.legacy-app .prototype-bar {
-  min-height: 38px;
-  padding: 7px 24px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 12px;
-  background: var(--ink);
-  color: var(--white);
-  position: relative;
-  z-index: 50;
-}
-.legacy-app .prototype-bar b {
-  font-weight: 500;
-}
 .legacy-app .prototype-description {
   opacity: 0.65;
-}
-.legacy-app .role-switch {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  flex-shrink: 0;
-}
-.legacy-app .role-switch > span {
-  margin-right: 7px;
-  opacity: 0.65;
-}
-.legacy-app .role-switch button {
-  color: var(--white);
-  padding: 5px 10px;
-  border-radius: 5px;
-  min-height: 28px;
-}
-.legacy-app .role-switch button[aria-pressed="true"] {
-  background: var(--white);
-  color: var(--ink);
 }
 .legacy-app .public-header {
   display: flex;
@@ -344,7 +307,7 @@
   font-size: 14px;
 }
 .legacy-app .public-header nav > a:not(.btn):hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .mobile-toggle {
   display: none;
@@ -524,7 +487,7 @@
   display: inline-flex;
   align-items: center;
   margin-bottom: 14px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 23px;
   font-weight: 600;
 }
@@ -579,7 +542,7 @@
   gap: 5px;
 }
 .legacy-app .story-person.selected {
-  background: var(--color-blue-light);
+  background: var(--accent-soft);
 }
 .legacy-app .story-person small {
   font-size: 11px;
@@ -873,7 +836,7 @@
   font-size: 14px;
 }
 .legacy-app .auth-note svg {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .auth-form.panel {
   padding: 36px;
@@ -958,7 +921,7 @@
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  background: var(--color-blue-light);
+  background: var(--accent-soft);
   padding: 15px 18px;
   font-size: 14px;
   border-radius: 8px;
@@ -1141,8 +1104,8 @@
   position: relative;
 }
 .legacy-app .sidebar nav > a[aria-current="page"] {
-  background: var(--color-blue-light);
-  color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent-text);
   font-weight: 600;
 }
 .legacy-app .sidebar nav > a:hover {
@@ -1193,7 +1156,7 @@
 }
 .legacy-app .sidebar-credit a {
   font-size: 12px;
-  color: var(--accent);
+  color: var(--accent-text);
   grid-column: span 2;
 }
 .legacy-app .app-body {
@@ -1256,7 +1219,7 @@
   color: var(--muted);
 }
 .legacy-app .next-icon {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .next-step > .btn {
   flex-shrink: 0;
@@ -1319,7 +1282,7 @@
 }
 .legacy-app .metric-grid a {
   font-size: 12px;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .metric-grid .text-metric {
   font-size: 25px;
@@ -1343,7 +1306,7 @@
 }
 .legacy-app .help-panel a {
   font-size: 13px;
-  color: var(--accent);
+  color: var(--accent-text);
   display: flex;
   gap: 10px;
   align-items: center;
@@ -1457,8 +1420,8 @@
   font-size: 14px;
 }
 .legacy-app .number-options label.selected {
-  border-color: var(--accent);
-  background: var(--color-blue-light);
+  border-color: var(--accent-text);
+  background: var(--accent-soft);
 }
 .legacy-app .modal {
   border: 0;
@@ -1559,7 +1522,7 @@
   background: var(--paper);
 }
 .legacy-app .wizard-progress [aria-current="step"] {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .wizard-progress [aria-current="step"] span {
   background: var(--accent);
@@ -1587,7 +1550,7 @@
 }
 .legacy-app .review-fields button {
   float: right;
-  color: var(--accent);
+  color: var(--accent-text);
   min-height: 30px;
 }
 .legacy-app .wizard-actions {
@@ -1945,23 +1908,6 @@
 @media (max-width: 600px) {
   .legacy-app .wrap {
     padding-inline: 22px;
-  }
-  .legacy-app .prototype-bar {
-    padding: 8px 12px;
-    flex-wrap: wrap;
-    font-size: 11px;
-    justify-content: center;
-  }
-  .legacy-app .prototype-bar > span {
-    display: none;
-  }
-  .legacy-app .role-switch {
-    font-size: 11px;
-  }
-  .legacy-app .role-switch:before {
-    content: "Prototype";
-    margin-right: 14px;
-    font-weight: 500;
   }
   .legacy-app .public-header > .mobile-toggle {
     display: inline-flex;
@@ -2479,8 +2425,8 @@
   cursor: pointer;
 }
 .legacy-app .wizard-tabs button.active {
-  color: var(--cobalt);
-  background: var(--blue-soft, #edf1ff);
+  color: var(--accent-text);
+  background: var(--wash);
   font-weight: 600;
 }
 .legacy-app .wizard-footer {
@@ -2490,7 +2436,7 @@
   gap: 1rem;
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--line, #e1e5df);
+  border-top: 1px solid var(--line);
 }
 .legacy-app .audience-summary {
   display: grid;
@@ -2589,8 +2535,8 @@
   cursor: pointer;
 }
 .legacy-app .report-counts button.active {
-  border-color: var(--cobalt);
-  color: var(--cobalt);
+  border-color: var(--accent-text);
+  color: var(--accent-text);
 }
 .legacy-app .report-counts b {
   font-size: 1.7rem;
@@ -2619,12 +2565,12 @@
   overflow: hidden;
 }
 .legacy-app .inbox-list {
-  border-right: 1px solid var(--line, #e1e5df);
+  border-right: 1px solid var(--line);
   min-width: 0;
 }
 .legacy-app .inbox-filters {
   padding: 1rem;
-  border-bottom: 1px solid var(--line, #e1e5df);
+  border-bottom: 1px solid var(--line);
 }
 .legacy-app .inbox-filters .form-grid {
   gap: 0.5rem;
@@ -2649,7 +2595,7 @@
   background: transparent;
   color: var(--ink);
   border: 0;
-  border-bottom: 1px solid var(--line, #e1e5df);
+  border-bottom: 1px solid var(--line);
   cursor: pointer;
 }
 .legacy-app .conversation-item > span:last-child {
@@ -2657,13 +2603,13 @@
   flex: 1;
 }
 .legacy-app .conversation-item.active {
-  background: var(--blue-soft, #edf1ff);
+  background: var(--wash);
 }
 .legacy-app .conversation-item:hover {
   background: var(--paper);
 }
 .legacy-app .conversation-item.active:hover {
-  background: var(--blue-soft, #edf1ff);
+  background: var(--wash);
 }
 .legacy-app .contact-avatar {
   display: grid;
@@ -2700,8 +2646,8 @@
 }
 .legacy-app .unread-label {
   font-size: 0.65rem;
-  background: var(--cobalt);
-  color: var(--white, #fff);
+  background: var(--action-accent);
+  color: var(--on-accent);
   padding: 0.12rem 0.35rem;
   border-radius: 4px;
 }
@@ -2734,7 +2680,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem;
-  border-bottom: 1px solid var(--line, #e1e5df);
+  border-bottom: 1px solid var(--line);
 }
 .legacy-app .thread-header h2 {
   font-size: 1.1rem;
@@ -2784,7 +2730,7 @@
   text-align: right;
 }
 .legacy-app .reply-composer {
-  border-top: 1px solid var(--line, #e1e5df);
+  border-top: 1px solid var(--line);
   padding: 1.25rem;
 }
 .legacy-app .reply-composer .field {
@@ -2835,7 +2781,7 @@
   align-items: center;
   gap: 1rem;
   border: 0;
-  border-bottom: 1px solid var(--line, #e1e5df);
+  border-bottom: 1px solid var(--line);
   padding: 1rem 0;
   background: transparent;
   text-align: left;
@@ -3071,7 +3017,7 @@
 }
 .legacy-app .admin-customer-link:hover {
   text-decoration: underline;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .admin-person small,
 .legacy-app td > small,
@@ -3141,7 +3087,7 @@
   margin-bottom: 10px;
 }
 .legacy-app .admin-back:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .admin-customer-summary {
   display: grid;
@@ -3181,8 +3127,8 @@
   border-bottom: 2px solid transparent;
 }
 .legacy-app .admin-tabs button.active {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent-text);
 }
 .legacy-app .admin-detail-grid {
   display: grid;
@@ -3387,7 +3333,7 @@
   border-bottom: 1px solid var(--line);
 }
 .legacy-app .admin-stage-list a:hover {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .legacy-app .admin-pricing-layout {
   display: grid;

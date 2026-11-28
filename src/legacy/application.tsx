@@ -5,7 +5,7 @@ import { useState, useEffect, Suspense } from "react";
 import { Provider, useStore } from "@/lib/store";
 import { brand, count } from "@/lib/config";
 import { Home, Features, Pricing, Auth, DemoButton } from "./public";
-import { Overview, Numbers, Billing, Team } from "./customer";
+import { Numbers, Billing, Team } from "./customer";
 import { Contacts, Campaigns, InboxScreen } from "./messaging";
 import { AdminScreen } from "./admin";
 import {
@@ -27,12 +27,27 @@ import {
   LogOut,
   Mail,
 } from "./ui";
+import {
+  CustomerModule,
+  SubscriptionPanel,
+  NumberPreferences,
+} from "@/frontend/modules";
+import { Dashboard, WorkspaceTools } from "@/frontend/workspace";
+import { brandVariables } from "@/config/brand";
+import "@/frontend/workspace.css";
 const customerNav = [
   ["Overview", "/app/", LayoutDashboard],
   ["Inbox", "/app/inbox/", Inbox],
   ["Contacts", "/app/contacts/", Users],
   ["Campaigns", "/app/campaigns/", Send],
   ["Numbers & verification", "/app/numbers/", Phone],
+  ["Compliance", "/app/compliance/", ShieldCheck],
+  ["Templates", "/app/templates/", Mail],
+  ["Automations", "/app/automations/", Send],
+  ["Analytics", "/app/analytics/", LayoutDashboard],
+  ["Integrations", "/app/integrations/", Settings],
+  ["Settings", "/app/settings/", Settings],
+  ["Support", "/app/support/", Mail],
   ["Team", "/app/team/", Users],
   ["Billing", "/app/billing/", CreditCard],
 ] as const;
@@ -43,6 +58,23 @@ const adminNav = [
   ["Verification", "/admin/verification/", ShieldCheck],
   ["Numbers", "/admin/numbers/", Phone],
   ["Payments", "/admin/payments/", CreditCard],
+  ["Subscriptions", "/admin/subscriptions/", CreditCard],
+  ["Invoices", "/admin/invoices/", CreditCard],
+  ["Refunds", "/admin/refunds/", CreditCard],
+  ["Wallets", "/admin/wallets/", CreditCard],
+  ["Pricing", "/admin/pricing/", Settings],
+  ["Providers", "/admin/providers/", Settings],
+  ["Usage", "/admin/usage/", LayoutDashboard],
+  ["Campaign monitor", "/admin/campaigns/", Send],
+  ["Risk", "/admin/risk/", ShieldCheck],
+  ["Complaints", "/admin/complaints/", Mail],
+  ["Support", "/admin/support/", Mail],
+  ["Revenue & costs", "/admin/reports/", LayoutDashboard],
+  ["System health", "/admin/health/", Settings],
+  ["Webhooks", "/admin/webhooks/", Settings],
+  ["Workers", "/admin/workers/", Settings],
+  ["Admin roles", "/admin/roles/", Users],
+  ["Audit logs", "/admin/audit/", ShieldCheck],
   ["Settings", "/admin/settings/", Settings],
 ] as const;
 export default function Application() {
@@ -59,6 +91,13 @@ function Content() {
     router = useRouter(),
     { state, ready, mutate, error, clearError } = useStore();
   const [menu, setMenu] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("sms-theme") === "dark") setTheme("dark");
+    } catch {}
+  }, []);
   useEffect(() => {
     if (!menu) return;
     const opener = document.activeElement as HTMLElement | null;
@@ -104,27 +143,9 @@ function Content() {
       </div>
     );
   const prototype = (
-    <div className="prototype-bar">
-      <span>
-        <b>Interactive prototype</b>
-        <span className="prototype-description">
-          {" "}
-          — fictional data, no real messages or payments
-        </span>
-      </span>
-      <div className="role-switch" aria-label="Prototype-only role switcher">
-        <span>View as</span>
-        <button
-          aria-pressed={!admin}
-          onClick={() => router.push(w ? "/app/" : "/signup/")}
-        >
-          Customer
-        </button>
-        <button aria-pressed={admin} onClick={() => router.push("/admin/")}>
-          Owner admin
-        </button>
-      </div>
-    </div>
+    <aside className="preview-note" aria-label="Preview mode">
+      Demo workspace · fictional data · no live messages or payments
+    </aside>
   );
   if (!app && !admin)
     return (
@@ -171,9 +192,19 @@ function Content() {
   const section = path.split("/")[2] || (admin ? "customers" : "overview");
   return (
     <>
+      <a className="skip-link" href="#workspace-main">
+        Skip to workspace
+      </a>
       {prototype}
-      <div className={`app-shell ${admin ? "admin-shell" : ""}`}>
-        <aside className={`sidebar ${menu ? "is-open" : ""}`}>
+      <div
+        className={`legacy-app app-shell ${admin ? "admin-shell" : ""} ${collapsed ? "collapsed" : ""}`}
+        data-theme={theme}
+        style={brandVariables(theme)}
+      >
+        <aside
+          aria-label={admin ? "Administration sidebar" : "Workspace sidebar"}
+          className={`sidebar ${menu ? "is-open" : ""}`}
+        >
           <div className="sidebar-logo">
             <Logo />
             <button
@@ -211,6 +242,8 @@ function Content() {
             {nav.map(([name, url, Icon]) => (
               <Link
                 key={url}
+                aria-label={collapsed ? name : undefined}
+                title={name}
                 href={url}
                 onClick={() => setMenu(false)}
                 aria-current={
@@ -261,7 +294,7 @@ function Content() {
               </button>
             )}
             <small>
-              Prototype roles are for review.
+              Synthetic preview data.
               <br />
               Production access is not connected.
             </small>
@@ -290,14 +323,22 @@ function Content() {
                 (x) => x[1].split("/")[2] === path.split("/")[2],
               )?.[0] || (admin ? "Customers" : "Overview")}
             </span>
-            <div className="header-user">
-              <span>{admin ? "Owner admin" : w!.email}</span>
-              <span className="mini-avatar">
-                {admin ? "OA" : w!.email.slice(0, 2).toUpperCase()}
-              </span>
-            </div>
+            <WorkspaceTools
+              admin={admin}
+              w={w}
+              collapsed={collapsed}
+              onCollapse={() => setCollapsed(!collapsed)}
+              theme={theme}
+              onTheme={() => {
+                const next = theme === "light" ? "dark" : "light";
+                setTheme(next);
+                try {
+                  localStorage.setItem("sms-theme", next);
+                } catch {}
+              }}
+            />
           </header>
-          <main className="workspace-main">
+          <main id="workspace-main" className="workspace-main">
             {error && (
               <Notice tone="error">
                 {error}
@@ -315,13 +356,29 @@ function Content() {
             ) : section === "campaigns" ? (
               <Campaigns w={w!} />
             ) : section === "numbers" ? (
-              <Numbers w={w!} />
+              <>
+                <Numbers w={w!} />
+                <NumberPreferences w={w!} />
+              </>
             ) : section === "team" ? (
               <Team w={w!} />
             ) : section === "billing" ? (
-              <Billing w={w!} />
+              <>
+                <SubscriptionPanel w={w!} />
+                <Billing w={w!} />
+              </>
+            ) : [
+                "compliance",
+                "templates",
+                "automations",
+                "analytics",
+                "integrations",
+                "settings",
+                "support",
+              ].includes(section) ? (
+              <CustomerModule key={w!.id + section} w={w!} section={section} />
             ) : (
-              <Overview w={w!} />
+              <Dashboard w={w!} />
             )}
           </main>
         </div>

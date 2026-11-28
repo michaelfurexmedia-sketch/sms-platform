@@ -60,3 +60,20 @@ remain browser-local simulations, clearly labelled in the UI. No provider SDK
 or business server endpoint is called. The original storage key is preserved.
 The recovered UI delegates dialogs to the shared fixed Modal component.
 This preserves reusable work for Phase 2 without replacing the tested foundation.
+
+## Phase 2 frontend boundaries
+
+`src/frontend` composes marketing, workspace and admin surfaces inside the same
+Next application. `src/legacy` retains working screens through a route adapter;
+`/preview` remains compatible. Public routes are statically generated, customer
+and admin paths validate known module slugs, and unknown paths return 404.
+The browser-local provider is the single demo state source. Typed preview
+contracts in `src/frontend/contracts.ts` prepare replacement service boundaries.
+CSV/XLSX imports run client-side; XLSX parsing is loaded on demand.
+
+Public role switching has been removed. Admin routes fail closed unless the explicit local-only preview configuration is active; see docs/PHASE26_ADMIN_SECURITY.md. This preview is not production authentication.
+Audit entries, balances, invoices, registration results, provider health and
+checkout outcomes are synthetic. An audit UI is not an immutable financial ledger.
+The probe worker does not execute business schedules; demo schedules require an
+open browser. Backend replacement and negative tenant/permission tests remain
+blocked until explicit frontend approval.

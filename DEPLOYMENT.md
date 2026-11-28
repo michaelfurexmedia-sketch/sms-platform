@@ -1,6 +1,6 @@
 # Portable development and deployment
 
-## Phase 1 local environment
+## Portable local environment
 
 Requires Git, Node 22, npm, Docker Engine and Compose v2. No hosting purchase or
 production deployment has occurred. Use README setup commands and .env.example.
@@ -63,3 +63,11 @@ compatibility are not implemented in Phase 1. Do not infer disaster recovery
 from persistent volumes. Implement and rehearse these before commercial launch.
 
 No Vercel, Kubernetes, paid service or alternate repository is required.
+
+## Recreate the frontend preview
+
+Use the saved `phase-2-frontend` branch, `npm run setup`, then `npm run dev`.
+Review `/`, `/app`, `/admin` and `/design-system`; see docs/PREVIEW.md for the
+walkthrough. Twilio, Stripe and email credentials are unnecessary. The `.env`
+file stays local. Browser-local demo data is disposable, never a database backup.
+No external preview hostname or hosting deployment has been configured.

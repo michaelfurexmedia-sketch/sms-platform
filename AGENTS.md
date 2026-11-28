@@ -3,7 +3,8 @@
 ## Authority and current scope
 
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: recover and complete Phase 1 only. Read docs/PHASE1_RECOVERY.md before changing files. Do not start Phase 2.
+- Current assignment: Phase 2.7 product experience and frontend requirements (docs/PHASE27_REQUIREMENTS.md). Phase 3 is paused by owner instruction. Preserve its WIP at 70bc3739397da10eb486495a12ffb79c4d66856b and the approved navy/pearl/coral design. Complete Phase 2.7, verify and preview, then wait for explicit owner approval before resuming Phase 3.
+- Read and apply the installed Karpathy Guidelines and any supporting files before implementation in every phase. If unavailable, report it and ask before substituting.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 
@@ -276,3 +277,22 @@ If approval has not been recorded, remain at the frontend review phase.
 Save this entire protocol in AGENTS.md.
 Apply it to every current and future development phase.
 Never claim implementation has been saved unless the actual source files have been committed, pushed, and verified on GitHub.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+## Phase 2.6 permanent refinements
+
+- Official palette: Ink Navy #141B2D, Pearl White #F4F1EA, Electric Coral #FF5A4E. Central semantic tokens; accessible foregrounds; independent status colors. Preserve self-hosted licensed fonts.
+- Never expose customer-to-platform-admin switching or public admin registration/navigation. Customer workspace roles never grant platform privileges.
+- Until Phase 3 authentication, admin preview must be opt-in local-only or genuinely protected; a hidden URL or client state is not security.
+- Phase 3 requires secure owner provisioning, verified identity, mandatory MFA, separate server sessions, expiration/recovery/rate limits, authorization on every admin page/API/query/event, step-up for sensitive actions and attributable audit logs. Additional platform admins disabled unless owner authorizes.
+- Preserve a remote baseline, then checkpoint milestones 2.6.1 tokens/type, 2.6.2 marketing, 2.6.3 customer, 2.6.4 remove switching, 2.6.5 private admin, 2.6.6 accessibility, 2.6.7 verification/preview. No exposed credit counter: persist continuously; if available use 25% smaller batches, 15% preservation, 10% push/verify.
+- Final status: FRONTEND REVISED — AWAITING OWNER APPROVAL. Record approved commit only after explicit approval; stop before Phase 3.

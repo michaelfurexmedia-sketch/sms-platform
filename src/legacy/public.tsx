@@ -58,7 +58,6 @@ export function Footer() {
       <nav aria-label="Footer navigation">
         <Link href="/features/">Features</Link>
         <Link href="/pricing/">Pricing</Link>
-        <Link href="/admin/">Owner demo</Link>
       </nav>
       <small>Interactive frontend prototype. All activity is simulated.</small>
     </footer>
@@ -618,7 +617,7 @@ export function Auth({ login = false }: { login?: boolean }) {
         <Logo />
         <Link href="/">Back to website</Link>
       </div>
-      <main className="auth-layout">
+      <div className="auth-layout">
         <div className="auth-editorial">
           <h1>
             A small message.
@@ -720,6 +719,7 @@ export function Auth({ login = false }: { login?: boolean }) {
               </Button>
             </div>
           )}
+          <Link href="/forgot-password/">Need help signing in?</Link>
           <div className="auth-demo">
             <p>Just taking a look?</p>
             <DemoButton secondary />
@@ -729,7 +729,7 @@ export function Auth({ login = false }: { login?: boolean }) {
             simulated. Use fictional details.
           </small>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

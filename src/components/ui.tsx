@@ -201,7 +201,7 @@ export function EmptyState({
 }) {
   return (
     <div className="empty-state">
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <p>{description}</p>
       {action}
     </div>

@@ -1,4 +1,11 @@
 "use client";
+import { applyAdminAction } from "@/frontend/admin-actions";
+import {
+  AdminPreferences,
+  AdminModule,
+  AdminOverviewExtras,
+  CustomerOperations,
+} from "@/frontend/admin";
 import Link from "./navigation";
 import { useState, useEffect, type ReactNode } from "react";
 import { useRouter, useSearchParams } from "./navigation";
@@ -14,6 +21,7 @@ import {
 } from "@/lib/model";
 import {
   Heading,
+  Modal,
   Button,
   Badge,
   Field,
@@ -163,7 +171,11 @@ export function AdminScreen({ section }: { section: string }) {
     case "settings":
       return <PricingSettings />;
     default:
-      return <Customers />;
+      return section === "customers" ? (
+        <Customers />
+      ) : (
+        <AdminModule key={section} section={section} />
+      );
   }
 }
 function Customers() {
@@ -480,7 +492,10 @@ function CustomerDetail({ id }: { id: string }) {
                       <Phone size={18} />
                       <div>
                         <b>{n}</b>
-                        <small>One-time fee paid. No renewal scheduled.</small>
+                        <small>
+                          First rental period preview. Recurring billing is not
+                          connected.
+                        </small>
                       </div>
                     </li>
                   ))}
@@ -502,6 +517,7 @@ function CustomerDetail({ id }: { id: string }) {
           </section>
         </>
       )}
+      <CustomerOperations w={w} />
       {tab === "Verification" && <VerificationDetail w={w} />}
       {tab === "Billing" && <CustomerBilling w={w} />}
       {tab === "Activity" && (
@@ -912,6 +928,7 @@ function AdminOverview() {
           icon={<Send size={18} />}
         />
       </div>
+      <AdminOverviewExtras />
       <div className="admin-detail-grid">
         <section className="panel">
           <h2>Recent activity</h2>
@@ -1331,6 +1348,8 @@ function PricingSettings() {
   const [preview, setPreview] = useState(false),
     [error, setError] = useState(""),
     [saved, setSaved] = useState(false);
+  const [confirmSave, setConfirmSave] = useState(false),
+    [reason, setReason] = useState("");
   const dirty = JSON.stringify(draft) !== JSON.stringify(state.pricing);
   useEffect(() => {
     if (!dirty) setDraft(structuredClone(state.pricing));
@@ -1367,8 +1386,16 @@ function PricingSettings() {
     try {
       validate();
       mutate((s) => {
+        applyAdminAction(s, {
+          workspaceId: "",
+          action: "Update pricing preview",
+          reason,
+          value: JSON.stringify(draft),
+        });
         s.pricing = structuredClone(draft);
       });
+      setConfirmSave(false);
+      setReason("");
       setPreview(false);
       setSaved(true);
       setError("");
@@ -1410,12 +1437,45 @@ function PricingSettings() {
             >
               {preview ? "Edit prices" : "Preview prices"}
             </Button>
-            <Button disabled={!dirty} onClick={save}>
+            <Button
+              disabled={!dirty}
+              onClick={() => {
+                try {
+                  validate();
+                  setConfirmSave(true);
+                } catch (e) {
+                  setError((e as Error).message);
+                }
+              }}
+            >
               Save pricing
             </Button>
           </div>
         }
       />
+      {confirmSave && (
+        <Modal
+          title="Confirm pricing changes"
+          onClose={() => setConfirmSave(false)}
+        >
+          <p>
+            Future demo checkouts will use these prices. Existing receipts stay
+            unchanged.
+          </p>
+          <Field label="Mandatory pricing reason">
+            <input
+              required
+              minLength={5}
+              value={reason}
+              onChange={(e) => setReason(e.target.value)}
+            />
+          </Field>
+          <Button disabled={reason.trim().length < 5} onClick={save}>
+            Confirm pricing
+          </Button>
+        </Modal>
+      )}
+      <AdminPreferences scope="platform" />
       {saved && (
         <Notice tone="success">
           Pricing saved. Future checkouts use these prices; completed receipts
