@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { plans, planPrice } from "@/config/plans";
 import { useState } from "react";
 import {
   MessageSquare,
@@ -246,7 +247,7 @@ export function Marketing({ page = "" }: { page?: string }) {
                 <span className="eyebrow">Pricing preview</span>
                 <h1>Make room for growth.</h1>
                 <p>
-                  Illustrative plans for design review. Final plans, taxes,
+                  Subscription preview; checkout is not connected. Taxes,
                   registration, carrier and number charges will be confirmed
                   before commercial launch.
                 </p>
@@ -473,27 +474,39 @@ function PricingPreview() {
           Grow together.
         </h2>
         <p>
-          Illustrative subscription pricing. Messaging usage and number rental
-          are separate.
+          Subscription plans for your business. Messaging usage and number
+          pricing will be confirmed separately; no messaging allowance is
+          included here.
         </p>
       </div>
       <div className="pricing-plans">
-        {[
-          ["Starter", "29", "One workspace · 2 team seats"],
-          ["Team", "79", "Shared workflows · 10 team seats"],
-          ["Scale", "199", "Advanced controls · 25 team seats"],
-        ].map(([name, price, detail]) => (
-          <article key={name}>
-            <h3>{name}</h3>
+        {plans.map((plan) => (
+          <article key={plan.id}>
+            <h3>{plan.name}</h3>
+            {plan.recommended && <p className="eyebrow">Recommended</p>}
             <p>
-              <strong>${price}</strong> / month
+              <strong>{planPrice(plan)}</strong>
             </p>
-            <p>{detail}</p>
+            <ul>
+              {plan.features.map((feature) => (
+                <li key={feature}>{feature}</li>
+              ))}
+            </ul>
+            <p>
+              Up to {plan.maxActiveNumbers} active phone{" "}
+              {plan.maxActiveNumbers === 1 ? "number" : "numbers"}
+            </p>
             <Link
               className="btn secondary"
-              href={"/signup?plan=" + name.toLowerCase()}
+              href={
+                plan.id === "enterprise"
+                  ? "/contact"
+                  : "/signup?plan=" + plan.id
+              }
             >
-              Explore {name}
+              {plan.id === "enterprise"
+                ? "Contact Sales"
+                : `Explore ${plan.name}`}
             </Link>
           </article>
         ))}

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "updated": "2026-11-28",
-  "active_phase": 3,
-  "active_milestone": "3.1 WIP \u2014 request boundaries and authorization policies",
+  "active_phase": 2,
+  "active_milestone": "2.7.1 \u2014 configurable plans and scope transition",
   "active_branch": "phase-2-frontend",
-  "last_known_implementation_checkpoint": "bd5ec984b36d62e9ff543ee4b424172deb04a6c8",
+  "last_known_implementation_checkpoint": "70bc3739397da10eb486495a12ffb79c4d66856b",
   "completed_tasks": [
     "Phase 1 foundation and recovered source preserved; acceptance at 54ffca7 (see recovery records)",
     "Phase 2 public marketing, customer shell and dashboard",
@@ -15,17 +15,16 @@
     "Final GitHub Actions Node 22 build/tests and Docker health checks passed; draft PR #2 opened without merging",
     "Phase 2.5 preview restored from GitHub; startup adapter pushed; three actual application routes opened in cloud browser; fresh 35 browser tests and 45 axe scans passed",
     "2.6.1 semantic navy/pearl/coral tokens and accessible foregrounds; existing licensed fonts retained",
-    "Phase 2.6 palette, public/customer/admin refinements, removal of privilege switching, local-only admin entry, responsive/accessibility verification"
+    "Phase 2.6 palette, public/customer/admin refinements, removal of privilege switching, local-only admin entry, responsive/accessibility verification",
+    "2.7.1 centralized owner plan definitions, public pricing and customer subscription presentation"
   ],
   "pending_tasks": [
-    "3.1 modules, authorization and distributed rate limits",
-    "3.2 PostgreSQL schemas/migrations/seed",
-    "3.3 Better Auth and mandatory owner MFA",
-    "3.4 tenant isolation",
-    "3.5 permissions",
-    "3.6 durable business workers",
-    "3.7 real frontend integration",
-    "3.8 full verification"
+    "2.7 contact CRUD and workspace-owned tags",
+    "2.7 validated named CSV/XLSX imports",
+    "2.7 inbox interactions and responsive review",
+    "2.7 wallet and number provisioning integration boundaries",
+    "2.7 marketing coverage and backend dependency specifications",
+    "2.7 full build, types, lint, unit/browser/accessibility verification and interactive preview"
   ],
   "partially_implemented_tasks": [
     "3.1 request boundaries and separate workspace/platform authorization policies; not wired to APIs or sessions"
@@ -152,6 +151,15 @@
       "typecheck": "passed",
       "unit": "28 passed",
       "integration": "not implemented"
+    },
+    "phase27_checkpoint1": {
+      "production_build": "passed",
+      "typecheck": "passed",
+      "lint": "passed",
+      "unit": "30 passed",
+      "browser": "3 pricing/navigation tests passed at 1440, 768 and 390px",
+      "accessibility": "3 axe scans passed",
+      "scope": "Plan changes only; complete Phase 2.7 acceptance pending"
     }
   },
   "known_bugs": [],
@@ -186,15 +194,16 @@
   },
   "owner_approval_status": {
     "frontend": "approved",
-    "phase3_backend": "frontend_approval_gate_satisfied",
+    "phase3_backend": "paused_by_owner_until_phase27_review",
     "review_candidate_commit": "5d7e0f9df8a975c376aea6252cad914a23fd5539",
     "approved_frontend_commit": "5d7e0f9df8a975c376aea6252cad914a23fd5539",
     "approved_by": "Project owner (conversation)",
     "approved_at": "2026-11-28",
     "evidence": "Owner replied to the explicit frontend approval question: yea it's good but need some changes we can do changes when the backend is complete",
-    "note": "Current frontend approved for backend progression; unspecified design changes deferred until backend completion. No backend implementation performed by this approval checkpoint."
+    "note": "Current frontend approved for backend progression; unspecified design changes deferred until backend completion. No backend implementation performed by this approval checkpoint.",
+    "phase27": "pending"
   },
-  "next_action": "Complete backend modules and distributed rate limits. Implement PostgreSQL schemas/migrations and Better Auth using pinned stable versions, then wire verified session/grant records to permission checks. No production route protection is claimed yet.",
+  "next_action": "Implement contact/tag/import workflows, then inbox, wallet and number management; verify complete Phase 2.7 and wait for owner approval before resuming Phase 3.",
   "recovery": {
     "source_reconstructed": true,
     "original_files_recovered": true,
@@ -214,6 +223,16 @@
   ],
   "pull_request": "https://github.com/michaelfurexmedia-sketch/sms-platform/pull/2",
   "phase2_frontend_complete": true,
-  "status": "PHASE 3 IN PROGRESS",
-  "review_stage": "Phase 2.6"
+  "status": "PHASE 2.7 IN PROGRESS \u2014 PHASE 3 PAUSED",
+  "review_stage": "Phase 2.7",
+  "paused_phase3_tasks": [
+    "3.1 modules, authorization and distributed rate limits",
+    "3.2 PostgreSQL schemas/migrations/seed",
+    "3.3 Better Auth and mandatory owner MFA",
+    "3.4 tenant isolation",
+    "3.5 permissions",
+    "3.6 durable business workers",
+    "3.7 real frontend integration",
+    "3.8 full verification"
+  ]
 }

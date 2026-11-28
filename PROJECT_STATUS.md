@@ -1,6 +1,10 @@
-# PHASE 3 IN PROGRESS
+# PHASE 2.7 IN PROGRESS — PHASE 3 PAUSED
 
-Milestone 3.1 WIP: added tested request-boundary helpers (bounded streaming JSON, pagination validation, same-origin checks and safe error responses). No business route is connected yet. Fresh lint, TypeScript and 28 unit tests passed. Database/authentication/tenant isolation and frontend integration remain pending; no production security claim. Next: finish 3.1 modules/permissions/rate limiting, then stable Prisma/PostgreSQL and Better Auth.
+Owner requested Phase 2.7 before further backend development. Requirements: docs/PHASE27_REQUIREMENTS.md. Preserve backend WIP at `70bc3739397da10eb486495a12ffb79c4d66856b`; it is not connected authentication or production authorization.
+
+Current milestone: central configurable Starter $19, Professional $39 (recommended), Enterprise Contact Sales, with 1/5/10 active-number limits. No message allowances or provider/payment success claims. Contact/import/tag, inbox, wallet, number workflows, architecture specifications and full acceptance remain pending.
+
+Fresh checkpoint verification: production build, TypeScript, lint, state check and 30 unit tests passed. Three pricing/navigation browser tests and three axe scans passed at desktop/tablet/mobile widths. These checks do not constitute full Phase 2.7 acceptance.
 
 ## FRONTEND APPROVED — DESIGN REFINEMENTS DEFERRED
 

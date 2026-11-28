@@ -44,3 +44,5 @@ remains unauthenticated and no canvas generation is claimed. No new exploration
 or browser tooling was installed.
 
 Phase 2.6 reuses the prior skill research. Creative-direction/Taste instructions were reviewed against the fixed owner palette; UI/system/interaction criteria applied to shared refinements. Browser-testing used real Playwright/axe runs and screenshot inspection. Taste companion scripts were absent; no script audit, new Superdesign generation, GSAP, external reference inspection or agent delegation is claimed.
+
+Phase 2.7: Karpathy Guidelines read in full (no supporting files referenced); targeted changes and explicit acceptance checks. Browser-testing instructions reused for actual Playwright checks. No repeated reference research or design exploration.

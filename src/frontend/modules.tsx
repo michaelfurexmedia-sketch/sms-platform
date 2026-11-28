@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { plans, planPrice, getPlan } from "@/config/plans";
 import Link from "@/legacy/navigation";
 import { useStore } from "@/lib/store";
 import {
@@ -759,25 +760,27 @@ export function SubscriptionPanel({ w }: { w: Workspace }) {
     <section className="panel subscription-panel">
       <h2>Your subscription</h2>
       <p>
-        Current preview plan: <b>{data.plan || "Starter"}</b>. No subscription
+        Current preview plan: <b>{getPlan(data.plan).name}</b>. No subscription
         or payment is active.
       </p>
       <div className="plan-options">
-        {[
-          ["Starter", 29],
-          ["Team", 79],
-          ["Scale", 199],
-        ].map(([name, price]) => (
-          <div key={name}>
-            <h3>{name}</h3>
-            <p>${price}/month · illustrative</p>
-            <Button
-              variant="secondary"
-              disabled={(data.plan || "Starter") === name}
-              onClick={() => setPlan(String(name))}
-            >
-              Choose {name}
-            </Button>
+        {plans.map((option) => (
+          <div key={option.id}>
+            <h3>{option.name}</h3>
+            {option.recommended && <p>Recommended</p>}
+            <p>{planPrice(option)}</p>
+            <p>Up to {option.maxActiveNumbers} active numbers</p>
+            {option.id === "enterprise" ? (
+              <Link href="/contact">Contact Sales</Link>
+            ) : (
+              <Button
+                variant="secondary"
+                disabled={getPlan(data.plan).id === option.id}
+                onClick={() => setPlan(option.id)}
+              >
+                Choose {option.name}
+              </Button>
+            )}
           </div>
         ))}
       </div>
@@ -836,9 +839,9 @@ export function SubscriptionPanel({ w }: { w: Workspace }) {
         onClose={() => setPlan("")}
       >
         <p>
-          Change from {data.plan || "Starter"} to {plan}? This previews an
-          upgrade or downgrade. Proration and payment processing are not
-          connected.
+          Change from {getPlan(data.plan).name} to {getPlan(plan).name}? This
+          previews an upgrade or downgrade. Proration and payment processing are
+          not connected.
         </p>
         <Button
           onClick={() => {

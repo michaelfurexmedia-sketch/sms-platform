@@ -3,7 +3,8 @@
 ## Authority and current scope
 
 - Only authorized repository: https://github.com/michaelfurexmedia-sketch/sms-platform.git. Never create or use sms-platform-2 or another repository.
-- Current assignment: Phase 3 backend/database/authentication, authorized after recorded frontend approval. Preserve approved design at 5d7e0f9df8a975c376aea6252cad914a23fd5539. Complete milestones 3.1–3.8 with incremental checkpoints; stop before Phase 4.
+- Current assignment: Phase 2.7 product experience and frontend requirements (docs/PHASE27_REQUIREMENTS.md). Phase 3 is paused by owner instruction. Preserve its WIP at 70bc3739397da10eb486495a12ffb79c4d66856b and the approved navy/pearl/coral design. Complete Phase 2.7, verify and preview, then wait for explicit owner approval before resuming Phase 3.
+- Read and apply the installed Karpathy Guidelines and any supporting files before implementation in every phase. If unavailable, report it and ask before substituting.
 - Read PROJECT_STATUS.md and docs/REPOSITORY_MANIFEST.md first. Inspect existing code before implementation; preserve working functionality, components, configuration and useful design. Do not restart unnecessarily.
 - Act across architecture, creative direction, full-stack engineering, SaaS UX, telecommunications, databases, security and DevOps. Deliver an original, premium, commercially usable, maintainable platform with low development and operating costs.
 
